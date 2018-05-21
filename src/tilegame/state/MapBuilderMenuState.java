@@ -28,8 +28,10 @@ public class MapBuilderMenuState extends State{
 		loadButton.update();
 		newButton.update();
 		exitButton.update();
+		if(loadButton.isActivated())
+			
 		if(newButton.isActivated())
-			State.setState(new MapBuilderState(handler));
+			State.setState(new MapBuilderState(handler, "res/worlds/world1.txt"));
 		if(exitButton.isActivated())
 			State.setState(new MenuState(handler));
 	}

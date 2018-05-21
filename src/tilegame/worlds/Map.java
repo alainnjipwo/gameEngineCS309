@@ -1,6 +1,7 @@
 package tilegame.worlds;
 
 import java.awt.Graphics;
+import java.awt.Point;
 
 import tilegame.Handler;
 import tilegame.entities.EntityManager;
@@ -19,15 +20,17 @@ import tilegame.utils.Utils;
  */
 public class Map extends World{
 	
+	private String path = "res/worlds/";
+	private String name;
+	
 	private double scale = 1.0;
 	private int camera_speed = 5;
-	
 	private int tile_mode = 0;
 	
 
-	public Map(Handler handler, String path){
+	public Map(Handler handler, String path, String name){
 		this.handler = handler;
-
+		this.name = name;
 		loadWorld(path);getClass();
 	}
 	
@@ -66,7 +69,7 @@ public class Map extends World{
 	private void getInput() {
 		if(handler.getInput().isKeyDown(Input.KEY_W))
 			handler.getGameCamera().move(0,-camera_speed);
-		if(handler.getInput().isKeyDown(Input.KEY_S))
+		if(handler.getInput().isKeyDown(Input.KEY_S) && !handler.getInput().isKeyDown(Input.KEY_CONTROL))
 			handler.getGameCamera().move(0,camera_speed);
 		if(handler.getInput().isKeyDown(Input.KEY_A))
 			handler.getGameCamera().move(-camera_speed,0);
@@ -95,6 +98,9 @@ public class Map extends World{
 			tile_mode = 4;
 		if(handler.getInput().isKeyDown(Input.KEY_5))
 			tile_mode = 5;
+		
+		if(handler.getInput().isKeyDown(Input.KEY_CONTROL) && handler.getInput().isKeyDown(Input.KEY_S))
+			Utils.saveWorld(path + name, super.location, super.spawnX, super.spawnY);
 
 		
 		if(handler.getInput().isKeyDown(Input.KEY_F12) && scale < 1.5)
