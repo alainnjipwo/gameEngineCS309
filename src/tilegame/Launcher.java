@@ -14,4 +14,4 @@ public class Launcher {
 		Game game = new Game("ProjectX", 1280); //Creates window size and title
 		game.start(); //Starts game
 	}
-}
+}//Comment to check
