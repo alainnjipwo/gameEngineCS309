@@ -29,6 +29,8 @@ public class MenuState extends State{
 		exitButton.update();
 		if(startButton.isActivated())
 			State.setState(handler.getGame().gameState);
+		if(mapBuilderButton.isActivated())
+			State.setState(new MapBuilderMenuState(handler));
 		if(exitButton.isActivated())
 			System.exit(1);
 	}

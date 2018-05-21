@@ -24,16 +24,18 @@ import tilegame.utils.Utils;
  */
 public class World {
 
-	private Handler handler;
-	private int width, height; //Size of map
-	private int spawnX, spawnY;
-	private int[][] location;
+	protected Handler handler;
+	protected int width, height; //Size of map
+	protected int spawnX, spawnY;
+	protected int[][] location;
 	//Static Objects
-	private StaticObjectManager staticObjectManager;
+	protected StaticObjectManager staticObjectManager;
 	//Entities
-	private EntityManager entityManager;
+	protected EntityManager entityManager;
 	//Item
-	private ItemManager itemManager;
+	protected ItemManager itemManager;
+	
+	protected World() {}
 
 	/**
 	 * This constructor sets the handler and loads in the world properly.
@@ -101,7 +103,7 @@ public class World {
 	 * This method loads in the world from a file path.
 	 * @param path
 	 */
-	private void loadWorld(String path){
+	protected void loadWorld(String path){
 		String file = Utils.loadFileAsString(path);
 		String[] tokens = file.split("\\s+");
 		width = Utils.parseInt(tokens[0]);

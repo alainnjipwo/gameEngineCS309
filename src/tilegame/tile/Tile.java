@@ -57,6 +57,22 @@ public class Tile {
 			g.setColor(oldcolor);
 		}
 	}
+	
+	/**
+	 * This method is responsible for rendering updated tiles to the scale provided
+	 * @param g
+	 * @param x
+	 * @param y
+	 */
+	public void renderWithScale(Graphics g, int x, int y, double scale){
+		g.drawImage(texture, x, y, (int)(TILEWIDTH * scale), (int)(TILEHEIGHT * scale), null);
+		if(DEBUGMODE) {
+			Color oldcolor = g.getColor();
+			g.setColor(Color.WHITE);
+			g.drawRect(x, y, (int)(TILEWIDTH * scale), (int)(TILEHEIGHT * scale));
+			g.setColor(oldcolor);
+		}
+	}
 	/**
 	 * This method decides whether the tile is solid.
 	 * It set set by default to false.
