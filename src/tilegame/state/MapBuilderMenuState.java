@@ -1,10 +1,12 @@
 package tilegame.state;
 
 import java.awt.Graphics;
+import java.io.File;
 
 import tilegame.Handler;
 import tilegame.gfx.Assets;
 import tilegame.ui.UIImageButton;
+import tilegame.utils.Utils;
 
 /**
  * This class acts as the state that allows the user to choose if they want to create a new map or modify an existing file.
@@ -28,8 +30,9 @@ public class MapBuilderMenuState extends State{
 		loadButton.update();
 		newButton.update();
 		exitButton.update();
-		if(loadButton.isActivated())
-			
+		if(loadButton.isActivated()) {
+			File f = Utils.pickFile();
+		}
 		if(newButton.isActivated())
 			State.setState(new MapBuilderState(handler, "res/worlds/world1.txt"));
 		if(exitButton.isActivated())
