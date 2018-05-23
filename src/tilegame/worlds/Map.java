@@ -77,8 +77,8 @@ public class Map extends World{
 			handler.getGameCamera().move(camera_speed,0);
 		
 		if(handler.getMouse().isButtonPressed(Input.LEFT_MOUSE)) {
-			int x = handler.getMouse().getX();
-			int y = handler.getMouse().getY();
+			int x = (int) (handler.getMouse().getX() + handler.getGameCamera().getxOffset());
+			int y = (int) (handler.getMouse().getY() + handler.getGameCamera().getyOffset());
 			int mod = (int)(Tile.TILEWIDTH * scale);
 			
 			int tile_x = (int)(x / mod);
