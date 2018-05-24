@@ -15,7 +15,7 @@ import tilegame.worlds.Node;
  */
 public abstract class Creature extends Entity{
 
-	public static final double DEFAULT_SPEED = 3.0;
+	public static final double DEFAULT_SPEED = 1.0;
 	public static final int DEFAULT_CREATURE_WIDTH = 64;
 	public static final int DEFAULT_CREATURE_HEIGHT = 64;
 	
@@ -119,10 +119,10 @@ public abstract class Creature extends Entity{
 		if (path != null) {
 			if (path.size() > 0) {
 				Vector2i vec = path.get(path.size() - 1).tile;
-				if (xlocation / Tile.TILEWIDTH < vec.getX() + .5) xMove = 1;
-				else if (xlocation / Tile.TILEWIDTH > vec.getX() + .5) xMove = -1;
-				if (ylocation / Tile.TILEHEIGHT < vec.getY() + .5) yMove = 1;
-				else if (ylocation / Tile.TILEHEIGHT > vec.getY() + .5) yMove = -1;
+				if (xlocation / Tile.TILEWIDTH < vec.getX() + .5) xMove = speed;
+				else if (xlocation / Tile.TILEWIDTH > vec.getX() + .5) xMove = -speed;
+				if (ylocation / Tile.TILEHEIGHT < vec.getY() + .5) yMove = speed;
+				else if (ylocation / Tile.TILEHEIGHT > vec.getY() + .5) yMove = -speed;
 			} else {
 				standing = true;
 			}

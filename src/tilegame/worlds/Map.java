@@ -1,22 +1,13 @@
 package tilegame.worlds;
 
 import java.awt.Graphics;
-import java.awt.Point;
 
 import tilegame.Handler;
-import tilegame.entities.EntityManager;
-import tilegame.entities.creatures.Guard;
-import tilegame.entities.creatures.Player;
-import tilegame.entities.statics.Rock;
-import tilegame.entities.statics.Tree;
 import tilegame.input.Input;
-import tilegame.items.ItemManager;
 import tilegame.tile.Tile;
 import tilegame.utils.Utils;
 /**
- * 
  * @author Mitchell Hoppe
- *
  */
 public class Map extends World{
 	
@@ -62,8 +53,8 @@ public class Map extends World{
 		
 		Tile t = Tile.tiles[location[x][y]];
 		if(t == null)
-			return Tile.dirtTile; //If tile doesn't exist replace with dirt tile.
-		return t;
+			return Tile.dirtTile; //If tile doesn't exist replace with dirt tile.		
+		return t;	
 	}
 	
 	private void getInput() {
