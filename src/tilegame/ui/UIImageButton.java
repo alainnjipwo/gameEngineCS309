@@ -29,14 +29,16 @@ public class UIImageButton extends UIObject{
 		this.handler = handler;
 		this.images = images;
 	}
+	
 	/**
 	 * This method updates a button for when it is hovered over and clicked.
 	 */
 	@Override
 	public void update() {
-		if(bounds.contains(handler.getMouse().getX(), handler.getMouse().getY()))
+		if(bounds.contains(handler.getMouse().getX(), handler.getMouse().getY())) 
 			hovering = true;
-		else
+		
+		else 
 			hovering = false;
 		
 		//This part of the class could use some help because if player releases mouse button on any button, it activates.
@@ -44,13 +46,16 @@ public class UIImageButton extends UIObject{
 			step1 = true;
 		if(step1 && hovering && !handler.getMouse().isButtonDown(Mouse.LEFT_MOUSE))
 			activated = true;
+		
+		else
+			activated = false;
 	}
 	/**
 	 * This method renders the updated button.
 	 */
 	@Override
 	public void render(Graphics g) {
-		if(hovering)
+		if(hovering && handler.getMouse().isMouseInside())
 			g.drawImage(images[1],(int) x, (int) y, width, height, null);
 		else
 			g.drawImage(images[0],(int) x, (int) y, width, height, null);
@@ -59,4 +64,14 @@ public class UIImageButton extends UIObject{
 	public boolean isActivated() {
 		return activated;
 	}
+	
+	/*
+	 * If the button breaks, this will completley stop false positives.
+	 */
+	public void hardReset() {
+		hovering = false;
+		step1 = false;
+		activated = false;
+	}
 }
+

@@ -11,17 +11,16 @@ import tilegame.utils.Utils;
  */
 public class Map extends World{
 	
-	private String path = "res/worlds/";
-	private String name;
+	private String path;
 	
 	private double scale = 1.0;
 	private int camera_speed = 5;
 	private int tile_mode = 0;
 	
 
-	public Map(Handler handler, String path, String name){
+	public Map(Handler handler, String path){
 		this.handler = handler;
-		this.name = name;
+		this.path = path;
 		loadWorld(path);getClass();
 	}
 	
@@ -68,8 +67,8 @@ public class Map extends World{
 			handler.getGameCamera().move(camera_speed,0);
 		
 		if(handler.getMouse().isButtonPressed(Input.LEFT_MOUSE)) {
-			int x = handler.getMouse().getX();
-			int y = handler.getMouse().getY();
+			int x = (int) (handler.getMouse().getX() + handler.getGameCamera().getxOffset());
+			int y = (int) (handler.getMouse().getY() + handler.getGameCamera().getyOffset());
 			int mod = (int)(Tile.TILEWIDTH * scale);
 			
 			int tile_x = (int)(x / mod);
@@ -91,7 +90,7 @@ public class Map extends World{
 			tile_mode = 5;
 		
 		if(handler.getInput().isKeyDown(Input.KEY_CONTROL) && handler.getInput().isKeyDown(Input.KEY_S))
-			Utils.saveWorld(path + name, super.location, super.spawnX, super.spawnY);
+			Utils.saveWorld(path, super.location, super.spawnX, super.spawnY);
 
 		
 		if(handler.getInput().isKeyDown(Input.KEY_F12) && scale < 1.5)
