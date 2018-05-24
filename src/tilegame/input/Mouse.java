@@ -14,6 +14,8 @@ public class Mouse extends InputCodes implements MouseListener, MouseMotionListe
 	private ArrayList<Integer> PressedButtons = new ArrayList<Integer>();
 	private ArrayList<Integer> DownButtons = new ArrayList<Integer>();
 	
+	private boolean isInside;
+	
 	public static int x, y;
 	/**
 	 * This method checks whether a button is being pressed or not.
@@ -80,6 +82,11 @@ public class Mouse extends InputCodes implements MouseListener, MouseMotionListe
 		}
 		return true;
 	}
+	
+	public boolean isMouseInside(){
+		return isInside;
+	}
+	
 	/**
 	 * This method checks whether a button is being held down or not.
 	 * If it is, it then returns true, otherwise it returns false.
@@ -109,6 +116,6 @@ public class Mouse extends InputCodes implements MouseListener, MouseMotionListe
 
 	//UNUSED METHODS
 	public void mouseClicked(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
+	public void mouseEntered(MouseEvent e) {isInside = true;}
+	public void mouseExited(MouseEvent e) {isInside = false;}
 }

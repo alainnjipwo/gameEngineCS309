@@ -16,7 +16,7 @@ public class MapBuilderState extends State{
 	public MapBuilderState(Handler handler, String path){
 		super(handler);
 		//At this point in time the decision for a new map or existing map has been made.
-		map = new Map(handler, path, "world2.txt");
+		map = new Map(handler, path);
 		handler.setWorld(map);
 	}
 	
