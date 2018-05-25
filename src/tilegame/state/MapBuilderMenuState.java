@@ -46,15 +46,14 @@ public class MapBuilderMenuState extends State {
 		if (loadButton.isActivated()) {
 			loadButton.hardReset();
 			File f = Utils.pickFile();
-			String path = f.getPath();
-			System.out.println(path);
-			if(path != null)
+			if(f != null) {
+				String path = f.getPath();
 				State.setState(new MapBuilderState(handler, path));
+			}
 		}
 		if (newButton.isActivated()) {
 			newButton.hardReset();
 			String path = newFile();
-			System.out.println(path);
 			if(path != null)
 				State.setState(new MapBuilderState(handler, path));
 		}

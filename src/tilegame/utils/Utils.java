@@ -53,7 +53,7 @@ public class Utils {
 			bw.append(((spawn_x - 1) / 64) + " " + ((spawn_y + 22) / 64) + "\n");
 			for (int i = 0; i < locations.length; i++) {
 				for (int j = 0; j < locations[i].length; j++) {
-					bw.append(locations[i][j] + " ");
+					bw.append(locations[j][i] + " ");
 				}
 				bw.append("\n");
 			}
