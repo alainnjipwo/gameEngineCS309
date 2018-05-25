@@ -67,6 +67,7 @@ public class Utils {
 	
 	public static File pickFile() {
 		JFileChooser fc = new JFileChooser();
+		fc.setCurrentDirectory(new File(System.getProperty("user.home")));
 		int returnVal = fc.showOpenDialog(null);
 		File file = fc.getSelectedFile();
 		return file;
