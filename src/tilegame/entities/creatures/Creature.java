@@ -5,6 +5,7 @@ import java.util.List;
 import tilegame.Handler;
 import tilegame.ai.Pathfinding;
 import tilegame.entities.Entity;
+import tilegame.staticobjects.StaticObject;
 import tilegame.tile.Tile;
 import tilegame.utils.Vector2i;
 import tilegame.worlds.Node;
@@ -14,8 +15,10 @@ import tilegame.worlds.Node;
  *
  */
 public abstract class Creature extends Entity{
+	
+	public static final double[] ATHLETCS = {128/64, 128/61, 128/57, 128/54, 128/51, 128/48, 128/45, 128/42, 128/38, 128/35, 128/32};
 
-	public static final double DEFAULT_SPEED = 1.0;
+	public static final double DEFAULT_SPEED = ATHLETCS[0];
 	public static final int DEFAULT_CREATURE_WIDTH = 64;
 	public static final int DEFAULT_CREATURE_HEIGHT = 64;
 	
@@ -107,7 +110,7 @@ public abstract class Creature extends Entity{
 	public void findPath(float xlocation, float ylocation, int x, int y) {
 		xMove = 0;
 		yMove = 0;
-		Vector2i start = new Vector2i((int) (xlocation) >> 6, (int) (ylocation) >> 6);
+		Vector2i start = new Vector2i((int) (xlocation) >> 6, (int) (ylocation) >> 6); //>>6 is the same as /64
 		Vector2i destination = new Vector2i(x, y);
 				// Follow player : ((int) (handler.getWorld().getEntityManager().getPlayer().getXlocation() >> 6), (int)(handler.getWorld().getEntityManager().getPlayer().getYlocation() >> 6));
 		if((xlocation / Tile.TILEWIDTH -.5) % 1 == 0 && (ylocation / Tile.TILEHEIGHT - .5) % 1 == 0) path = pathfinder.findPath(start, destination);
@@ -127,6 +130,11 @@ public abstract class Creature extends Entity{
 				standing = true;
 			}
 		}
+	}
+	
+	public void goToCheckpoint(float xlocation, float ylocation, StaticObject checkpoint) {
+		findPath(xlocation, ylocation, (int) (checkpoint.getX()/64), (int)(checkpoint.getY()/64));
+		
 	}
 	
 	//GETTERS AND SETTERS

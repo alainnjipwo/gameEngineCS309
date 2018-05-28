@@ -5,9 +5,8 @@ import java.awt.Graphics;
 import tilegame.Handler;
 import tilegame.entities.EntityManager;
 import tilegame.entities.creatures.Guard;
-import tilegame.entities.creatures.Paramedic;
 import tilegame.entities.creatures.Player;
-import tilegame.entities.creatures.Prisoner;
+import tilegame.entities.statics.CellarWall;
 import tilegame.entities.statics.Rock;
 import tilegame.entities.statics.Tree;
 import tilegame.items.ItemManager;
@@ -29,7 +28,9 @@ public class World {
 	protected int spawnX, spawnY;
 	protected int[][] location;
 	//Static Objects
-	protected StaticObjectManager staticObjectManager;
+	protected StaticObjectManager guardspawners;
+	protected StaticObjectManager prisonerspawners;
+	protected StaticObjectManager checkpoints;
 	//Entities
 	protected EntityManager entityManager;
 	//Item
@@ -47,19 +48,31 @@ public class World {
 		//Managers
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 		itemManager = new ItemManager(handler);
-		staticObjectManager = new StaticObjectManager(handler);
+		guardspawners = new StaticObjectManager(handler);
+		prisonerspawners = new StaticObjectManager(handler);
+		checkpoints = new StaticObjectManager(handler);
 		
 		//Static Objects
-		staticObjectManager.addStaticObject(new GuardSpawner(handler, 5, 5));
-		staticObjectManager.addStaticObject(new PrisonerSpawner(handler, 7, 5));
-		staticObjectManager.addStaticObject(new Checkpoint(handler, 6, 6));
+		guardspawners.addStaticObject(new GuardSpawner(handler, 5, 5));
+		prisonerspawners.addStaticObject(new PrisonerSpawner(handler, 7, 5));
+		checkpoints.addStaticObject(new Checkpoint(handler, 6, 6));
 		
-		 //Bunch of test Code ---------------------------------------------------------------------------
 		//Entities
 		entityManager.addEntity(new Tree(handler, 3, 2));
-		entityManager.addEntity(new Tree(handler, 1, 8));
+		
+		//test cell		
+		entityManager.addEntity(new CellarWall(handler, 5, 3, 3)); //top right
+		entityManager.addEntity(new CellarWall(handler, 4, 3, 7)); //top
+		entityManager.addEntity(new CellarWall(handler, 3, 3, 2)); //top left
+		entityManager.addEntity(new CellarWall(handler, 5, 4, 5)); //right
+		entityManager.addEntity(new CellarWall(handler, 5, 5, 1)); //bottom right
+		entityManager.addEntity(new CellarWall(handler, 3, 4, 4)); //left
+		entityManager.addEntity(new CellarWall(handler, 3, 5, 0)); //bottom left
+		entityManager.addEntity(new CellarWall(handler, 4, 5, 6)); //bottom
+
+		
 		entityManager.addEntity(new Rock(handler, 9, 11));
-		entityManager.addEntity(new Guard(handler, 5, 3));
+		entityManager.addEntity(new Guard(handler, 1, 1));
 //		entityManager.addEntity(new Paramedic(handler, 2, 2));
 //		entityManager.addEntity(new Prisoner(handler, 1, 4));
 		
@@ -72,7 +85,9 @@ public class World {
 	 * This method updates all items and entities in the world.
 	 */
 	public void update(){
-		staticObjectManager.update();
+		guardspawners.update();
+		prisonerspawners.update();
+		checkpoints.update();
 		itemManager.update();
 		entityManager.update();
 	}
@@ -93,7 +108,9 @@ public class World {
 			}
 		}
 		//Static Objects
-		staticObjectManager.render(g);
+		guardspawners.render(g);
+		prisonerspawners.render(g);
+		checkpoints.render(g);
 		//Items
 		itemManager.render(g);
 		//Entities
@@ -120,7 +137,7 @@ public class World {
 	}
 	//Getters and Setters
 	public Tile getTile(int x, int y){
-		if( x< 0 || y < 0 || x >= width || y >= height){
+		if( x < 0 || y < 0 || x >= width || y >= height){
 			return Tile.grassTile; //If any tile is not set, it is defaulted to a grass tile.
 		}
 		
@@ -160,10 +177,28 @@ public class World {
 	public void setItemManager(ItemManager itemManager) {
 		this.itemManager = itemManager;
 	}
-	public StaticObjectManager getStaticObjectManager() {
-		return staticObjectManager;
+
+	public StaticObjectManager getGuardspawners() {
+		return guardspawners;
 	}
-	public void setStaticObjectManager(StaticObjectManager staticObectManager) {
-		this.staticObjectManager = staticObectManager;
+
+	public void setGuardspawners(StaticObjectManager guardspawners) {
+		this.guardspawners = guardspawners;
+	}
+
+	public StaticObjectManager getPrisonerspawners() {
+		return prisonerspawners;
+	}
+
+	public void setPrisonerspawners(StaticObjectManager prisonerspawners) {
+		this.prisonerspawners = prisonerspawners;
+	}
+
+	public StaticObjectManager getCheckpoints() {
+		return checkpoints;
+	}
+
+	public void setCheckpoints(StaticObjectManager checkpoints) {
+		this.checkpoints = checkpoints;
 	}
 }

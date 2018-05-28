@@ -19,14 +19,22 @@ public class Assets {
 	//Fonts
 	public static Font font28;	
 	
-	//Textures
+	/*Textures*/
+	//Tiles
 	public static BufferedImage grass, dirt, sand, stonepath, shallowwater, deepwater;
+	//Static Entities
 	public static BufferedImage rock, tree;
+	public static BufferedImage[] cellar_wall;
+	//Items
 	public static BufferedImage stick;
+	//Character Models
 	public static BufferedImage[] player_up, player_down, player_left, player_right, player_notmoving;
 	public static BufferedImage[] guard_up, guard_down, guard_left, guard_right, guard_notmoving;
+	//Buttons
 	public static BufferedImage[] start_button, exit_button, map_builder_button, load_button, new_button;
+	//Static Objects
 	public static BufferedImage guardspawner, prisonerspawner, checkpoint;
+	//Screens
 	public static BufferedImage inventoryScreen;
 	
 	/**
@@ -43,6 +51,7 @@ public class Assets {
 		SpriteSheet InventoryScreen = new SpriteSheet(ImageLoader.loadImage("/textures/InventoryScreen.png"));
 		SpriteSheet Tree = new SpriteSheet(ImageLoader.loadImage("/textures/Tree.png"));
 		SpriteSheet ObjectIcons = new SpriteSheet(ImageLoader.loadImage("/textures/ObjectIcons.png"));
+		SpriteSheet CellarWall = new SpriteSheet(ImageLoader.loadImage("/textures/CellarWall.png"));
 		
 		//Menu Buttons
 		start_button = new BufferedImage[2];
@@ -70,6 +79,7 @@ public class Assets {
 		shallowwater = tileTextures.crop(4, 0, tileWidth, tileHeight);
 		deepwater = tileTextures.crop(5, 0, tileWidth, tileHeight);
 		
+		/*Characters*/
 		//Player
 		player_up = new BufferedImage[8];
 		player_right = new BufferedImage[8];
@@ -114,9 +124,15 @@ public class Assets {
 		}
 		
 		
-		//Static Entities
+		/*Static Entities*/
+		//Solo types
 		rock = itemTextures.crop(0, 1, itemWidth, itemHeight);
 		tree = Tree.crop(0, 0, 384, 256);
+		//Multiple types
+		cellar_wall = new BufferedImage[8];
+		for (int i = 0; i < 8; i++){
+			cellar_wall[i] = CellarWall.crop(i, 0, tileWidth, tileHeight);
+		}
 		
 		//Inventory
 		inventoryScreen = InventoryScreen.crop(0, 0, 512, 384);

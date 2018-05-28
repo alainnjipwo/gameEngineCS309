@@ -33,7 +33,7 @@ public class Checkpoint extends StaticObject{
 	 * This method is responsible for rendering an object's new location and collision box.
 	 */
 	@Override
-	public void render(Graphics g) {//TODO Make Graphics for Checkpoint
+	public void render(Graphics g) {
 		if(DEBUGMODE){
 			g.drawImage(Assets.checkpoint, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null);
 			g.setColor(Color.GREEN);
@@ -44,5 +44,4 @@ public class Checkpoint extends StaticObject{
 	public BufferedImage getHiddenTexture() {
 		return Assets.checkpoint;
 	}
-
 }

@@ -100,7 +100,7 @@ public class Paramedic extends Creature{
 	}
 	/**
 	 * This method is called when the guard creature is killed (health = 0).
-	 * Anything that is done in this class is the last thing that is done prior to removing the guard creature.
+	 * Anything that is done in this class is the last thing that is done prior to removing the paramedic creature.
 	 */
 	@Override
 	public void destroy() {

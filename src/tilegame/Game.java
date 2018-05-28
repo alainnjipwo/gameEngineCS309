@@ -71,7 +71,7 @@ public class Game implements Runnable{ //Must implement Runnable in order for it
 		//Initialize States
 		gameState = new GameState(handler);
 		menuState = new MenuState(handler);
-		State.setState(menuState);//Sets the current state of the window to gameState
+		State.setState(menuState);//Sets the initial state of the window upon starting the game
 	}
 	/**
 	 * This method acts as an updater keeping track of objects' and window's new locations/

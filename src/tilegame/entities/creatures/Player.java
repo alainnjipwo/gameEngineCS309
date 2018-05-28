@@ -11,6 +11,7 @@ import tilegame.entities.Entity;
 import tilegame.gfx.Animation;
 import tilegame.gfx.Assets;
 import tilegame.input.Input;
+import tilegame.input.Mouse;
 import tilegame.inventory.Inventory;
 import tilegame.tile.Tile;
 /**
@@ -34,11 +35,13 @@ public class Player extends Creature{
 	//Coordinates	
 	private float xlocation, ylocation;
 	private int xmouse, ymouse;
+	private int gox, goy;
+	private boolean travelling;
 	
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
-		speed = 3;
+		this.speed = ATHLETCS[2];
 			
 		//Must be set to the exact pixel x and y beginning and the width and height of the character
 		//ie set it to be around the body of character only
@@ -61,8 +64,8 @@ public class Player extends Creature{
 	@Override
 	public void update() {
 		//Coordinates 
-		xmouse = handler.getMouse().getX() / Tile.TILEWIDTH;
-		ymouse = handler.getMouse().getY() / Tile.TILEHEIGHT;
+		xmouse = (int) ((handler.getGameCamera().getxOffset() + handler.getMouse().getX()) / Tile.TILEWIDTH);
+		ymouse = (int) ((handler.getGameCamera().getyOffset() + handler.getMouse().getY()) / Tile.TILEHEIGHT);
 		xlocation = (x + bounds.x + bounds.width / 2);
 		ylocation = (y + bounds.y + bounds.height / 2);
 		
@@ -73,6 +76,16 @@ public class Player extends Creature{
 		animRight.update();
 		
 		//Movement
+//		if (!travelling && handler.getMouse().isButtonPressed(Mouse.LEFT_MOUSE)) {
+//			gox = xmouse; goy = ymouse;
+//			travelling = true;
+//		} else if (travelling) {
+//			findPath(xlocation, ylocation, gox, goy);
+//		} else if (xlocation / 64 == gox + .5 && ylocation / 64 == goy + .5) {
+//			travelling = false;
+//			xMove = 0;
+//			yMove = 0;
+//		}
 		getInput();
 		move();
 		handler.getGameCamera().centerOnEntity(this);

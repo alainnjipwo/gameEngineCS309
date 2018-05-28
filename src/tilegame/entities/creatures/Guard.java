@@ -33,6 +33,8 @@ public class Guard extends Creature{
 	public Guard(Handler handler, float x, float y) {
 		super(handler, (x-.5f) * Tile.TILEWIDTH + 33, (y -.5f) * Tile.TILEHEIGHT + 11, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
+		this.speed = ATHLETCS[0];
+		
 		//Must be set to the exact pixel x and y beginning and the width and height of the character
 		//ie set it to be around the body of character only
 		bounds.x = 20;
@@ -59,7 +61,8 @@ public class Guard extends Creature{
 		animLeft.update();
 		animRight.update();
 		//Movement
-		findPath(xlocation, ylocation, 19, 20);
+		findPath(xlocation, ylocation, 13, 16);
+//		goToCheckpoint(xlocation, ylocation, handler.getWorld().getCheckpoints().getStaticObject().get(0));
 		move();
 		//DEBUGMODE
 		if(handler.getInput().isKeyPressed(Input.KEY_F3))
