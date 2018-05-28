@@ -61,7 +61,7 @@ public class Guard extends Creature{
 		animLeft.update();
 		animRight.update();
 		//Movement
-		findPath(xlocation, ylocation, 13, 16);
+		findPath(xlocation, ylocation, 19, 28);
 //		goToCheckpoint(xlocation, ylocation, handler.getWorld().getCheckpoints().getStaticObject().get(0));
 		move();
 		//DEBUGMODE
