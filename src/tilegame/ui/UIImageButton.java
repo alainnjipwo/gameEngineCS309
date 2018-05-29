@@ -35,7 +35,7 @@ public class UIImageButton extends UIObject{
 	 */
 	@Override
 	public void update() {
-		if(bounds.contains(handler.getMouse().getX(), handler.getMouse().getY())) 
+		if(bounds.contains(handler.getMouse().getX(), handler.getMouse().getY()))
 			hovering = true;
 		
 		else 

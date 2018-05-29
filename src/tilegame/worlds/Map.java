@@ -11,6 +11,7 @@ import tilegame.entities.statics.Rock;
 import tilegame.entities.statics.Tree;
 import tilegame.input.Input;
 import tilegame.items.ItemManager;
+import tilegame.staticobjects.StaticObjectManager;
 import tilegame.tile.Tile;
 import tilegame.utils.Utils;
 /**
@@ -25,6 +26,13 @@ public class Map extends World{
 	private double scale = 1.0;
 	private int camera_speed = 5;
 	private int tile_mode = 0;
+	
+	//Static Objects
+	protected StaticObjectManager staticObjectManager;
+	//Entities
+	protected EntityManager entityManager;
+	//Item
+	protected ItemManager itemManager;
 	
 
 	public Map(Handler handler, String path){
@@ -55,13 +63,13 @@ public class Map extends World{
 	
 	private void getInput() {
 		if(handler.getInput().isKeyDown(Input.KEY_W))
-			handler.getGameCamera().move(0,-camera_speed);
+			handler.getGameCamera().move(0,-camera_speed, scale);
 		if(handler.getInput().isKeyDown(Input.KEY_S) && !handler.getInput().isKeyDown(Input.KEY_CONTROL))
-			handler.getGameCamera().move(0,camera_speed);
+			handler.getGameCamera().move(0,camera_speed, scale);
 		if(handler.getInput().isKeyDown(Input.KEY_A))
-			handler.getGameCamera().move(-camera_speed,0);
+			handler.getGameCamera().move(-camera_speed,0, scale);
 		if(handler.getInput().isKeyDown(Input.KEY_D))
-			handler.getGameCamera().move(camera_speed,0);
+			handler.getGameCamera().move(camera_speed,0, scale);
 		
 		if(handler.getMouse().isButtonPressed(Input.LEFT_MOUSE)) {
 			int x = (int) (handler.getMouse().getX() + handler.getGameCamera().getxOffset());

@@ -25,7 +25,7 @@ import tilegame.utils.Utils;
  */
 
 public class MapBuilderMenuState extends State {
-	private UIImageButton loadButton, newButton, exitButton;
+	private UIImageButton loadButton, newButton, backButton;
 
 	public MapBuilderMenuState(Handler handler) {
 		super(handler);
@@ -34,15 +34,15 @@ public class MapBuilderMenuState extends State {
 				handler.getHeight() / 2 - 128 - 64/* width of button / 2 */, 256, 128, Assets.load_button);
 		newButton = new UIImageButton(handler, handler.getWidth() / 2 - 128/* height of button / 2 */,
 				handler.getHeight() / 2 - 000 - 64/* width of button / 2 */, 256, 128, Assets.new_button);
-		exitButton = new UIImageButton(handler, handler.getWidth() / 2 - 128/* height of button / 2 */,
-				handler.getHeight() / 2 + 128 - 64/* width of button / 2 */, 256, 128, Assets.exit_button);
+		backButton = new UIImageButton(handler, handler.getWidth() / 2 - 128/* height of button / 2 */,
+				handler.getHeight() / 2 + 128 - 64/* width of button / 2 */, 256, 128, Assets.back_button);
 	}
 
 	@Override
 	public void update() {
 		loadButton.update();
 		newButton.update();
-		exitButton.update();
+		backButton.update();
 		if (loadButton.isActivated()) {
 			loadButton.hardReset();
 			File f = Utils.pickFile();
@@ -57,7 +57,7 @@ public class MapBuilderMenuState extends State {
 			if(path != null)
 				State.setState(new MapBuilderState(handler, path));
 		}
-		if (exitButton.isActivated()) {
+		if (backButton.isActivated()) {
 			State.setState(new MenuState(handler));
 		}
 	}
@@ -117,6 +117,6 @@ public class MapBuilderMenuState extends State {
 	public void render(Graphics g) {
 		loadButton.render(g);
 		newButton.render(g);
-		exitButton.render(g);
+		backButton.render(g);
 	}
 }
