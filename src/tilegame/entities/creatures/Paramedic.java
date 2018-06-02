@@ -84,7 +84,18 @@ public class Paramedic extends Creature{
 	}
 	
 	public void render(Graphics g, double scale) {
-		render(g);
+		int x = (int) (this.x*scale - handler.getGameCamera().getxOffset());
+		int y = (int) (this.y*scale - handler.getGameCamera().getyOffset());
+		int width = (int)(this.width*scale);
+		int height = (int)(this.height*scale);
+		
+		g.drawImage(getCurentAnimationFrame(), x, y, width, height, null);
+		if(DEBUGMODE){
+			//Player collision box
+			g.setColor(Color.WHITE);
+			g.drawRect((int) (this.x*scale + bounds.x*scale -handler.getGameCamera().getxOffset()), (int) (this.y*scale + bounds.y*scale -handler.getGameCamera().getyOffset()), (int)(bounds.width*scale), (int)(bounds.height*scale));
+			g.drawRect(x, y, width, height);
+		}
 	}
 	
 	private BufferedImage getCurentAnimationFrame(){
