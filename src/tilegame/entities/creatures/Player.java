@@ -202,6 +202,9 @@ public class Player extends Creature{
 		}
 		/*-------------------------------------------*/
 	}
+	public void render(Graphics g, double scale) {
+		render(g);
+	}
 	/**
 	 * This method is used to render the player's inventory on top of everything else.
 	 * @param g

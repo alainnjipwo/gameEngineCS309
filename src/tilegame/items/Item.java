@@ -67,6 +67,7 @@ public class Item {
 			return;
 		render(g, (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()));
 	}
+	
 	/**
 	 * Item is being rendered in the player's inventory screen.
 	 * @param g
@@ -76,6 +77,7 @@ public class Item {
 	public void render(Graphics g, int x, int y) {
 		g.drawImage(texture, x, y, ITEMWIDTH, ITEMHEIGHT, null);
 	}
+
 	/**
 	 * This method creates a new item in the given location.
 	 * @param x

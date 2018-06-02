@@ -50,6 +50,23 @@ public class Rock extends StaticEntity{
 		}
 		
 	}
+	
+	public void render(Graphics g, double scale) {
+
+		int x = (int) (this.x*scale - handler.getGameCamera().getxOffset());
+		int y = (int) (this.y*scale - handler.getGameCamera().getyOffset());
+		int width = (int)(this.width*scale);
+		int height = (int)(this.height*scale);
+		
+		g.drawImage(Assets.rock, x, y, width, height, null);
+		
+		if(DEBUGMODE){
+			g.setColor(Color.WHITE);
+			g.drawRect((int) (this.x*scale + bounds.x*scale -handler.getGameCamera().getxOffset()), (int) (this.y*scale + bounds.y*scale -handler.getGameCamera().getyOffset()), (int)(bounds.width*scale), (int)(bounds.height*scale));
+			g.drawRect(x, y, width, height);
+		}
+	}
+
 	@Override
 	public BufferedImage getTexture() {
 		return Assets.rock;

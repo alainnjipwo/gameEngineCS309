@@ -83,6 +83,11 @@ public class Guard extends Creature{
 		/*-------------------------------------------*/
 	}
 	
+	@Override
+	public void render(Graphics g, double scale) {
+		render(g);
+	}
+	
 	private BufferedImage getCurentAnimationFrame(){
 		if(xMove < 0){ //Moving Left
 			lastDirection = 1;

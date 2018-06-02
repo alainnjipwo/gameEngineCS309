@@ -1,5 +1,6 @@
 package tilegame.worlds;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 
@@ -9,8 +10,13 @@ import tilegame.entities.creatures.Guard;
 import tilegame.entities.creatures.Player;
 import tilegame.entities.statics.Rock;
 import tilegame.entities.statics.Tree;
+import tilegame.gfx.Assets;
+import tilegame.gfx.Text;
 import tilegame.input.Input;
 import tilegame.items.ItemManager;
+import tilegame.staticobjects.Checkpoint;
+import tilegame.staticobjects.GuardSpawner;
+import tilegame.staticobjects.PrisonerSpawner;
 import tilegame.staticobjects.StaticObjectManager;
 import tilegame.tile.Tile;
 import tilegame.utils.Utils;
@@ -27,20 +33,33 @@ public class Map extends World{
 	private int camera_speed = 5;
 	private int tile_mode = 0;
 	
-	//Static Objects
-	protected StaticObjectManager staticObjectManager;
-	//Entities
-	protected EntityManager entityManager;
-	//Item
-	protected ItemManager itemManager;
-	
 
 	public Map(Handler handler, String path){
+//		super(handler, path);
 		this.handler = handler;
 		this.path = path;
 		loadWorld(path);getClass();
+//		
+		init_ent();
+
 	}
 	
+	private void init_ent() {
+		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+		itemManager = new ItemManager(handler);
+		staticObjectManager = new StaticObjectManager(handler);
+
+		
+		//Entities
+		entityManager.addEntity(new Tree(handler, 3, 2));
+		entityManager.addEntity(new Tree(handler, 1, 8));
+		entityManager.addEntity(new Rock(handler, 9, 11));
+		entityManager.addEntity(new Guard(handler, 5, 3));
+
+		entityManager.getPlayer().setX(spawnX);
+		entityManager.getPlayer().setY(spawnY);
+	}
+
 	@Override
 	public void render(Graphics g){
 		/*Render optimization*/
@@ -54,6 +73,12 @@ public class Map extends World{
 				getTile(x, y).renderWithScale(g, (int) (x*(int)(Tile.TILEWIDTH * scale) - handler.getGameCamera().getxOffset()), (int) (y*(int)(Tile.TILEHEIGHT * scale) - handler.getGameCamera().getyOffset()), scale);
 			}
 		}
+
+		staticObjectManager.render(g, scale);
+		itemManager.render(g);
+		entityManager.render(g, scale);
+		
+		Text.drawString(g, "scale> " + scale, 200, 30, true, Color.WHITE, Assets.font28);
 	}
 	
 	@Override

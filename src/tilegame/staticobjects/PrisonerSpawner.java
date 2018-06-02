@@ -44,5 +44,10 @@ public class PrisonerSpawner extends StaticObject{
 	public BufferedImage getHiddenTexture() {
 		return Assets.prisonerspawner;
 	}
+	
+	@Override
+	public void render(Graphics g, double scale) {
+		render(g, 1.0);
+	}
 
 }

@@ -58,7 +58,12 @@ public class EntityManager {
 		for(Entity e : entities){
 			e.render(g);
 		}
-		player.postRender(g);
+//		player.postRender(g);
+	}
+	public void render(Graphics g, double scale){
+		for(Entity e : entities){
+			e.render(g, scale);
+		}
 	}
 	/**
 	 * This method adds an entity to the entities ArrayList to be stored.

@@ -28,7 +28,6 @@ public class GameCamera {
 	 * If a blank space is made, the offset don't move to exposed them.
 	 */
 	public void checkBlankSpace(double scale){
-
 		if(xOffset < 0){
 			xOffset = 0;
 		} else if(xOffset > handler.getWorld().getWidth() * (float) (Tile.TILEWIDTH * scale) - handler.getWidth()){
@@ -47,7 +46,7 @@ public class GameCamera {
 	public void centerOnEntity(Entity e){
 		xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
 		yOffset = e.getY() - handler.getHeight() / 2 + e.getHeight() / 2;
-		checkBlankSpace(0.0);
+		checkBlankSpace(1.0);
 	}
 	/**
 	 * This method moves to the selected location based on the parameters xAmt and yAmt

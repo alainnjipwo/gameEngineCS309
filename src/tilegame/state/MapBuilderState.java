@@ -2,7 +2,7 @@ package tilegame.state;
 
 import java.awt.Graphics;
 
-import tilegame.Handler;
+import tilegame.*;
 import tilegame.worlds.Map;
 /**
  * This class acts as the state that allows the user to create and modify the maps in the game.

@@ -89,7 +89,7 @@ public class World {
 		/*-------------------*/
 		for(int y = yStart; y < yEnd; y++){
 			for(int x = xStart; x < xEnd; x++){
-				getTile(x, y).render(g, (int) (x*Tile.TILEWIDTH - handler.getGameCamera().getxOffset()), (int) (y*Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()));
+				getTile(x, y).renderWithScale(g, (int) (x*Tile.TILEWIDTH - handler.getGameCamera().getxOffset()), (int) (y*Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()), 1.0);
 			}
 		}
 		//Static Objects

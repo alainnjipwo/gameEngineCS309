@@ -44,5 +44,9 @@ public class GuardSpawner extends StaticObject{
 	public BufferedImage getHiddenTexture() {
 		return Assets.guardspawner;
 	}
+	@Override
+	public void render(Graphics g, double scale) {
+		render(g, 1.0);
+	}
 
 }
