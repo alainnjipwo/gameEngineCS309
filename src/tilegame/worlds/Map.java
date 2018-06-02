@@ -2,7 +2,6 @@ package tilegame.worlds;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Point;
 
 import tilegame.Handler;
 import tilegame.entities.EntityManager;
@@ -14,9 +13,6 @@ import tilegame.gfx.Assets;
 import tilegame.gfx.Text;
 import tilegame.input.Input;
 import tilegame.items.ItemManager;
-import tilegame.staticobjects.Checkpoint;
-import tilegame.staticobjects.GuardSpawner;
-import tilegame.staticobjects.PrisonerSpawner;
 import tilegame.staticobjects.StaticObjectManager;
 import tilegame.tile.Tile;
 import tilegame.utils.Utils;
