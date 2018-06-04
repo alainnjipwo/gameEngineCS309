@@ -22,6 +22,21 @@ public class Tile {
 	public static Tile dirtTile = new DirtTile(3);
 	public static Tile grassTile = new GrassTile(4);
 	public static Tile rockTile = new RockTile(5);
+	public static Tile airTile = new AirTile(6);
+	
+	public static Tile cellarWallTileB = new CellarWallB(7);
+	public static Tile cellarWallTileBL = new CellarWallBL(8);
+	public static Tile cellarWallTileBR = new CellarWallBR(9);
+	public static Tile cellarWallTileL = new CellarWallL(10);
+	public static Tile cellarWallTileR = new CellarWallR(11);
+	public static Tile cellarWallTileT = new CellarWallT(12);
+	public static Tile cellarWallTileTL = new CellarWallTL(13);
+	public static Tile cellarWallTileTR = new CellarWallTR(14);
+	
+	public static Tile cellarWallTileTRT = new CellarWallTRT(15);
+	public static Tile cellarWallTileTLT = new CellarWallTLT(16);
+	public static Tile cellarWallTileBRT = new CellarWallBRT(17);
+	public static Tile cellarWallTileBLT = new CellarWallBLT(18);
 	
 	//CLASS STUFF
 	public static final int TILEWIDTH = 64, TILEHEIGHT = 64;
@@ -49,7 +64,8 @@ public class Tile {
 	 * @param y
 	 */
 	public void render(Graphics g, int x, int y){
-		g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT, null);
+		if (texture != null)
+			g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT, null);
 		if(DEBUGMODE) {
 			Color oldcolor = g.getColor();
 			g.setColor(Color.WHITE);
@@ -75,7 +91,7 @@ public class Tile {
 	}
 	/**
 	 * This method decides whether the tile is solid.
-	 * It set set by default to false.
+	 * It is by default set to false.
 	 * @return
 	 */
 	public boolean isSolid(){
@@ -88,5 +104,4 @@ public class Tile {
 	public int getId(){
 		return id;
 	}
-	
 }

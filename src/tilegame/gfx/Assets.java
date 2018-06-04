@@ -78,6 +78,11 @@ public class Assets {
 		stonepath = tileTextures.crop(3, 0, tileWidth, tileHeight);
 		shallowwater = tileTextures.crop(4, 0, tileWidth, tileHeight);
 		deepwater = tileTextures.crop(5, 0, tileWidth, tileHeight);
+		//Multiple types
+		cellar_wall = new BufferedImage[12];
+		for (int i = 0; i < 12; i++){
+			cellar_wall[i] = CellarWall.crop(i, 0, tileWidth, tileHeight);
+		}
 		
 		/*Characters*/
 		//Player
@@ -128,11 +133,6 @@ public class Assets {
 		//Solo types
 		rock = itemTextures.crop(0, 1, itemWidth, itemHeight);
 		tree = Tree.crop(0, 0, 384, 256);
-		//Multiple types
-		cellar_wall = new BufferedImage[8];
-		for (int i = 0; i < 8; i++){
-			cellar_wall[i] = CellarWall.crop(i, 0, tileWidth, tileHeight);
-		}
 		
 		//Inventory
 		inventoryScreen = InventoryScreen.crop(0, 0, 512, 384);

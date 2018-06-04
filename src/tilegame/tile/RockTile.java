@@ -11,10 +11,5 @@ public class RockTile extends Tile{
 	public RockTile(int id) {
 		super(Assets.stonepath, id);
 	}
-	
-	@Override
-	public boolean isSolid(){
-		return true;
-	}
 
 }

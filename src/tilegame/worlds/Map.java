@@ -47,7 +47,7 @@ public class Map extends World{
 	@Override
 	public Tile getTile(int x, int y){
 		if( x< 0 || y < 0 || x >= width || y >= height){
-			return Tile.grassTile; //If any tile is not set, it is defaulted to a grass tile.
+			return Tile.airTile; //If any tile is not set, it is defaulted to a air tile.
 		}
 		
 		Tile t = Tile.tiles[location[x][y]];
@@ -66,7 +66,7 @@ public class Map extends World{
 		if(handler.getInput().isKeyDown(Input.KEY_D))
 			handler.getGameCamera().move(camera_speed,0);
 		
-		if(handler.getMouse().isButtonPressed(Input.LEFT_MOUSE)) {
+		if(handler.getMouse().isButtonDown(Input.LEFT_MOUSE)) {
 			int x = (int) (handler.getMouse().getX() + handler.getGameCamera().getxOffset());
 			int y = (int) (handler.getMouse().getY() + handler.getGameCamera().getyOffset());
 			int mod = (int)(Tile.TILEWIDTH * scale);

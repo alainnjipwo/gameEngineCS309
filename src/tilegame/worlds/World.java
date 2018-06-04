@@ -1,12 +1,12 @@
 package tilegame.worlds;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 import tilegame.Handler;
 import tilegame.entities.EntityManager;
 import tilegame.entities.creatures.Guard;
 import tilegame.entities.creatures.Player;
-import tilegame.entities.statics.CellarWall;
 import tilegame.entities.statics.Rock;
 import tilegame.entities.statics.Tree;
 import tilegame.items.ItemManager;
@@ -58,19 +58,7 @@ public class World {
 		checkpoints.addStaticObject(new Checkpoint(handler, 6, 6));
 		
 		//Entities
-		entityManager.addEntity(new Tree(handler, 3, 2));
-		
-		//test cell		
-		entityManager.addEntity(new CellarWall(handler, 5, 3, 3)); //top right
-		entityManager.addEntity(new CellarWall(handler, 4, 3, 7)); //top
-		entityManager.addEntity(new CellarWall(handler, 3, 3, 2)); //top left
-		entityManager.addEntity(new CellarWall(handler, 5, 4, 5)); //right
-		entityManager.addEntity(new CellarWall(handler, 5, 5, 1)); //bottom right
-		entityManager.addEntity(new CellarWall(handler, 3, 4, 4)); //left
-		entityManager.addEntity(new CellarWall(handler, 3, 5, 0)); //bottom left
-		entityManager.addEntity(new CellarWall(handler, 4, 5, 6)); //bottom
-
-		
+		entityManager.addEntity(new Tree(handler, 3, 2));		
 		entityManager.addEntity(new Rock(handler, 9, 11));
 		entityManager.addEntity(new Guard(handler, 1, 1));
 //		entityManager.addEntity(new Paramedic(handler, 2, 2));
@@ -96,6 +84,8 @@ public class World {
 	 * @param g
 	 */
 	public void render(Graphics g){
+		g.setColor(Color.black);
+		g.fillRect(0, 0, width, height);
 		/*Render optimization*/
 		int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);									// Renders only the
 		int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);		// tiles that can
@@ -138,7 +128,7 @@ public class World {
 	//Getters and Setters
 	public Tile getTile(int x, int y){
 		if( x < 0 || y < 0 || x >= width || y >= height){
-			return Tile.grassTile; //If any tile is not set, it is defaulted to a grass tile.
+			return Tile.airTile; //If any tile is not set, it is defaulted to a air tile.
 		}
 		
 		Tile t = Tile.tiles[location[x][y]];
