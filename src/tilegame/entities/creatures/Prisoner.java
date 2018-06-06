@@ -59,7 +59,7 @@ public class Prisoner extends Creature{
 		animLeft.update();
 		animRight.update();
 		//Movement
-		findPath(xlocation, ylocation, 18, 20);
+		findPath(xlocation, ylocation, 19, 28);
 		move();
 		//DEBUGMODE
 		if(handler.getInput().isKeyPressed(Input.KEY_F3))

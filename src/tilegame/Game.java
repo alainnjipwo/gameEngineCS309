@@ -1,6 +1,5 @@
 package tilegame;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
@@ -23,7 +22,7 @@ public class Game implements Runnable{ //Must implement Runnable in order for it
 	private Display display;
 	private int width, height;
 	public String title;
-	
+		
 	private boolean running = false; //Determines whether the game is running or not
 	private Thread thread; 
 	

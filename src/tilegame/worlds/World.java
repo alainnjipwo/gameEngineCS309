@@ -6,7 +6,9 @@ import java.awt.Graphics;
 import tilegame.Handler;
 import tilegame.entities.EntityManager;
 import tilegame.entities.creatures.Guard;
+import tilegame.entities.creatures.Paramedic;
 import tilegame.entities.creatures.Player;
+import tilegame.entities.creatures.Prisoner;
 import tilegame.entities.statics.Rock;
 import tilegame.entities.statics.Tree;
 import tilegame.items.ItemManager;
@@ -60,9 +62,9 @@ public class World {
 		//Entities
 		entityManager.addEntity(new Tree(handler, 3, 2));		
 		entityManager.addEntity(new Rock(handler, 9, 11));
-		entityManager.addEntity(new Guard(handler, 1, 1));
-//		entityManager.addEntity(new Paramedic(handler, 2, 2));
-//		entityManager.addEntity(new Prisoner(handler, 1, 4));
+		entityManager.addEntity(new Guard(handler, 3, 3));
+		entityManager.addEntity(new Paramedic(handler, 3, 4));
+		entityManager.addEntity(new Prisoner(handler, 3, 5));
 		
 		loadWorld(path);getClass();
 		

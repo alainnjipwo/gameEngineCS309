@@ -41,7 +41,7 @@ public class Player extends Creature{
 	public Player(Handler handler, float x, float y) {
 		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
-		this.speed = ATHLETCS[2];
+		this.speed =  ATHLETCS[2];
 			
 		//Must be set to the exact pixel x and y beginning and the width and height of the character
 		//ie set it to be around the body of character only
