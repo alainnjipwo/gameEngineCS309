@@ -13,6 +13,9 @@ import tilegame.gfx.Assets;
 import tilegame.gfx.Text;
 import tilegame.input.Input;
 import tilegame.items.ItemManager;
+import tilegame.staticobjects.Checkpoint;
+import tilegame.staticobjects.GuardSpawner;
+import tilegame.staticobjects.PrisonerSpawner;
 import tilegame.staticobjects.StaticObjectManager;
 import tilegame.tile.Tile;
 import tilegame.utils.Utils;
@@ -25,7 +28,7 @@ public class Map extends World{
 	
 	private String path;
 	
-	private double scale = 1.0;
+	private double scale = 1.00;
 	private int camera_speed = 5;
 	private int tile_mode = 0;
 	
@@ -44,7 +47,11 @@ public class Map extends World{
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 		itemManager = new ItemManager(handler);
 		staticObjectManager = new StaticObjectManager(handler);
-
+		
+		
+		staticObjectManager.addStaticObject(new GuardSpawner(handler, 5, 5));
+		staticObjectManager.addStaticObject(new PrisonerSpawner(handler, 7, 5));
+		staticObjectManager.addStaticObject(new Checkpoint(handler, 18, 9));
 		
 		//Entities
 		entityManager.addEntity(new Tree(handler, 3, 2));
@@ -66,7 +73,7 @@ public class Map extends World{
 		/*-------------------*/
 		for(int y = yStart; y < (int)(yEnd / scale); y++){
 			for(int x = xStart; x < (int)(xEnd / scale); x++){
-				getTile(x, y).renderWithScale(g, (int) (x*(int)(Tile.TILEWIDTH * scale) - handler.getGameCamera().getxOffset()), (int) (y*(int)(Tile.TILEHEIGHT * scale) - handler.getGameCamera().getyOffset()), scale);
+				getTile(x, y).render(g, (int) (x*(int)(Tile.TILEWIDTH * scale) - handler.getGameCamera().getxOffset()), (int) (y*(int)(Tile.TILEHEIGHT * scale) - handler.getGameCamera().getyOffset()), scale);
 			}
 		}
 
@@ -93,8 +100,14 @@ public class Map extends World{
 			handler.getGameCamera().move(camera_speed,0, scale);
 		
 		if(handler.getMouse().isButtonPressed(Input.LEFT_MOUSE)) {
+			
 			int x = (int) (handler.getMouse().getX() + handler.getGameCamera().getxOffset());
 			int y = (int) (handler.getMouse().getY() + handler.getGameCamera().getyOffset());
+			
+			if(true) {
+				System.out.println(x + " " + y);
+			}
+			
 			int mod = (int)(Tile.TILEWIDTH * scale);
 			
 			int tile_x = (int)(x / mod);
@@ -102,6 +115,24 @@ public class Map extends World{
 						
 			location[tile_x][tile_y] = tile_mode;
 		}
+		if(handler.getInput().isKeyDown(Input.KEY_F1)) {
+			scale = 0.97;
+			scale = Math.round(scale * 100.0) / 100.0;
+		}
+		if(handler.getInput().isKeyDown(Input.KEY_F2)) {
+			scale = 1.00;
+			scale = Math.round(scale * 100.0) / 100.0;
+		}
+		if(handler.getInput().isKeyDown(Input.KEY_F3)) {
+			scale = 1.03;
+			scale = Math.round(scale * 100.0) / 100.0;
+		}
+		if(handler.getInput().isKeyDown(Input.KEY_F4)) {
+			scale = 1.12;
+			scale = Math.round(scale * 100.0) / 100.0;
+		}
+		
+		
 		if(handler.getInput().isKeyDown(Input.KEY_0))
 			tile_mode = 0;
 		if(handler.getInput().isKeyDown(Input.KEY_1))
@@ -119,10 +150,14 @@ public class Map extends World{
 			Utils.saveWorld(path, super.location, super.spawnX, super.spawnY);
 
 		
-		if(handler.getInput().isKeyDown(Input.KEY_F12) && scale < 1.25)
+		if(handler.getInput().isKeyDown(Input.KEY_F12) && scale < 1.25) {
 			scale += 0.01;
-		if(handler.getInput().isKeyDown(Input.KEY_F11) && scale > 0.75)
+			scale = Math.round(scale * 100.0) / 100.0;
+		}
+		if(handler.getInput().isKeyDown(Input.KEY_F11) && scale > 0.75) {
 			scale -= 0.01;
+			scale = Math.round(scale * 100.0) / 100.0;
+		}
 	}
 	
 }

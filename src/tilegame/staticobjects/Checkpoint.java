@@ -44,10 +44,19 @@ public class Checkpoint extends StaticObject{
 	public BufferedImage getHiddenTexture() {
 		return Assets.checkpoint;
 	}
-	
+
 	@Override
 	public void render(Graphics g, double scale) {
-		render(g, 1.0);
+		
+		int x = (int) ((this.x/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getxOffset());
+		int y = (int) ((this.y/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getyOffset());
+		
+		if(DEBUGMODE) {
+			g.drawImage(Assets.checkpoint, x, y, (int)(bounds.width * scale), (int)(bounds.width * scale), null);
+			g.setColor(Color.GREEN);
+			g.drawRect(x, y, (int)(bounds.height * scale), (int)(bounds.height * scale));
+		}
+		
 	}
 
 }

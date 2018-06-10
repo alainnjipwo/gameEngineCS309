@@ -53,8 +53,8 @@ public class Rock extends StaticEntity{
 	
 	public void render(Graphics g, double scale) {
 
-		int x = (int) (this.x*scale - handler.getGameCamera().getxOffset());
-		int y = (int) (this.y*scale - handler.getGameCamera().getyOffset());
+		int x = (int) ((this.x/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getxOffset());
+		int y = (int) ((this.y/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getyOffset());
 		int width = (int)(this.width*scale);
 		int height = (int)(this.height*scale);
 		
