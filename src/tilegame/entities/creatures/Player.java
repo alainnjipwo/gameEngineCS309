@@ -26,7 +26,7 @@ public class Player extends Creature{
 	private boolean travelling;
 	
 	public Player(Handler handler, float x, float y) {
-		super(handler, x, y, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+		super(handler, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
 		speed =  ATHLETCS[2];
 			
@@ -68,7 +68,7 @@ public class Player extends Creature{
 			travelling = true;
 		} else if (travelling) {
 			findPath(xlocation, ylocation, gox, goy);
-		} else if (xlocation / 64 == gox + .5 && ylocation / 64 == goy + .5) {
+		} else if (xlocation / Tile.TILEWIDTH == gox + .5 && ylocation / Tile.TILEHEIGHT == goy + .5) {
 			travelling = false;
 			xMove = 0;
 			yMove = 0;
@@ -111,7 +111,7 @@ public class Player extends Creature{
 			DEBUGMODE_render(g);
 			//Player specific DEBUGMODE
 			g.setColor(Color.WHITE);
-			String c = "X: " + (int)(xlocation / 64) + " Y: " + (int)(ylocation / 64) + "   Actual: X: " + xlocation + " Y: " + ylocation;
+			String c = "X: " + (int)(xlocation / Tile.TILEWIDTH) + " Y: " + (int)(ylocation / Tile.TILEHEIGHT) + "   Actual: X: " + xlocation + " Y: " + ylocation;
 			g.drawString(c, 5, 12);
 			String mc = "X: " + xmouse + " Y: " + ymouse;
 			g.drawString(mc, 5, 24);

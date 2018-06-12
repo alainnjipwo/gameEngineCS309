@@ -30,6 +30,6 @@ public class Debug {
 	public static void setDEBUGMODE() {
 		StaticObject.DEBUGMODE =!StaticObject.DEBUGMODE;
 		Entity.DEBUGMODE = !Entity.DEBUGMODE;
-		Tile.DEBUGMODE = !Tile.DEBUGMODE;
+		Tile.DEBUGMODE = false;
 	}
 }

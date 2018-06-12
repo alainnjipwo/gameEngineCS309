@@ -1,6 +1,5 @@
 package tilegame.worlds;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import tilegame.Handler;

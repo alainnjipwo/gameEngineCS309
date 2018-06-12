@@ -16,7 +16,7 @@ import tilegame.tile.Tile;
 public class Tree extends StaticEntity{
 	
 	public Tree(Handler handler, float x, float y) {
-		super (handler, (x-1) * Tile.TILEWIDTH + 19, (y - 1) * Tile.TILEHEIGHT - 32, (int) (Tile.TILEWIDTH*2.5), (int)(Tile.TILEHEIGHT*2.5));
+		super (handler, (x-1 + 19f/64f) * Tile.TILEWIDTH, (y - 1 - 32f/64f) * Tile.TILEHEIGHT, (int) (Tile.TILEWIDTH*2.5), (int)(Tile.TILEHEIGHT*2.5));
 		
 		bounds.x = (int) ((66f / 64f) * Tile.TILEWIDTH);
 		bounds.y = (int) ((118f/64f) * Tile.TILEHEIGHT);
