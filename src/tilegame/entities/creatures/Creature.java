@@ -213,7 +213,6 @@ public abstract class Creature extends Entity{
 	 */
 	public void DEBUGMODE_render(Graphics g) {
 		//Draw path
-		g.setColor(Color.RED);
 		if (path != null) {
 			if (path.size() > 0) {
 				for (int i = 0; i<path.size()-1; i++) {

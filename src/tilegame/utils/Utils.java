@@ -1,6 +1,5 @@
 package tilegame.utils;
 
-import java.awt.Point;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -16,7 +15,7 @@ import javax.swing.JFileChooser;
  */
 public class Utils {
 	/**
-	 * This method tries to load in a file path for a world to be built based on. IF it fails the game closes. 
+	 * This method tries to load in a file path for a world to be built based on. If it fails the game closes. 
 	 * @param path
 	 * @return
 	 */

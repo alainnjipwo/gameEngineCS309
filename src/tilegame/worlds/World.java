@@ -84,8 +84,6 @@ public class World {
 	 * @param g
 	 */
 	public void render(Graphics g){
-		g.setColor(Color.black);
-		g.fillRect(0, 0, width, height);
 		/*Render optimization*/
 		int xStart = (int) Math.max(0, handler.getGameCamera().getxOffset() / Tile.TILEWIDTH);									// Renders only the
 		int xEnd = (int) Math.min(width, (handler.getGameCamera().getxOffset() + handler.getWidth()) / Tile.TILEWIDTH + 1);		// tiles that can
@@ -115,8 +113,8 @@ public class World {
 		String[] tokens = file.split("\\s+");
 		width = Utils.parseInt(tokens[0]);
 		height = Utils.parseInt(tokens[1]);
-		spawnX = Utils.parseInt(tokens[2]) * 64 + 1; //Sets the spawn to size of tiles.
-		spawnY = Utils.parseInt(tokens[3]) * 64 - 22;//and centers the player on the tile
+		spawnX = Utils.parseInt(tokens[2]) * Tile.TILEWIDTH + 1; //Sets the spawn to size of tiles.
+		spawnY = Utils.parseInt(tokens[3]) * Tile.TILEHEIGHT - 22;//and centers the player on the tile
 		
 		location = new int[width][height];
 		for(int y = 0; y < height; y++){

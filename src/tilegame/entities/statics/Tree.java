@@ -16,12 +16,12 @@ import tilegame.tile.Tile;
 public class Tree extends StaticEntity{
 	
 	public Tree(Handler handler, float x, float y) {
-		super (handler, (x - 1) * Tile.TILEWIDTH - 3, (y - 1) * Tile.TILEHEIGHT - 12, Tile.TILEWIDTH * 3, Tile.TILEHEIGHT * 2);
+		super (handler, (x-1) * Tile.TILEWIDTH + 19, (y - 1) * Tile.TILEHEIGHT - 32, (int) (Tile.TILEWIDTH*2.5), (int)(Tile.TILEHEIGHT*2.5));
 		
-		bounds.x = (int) ((85f / 64f) * Tile.TILEWIDTH);
-		bounds.y = (int) ((height / (1.5f * 64f)) * Tile.TILEHEIGHT);
-		bounds.width = (int)((28f /64f) * Tile.TILEWIDTH);
-		bounds.height = (int) (((height - height / 1.5f) / 64f) * Tile.TILEHEIGHT);
+		bounds.x = (int) ((66f / 64f) * Tile.TILEWIDTH);
+		bounds.y = (int) ((118f/64f) * Tile.TILEHEIGHT);
+		bounds.width = (int)((20f /64f) * Tile.TILEWIDTH);
+		bounds.height = (int) ((25f/64f) * Tile.TILEHEIGHT);
 	}
 	/**
 	 * This method is responsible for updating the position of the object

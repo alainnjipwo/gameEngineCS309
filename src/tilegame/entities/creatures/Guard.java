@@ -1,5 +1,6 @@
 package tilegame.entities.creatures;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
@@ -77,7 +78,8 @@ public class Guard extends Creature{
 		g.drawImage(getCurentAnimationFrame(), (int) (x - handler.getGameCamera().getxOffset()), (int) (y - handler.getGameCamera().getyOffset()), width, height, null); //render player
 		//DEBUGMODE
 		/*-------------------------------------------*/
-		if(DEBUGMODE){	
+		if(DEBUGMODE){
+			g.setColor(Color.BLUE);
 			DEBUGMODE_render(g);
 		}
 		/*-------------------------------------------*/

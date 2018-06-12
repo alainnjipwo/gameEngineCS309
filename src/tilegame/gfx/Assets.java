@@ -52,6 +52,8 @@ public class Assets {
 		SpriteSheet Tree = new SpriteSheet(ImageLoader.loadImage("/textures/Tree.png"));
 		SpriteSheet ObjectIcons = new SpriteSheet(ImageLoader.loadImage("/textures/ObjectIcons.png"));
 		SpriteSheet CellarWall = new SpriteSheet(ImageLoader.loadImage("/textures/CellarWall.png"));
+		SpriteSheet LargeObjects = new SpriteSheet(ImageLoader.loadImage("/textures/LargeObjects.png"));
+		SpriteSheet SmallObjects = new SpriteSheet(ImageLoader.loadImage("/textures/SmallObjects.png"));
 		
 		//Menu Buttons
 		start_button = new BufferedImage[2];
@@ -132,7 +134,7 @@ public class Assets {
 		/*Static Entities*/
 		//Solo types
 		rock = itemTextures.crop(0, 1, itemWidth, itemHeight);
-		tree = Tree.crop(0, 0, 384, 256);
+		tree = LargeObjects.crop(0, 0, 128, 128);
 		
 		//Inventory
 		inventoryScreen = InventoryScreen.crop(0, 0, 512, 384);

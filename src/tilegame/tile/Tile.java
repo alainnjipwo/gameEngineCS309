@@ -16,13 +16,13 @@ public class Tile {
 	
 	//STATIC STUFF
 	public static Tile[] tiles = new Tile[256]; //Holds one type of every single tile in the game (Increase as needed)
-	public static Tile deepWaterTile = new DeepWaterTile(0);
-	public static Tile shallowWaterTile = new ShallowWaterTile(1);
-	public static Tile sandTile = new SandTile(2);
-	public static Tile dirtTile = new DirtTile(3);
-	public static Tile grassTile = new GrassTile(4);
-	public static Tile rockTile = new RockTile(5);
-	public static Tile airTile = new AirTile(6);
+	public static Tile airTile = new AirTile(0);
+	public static Tile deepWaterTile = new DeepWaterTile(1);
+	public static Tile shallowWaterTile = new ShallowWaterTile(2);
+	public static Tile sandTile = new SandTile(3);
+	public static Tile dirtTile = new DirtTile(4);
+	public static Tile grassTile = new GrassTile(5);
+	public static Tile rockTile = new RockTile(6);
 	
 	public static Tile cellarWallTileB = new CellarWallB(7);
 	public static Tile cellarWallTileBL = new CellarWallBL(8);

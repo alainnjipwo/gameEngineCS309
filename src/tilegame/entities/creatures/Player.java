@@ -107,6 +107,7 @@ public class Player extends Creature{
 		//DEBUGMODE
 		/*-------------------------------------------*/
 		if(DEBUGMODE){
+			g.setColor(Color.WHITE);
 			DEBUGMODE_render(g);
 			//Player specific DEBUGMODE
 			g.setColor(Color.WHITE);
