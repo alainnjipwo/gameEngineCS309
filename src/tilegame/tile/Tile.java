@@ -80,7 +80,7 @@ public class Tile {
 	 * @param x
 	 * @param y
 	 */
-	public void renderWithScale(Graphics g, int x, int y, double scale){
+	public void render(Graphics g, int x, int y, double scale){
 		g.drawImage(texture, x, y, (int)(TILEWIDTH * scale), (int)(TILEHEIGHT * scale), null);
 		if(DEBUGMODE) {
 			Color oldcolor = g.getColor();

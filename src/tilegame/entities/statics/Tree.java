@@ -49,6 +49,23 @@ public class Tree extends StaticEntity{
 			g.drawRect((int) (x + bounds.x -handler.getGameCamera().getxOffset()), (int) (y + bounds.y -handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
 		}
 	}
+	
+	public void render(Graphics g, double scale) {
+		
+		int x = (int) ((this.x/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getxOffset());
+		int y = (int) ((this.y/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getyOffset());
+		int width = (int)(this.width*scale);
+		int height = (int)(this.height*scale);
+		
+		g.drawImage(Assets.tree, x, y, width, height, null);
+		
+		if(DEBUGMODE){
+			g.setColor(Color.WHITE);
+			g.drawRect((int) (this.x*scale + bounds.x*scale -handler.getGameCamera().getxOffset()), (int) (this.y*scale + bounds.y*scale -handler.getGameCamera().getyOffset()), (int)(bounds.width*scale), (int)(bounds.height*scale));
+			g.drawRect(x, y, width, height);
+		}
+	}
+	
 	@Override
 	public BufferedImage getTexture() {
 		return Assets.tree;

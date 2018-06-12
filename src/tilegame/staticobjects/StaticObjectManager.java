@@ -44,6 +44,13 @@ public class StaticObjectManager {
 			e.render(g);
 		}
 	}
+	
+	public void render(Graphics g, double scale){
+		for(StaticObject e : staticobjects){
+			e.render(g, scale);
+		}
+	}
+	
 	/**
 	 * This method adds a static objects to the staticobjects ArrayList to be stored.
 	 * @param e

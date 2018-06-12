@@ -44,5 +44,22 @@ public class PrisonerSpawner extends StaticObject{
 	public BufferedImage getHiddenTexture() {
 		return Assets.prisonerspawner;
 	}
+	/**
+	 * This method is responsible for rendering an object's new location and collision box.
+	 * This method is specific to the map editor
+	 */
+	@Override
+	public void render(Graphics g, double scale) {
+		
+		int x = (int) ((this.x/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getxOffset());
+		int y = (int) ((this.y/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getyOffset());
+		
+		if(DEBUGMODE) {
+			g.drawImage(Assets.prisonerspawner, x, y, (int)(bounds.width * scale), (int)(bounds.width * scale), null);
+			g.setColor(Color.GREEN);
+			g.drawRect(x, y, (int)(bounds.height * scale), (int)(bounds.height * scale));
+		}
+		
+	}
 
 }

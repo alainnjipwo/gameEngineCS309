@@ -36,6 +36,8 @@ public abstract class StaticObject {
 	
 	public abstract void render(Graphics g);
 	
+	public abstract void render(Graphics g, double scale);
+	
 	public abstract BufferedImage getHiddenTexture();
 	
 	public boolean checkEntityCollisions(float xOffset, float yOffset){

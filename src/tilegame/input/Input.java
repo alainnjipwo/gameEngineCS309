@@ -38,6 +38,9 @@ public class Input extends InputCodes implements KeyListener{
 		//Debug.Log("REMOVED KEY " + key); //Used for debugging
 	}
 	
+	public ArrayList<Integer> getPressedKeys() {
+		return PressedKeys;
+	}
 	//GAME ACCESS
 	/**
 	 * This method checks whether a key is being pressed or not.

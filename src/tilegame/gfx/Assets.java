@@ -31,7 +31,7 @@ public class Assets {
 	public static BufferedImage[] player_up, player_down, player_left, player_right, player_notmoving;
 	public static BufferedImage[] guard_up, guard_down, guard_left, guard_right, guard_notmoving;
 	//Buttons
-	public static BufferedImage[] start_button, exit_button, map_builder_button, load_button, new_button;
+	public static BufferedImage[] start_button, exit_button, map_builder_button, load_button, new_button, back_button;
 	//Static Objects
 	public static BufferedImage guardspawner, prisonerspawner, checkpoint;
 	//Screens
@@ -62,6 +62,7 @@ public class Assets {
 		map_builder_button = new BufferedImage[2];
 		load_button = new BufferedImage[2];
 		new_button = new BufferedImage[2];
+		back_button = new BufferedImage[2];
 		start_button[0] 		= menuButtons.crop(0, 0, buttonWidth, buttonHeight);
 		start_button[1] 		= menuButtons.crop(0, 1, buttonWidth, buttonHeight);
 		exit_button[0] 			= menuButtons.crop(0, 2, buttonWidth, buttonHeight);
@@ -72,6 +73,8 @@ public class Assets {
 		load_button[1] 			= menuButtons.crop(0, 7, buttonWidth, buttonHeight);
 		new_button[0] 			= menuButtons.crop(0, 8, buttonWidth, buttonHeight);
 		new_button[1] 			= menuButtons.crop(0, 9, buttonWidth, buttonHeight);
+		back_button[0] 			= menuButtons.crop(0, 10, buttonWidth, buttonHeight);
+		back_button[1] 			= menuButtons.crop(0, 11, buttonWidth, buttonHeight);
 		
 		//Tiles
 		grass = tileTextures.crop(0, 0, tileWidth, tileHeight);
@@ -149,5 +152,4 @@ public class Assets {
 		checkpoint = ObjectIcons.crop(2, 0, tileWidth, tileHeight);
 		
 	}
-
 }

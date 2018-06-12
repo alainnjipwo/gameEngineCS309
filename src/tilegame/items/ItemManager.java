@@ -42,6 +42,12 @@ public class ItemManager {
 		for(Item i : items)
 			i.render(g);
 	}
+	
+	public void render(Graphics g, double scale) {
+		for(Item i : items)
+			i.render(g);
+	}
+	
 	/**
 	 * Thie method adds an item to the game.
 	 * @param i

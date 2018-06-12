@@ -77,4 +77,3 @@ public class UIImageButton extends UIObject{
 		activated = false;
 	}
 }
-

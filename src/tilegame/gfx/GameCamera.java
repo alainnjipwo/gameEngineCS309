@@ -27,16 +27,16 @@ public class GameCamera {
 	 * This method checks if there are blank spaces like the edges of the map.
 	 * If a blank space is made, the offset don't move to exposed them.
 	 */
-	public void checkBlankSpace(){
+	public void checkBlankSpace(double scale){
 		if(xOffset < 0){
 			xOffset = 0;
-		} else if(xOffset > handler.getWorld().getWidth() * Tile.TILEWIDTH - handler.getWidth()){
-			xOffset = handler.getWorld().getWidth() * Tile.TILEWIDTH - handler.getWidth();
+		} else if(xOffset > handler.getWorld().getWidth() * (float) (Tile.TILEWIDTH * scale) - handler.getWidth()){
+			xOffset = handler.getWorld().getWidth() * (float) (Tile.TILEWIDTH * scale) - handler.getWidth();
 		}
 		if(yOffset < 0){
 			yOffset = 0;
-		}else if(yOffset > handler.getWorld().getHeight() * Tile.TILEWIDTH - handler.getHeight()){
-			yOffset = handler.getWorld().getHeight() * Tile.TILEWIDTH - handler.getHeight();
+		}else if(yOffset > handler.getWorld().getHeight() * (float) (Tile.TILEWIDTH * scale) - handler.getHeight()){
+			yOffset = handler.getWorld().getHeight() * (float) (Tile.TILEWIDTH * scale) - handler.getHeight();
 		}
 	}
 	/**
@@ -46,17 +46,17 @@ public class GameCamera {
 	public void centerOnEntity(Entity e){
 		xOffset = e.getX() - handler.getWidth() / 2 + e.getWidth() / 2;
 		yOffset = e.getY() - handler.getHeight() / 2 + e.getHeight() / 2;
-		checkBlankSpace();
+		checkBlankSpace(1.0);
 	}
 	/**
 	 * This method moves to the selected location based on the parameters xAmt and yAmt
 	 * @param xAmt
 	 * @param yAmt
 	 */
-	public void move(float xAmt, float yAmt){
-		xOffset += xAmt;
-		yOffset += yAmt;
-		checkBlankSpace();
+	public void move(float xAmt, float yAmt, double scale){
+		xOffset += xAmt * scale;
+		yOffset += yAmt * scale;
+		checkBlankSpace(scale);
 	}
 	//Getters and Setters
 	public float getxOffset() {

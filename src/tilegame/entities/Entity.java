@@ -38,6 +38,8 @@ public abstract class Entity {
 	
 	public abstract void render(Graphics g);
 	
+	public abstract void render(Graphics g, double scale);
+	
 	public abstract void destroy();
 	/**
 	 * This method receives the amount of damage done to an entity and removes the health accordingly

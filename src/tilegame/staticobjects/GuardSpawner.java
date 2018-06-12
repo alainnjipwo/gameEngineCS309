@@ -40,9 +40,23 @@ public class GuardSpawner extends StaticObject{
 			g.drawRect((int) (x + bounds.x -handler.getGameCamera().getxOffset()), (int) (y + bounds.y -handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
 		}
 	}
+	
+	@Override
+	public void render(Graphics g, double scale) {
+		
+		int x = (int) ((this.x/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getxOffset());
+		int y = (int) ((this.y/Tile.TILEWIDTH)*(int)(Tile.TILEWIDTH*scale)-handler.getGameCamera().getyOffset());
+		
+		if(DEBUGMODE) {
+			g.drawImage(Assets.guardspawner, x, y, (int)(bounds.width * scale), (int)(bounds.width * scale), null);
+			g.setColor(Color.GREEN);
+			g.drawRect(x, y, (int)(bounds.height * scale), (int)(bounds.height * scale));
+		}
+		
+	}
+	
 	@Override
 	public BufferedImage getHiddenTexture() {
 		return Assets.guardspawner;
 	}
-
 }
