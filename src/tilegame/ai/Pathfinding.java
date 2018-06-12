@@ -17,9 +17,6 @@ import tilegame.worlds.Node;
  *
  */
 public class Pathfinding {
-	//DEBUG MODE
-	public static boolean DEBUGMODE = true;//Shows collision boxes
-	
 	private Handler handler;
 	private Comparator<Node> nodeSorter = new Comparator<Node>() { //Sorts nodes in list
 		@Override
@@ -70,7 +67,7 @@ public class Pathfinding {
 			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 			//1,3,5,7
 			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-			for (int i = 1; i < 8; i+=2) { //Checks adjacent and diagonal tiles and adds the possible tiles to the open list.
+			for (int i = 1; i < 8; i+=2) { //Checks adjacent tiles and adds the possible tiles to the open list.
 				int x = current.tile.getX();
 				int y = current.tile.getY();
 				int xi = (i % 3) - 1;
@@ -102,7 +99,7 @@ public class Pathfinding {
 			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 			//0,2,4,6,8
 			//------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-			for (int i = 0; i < 9; i+=2) { //Checks adjacent and diagonal tiles and adds the possible tiles to the open list.
+			for (int i = 0; i < 9; i+=2) { //Checks diagonal tiles and adds the possible tiles to the open list.
 				if (i == 4) continue;
 				int x = current.tile.getX();
 				int y = current.tile.getY();

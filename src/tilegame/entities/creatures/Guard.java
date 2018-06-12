@@ -1,14 +1,13 @@
 package tilegame.entities.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import tilegame.Handler;
-import tilegame.debug.Debug;
 import tilegame.gfx.Animation;
 import tilegame.gfx.Assets;
 import tilegame.input.Input;
+import tilegame.inventory.Inventory;
 import tilegame.tile.Tile;
 /**
  * This class is a guard NPC class. It is designed to render and display a guard creature that can be moved around the screen with a built in AI
@@ -16,12 +15,6 @@ import tilegame.tile.Tile;
  *
  */
 public class Guard extends Creature{
-	//Animations
-	private Animation animUp, animDown, animLeft, animRight;
-	private int lastDirection = 2; //Set default start direction to be down
-	
-	//Coordinates
-	private float xlocation, ylocation;
 
 	/**
 	 * This constructor passes along the handler and float location to the extended Creature parent class and sets the bounds of the collision box of the player.
@@ -33,7 +26,8 @@ public class Guard extends Creature{
 	public Guard(Handler handler, float x, float y) {
 		super(handler, (x-.5f) * Tile.TILEWIDTH + 33, (y -.5f) * Tile.TILEHEIGHT + 11, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
-		this.speed = ATHLETCS[0];
+		speed = ATHLETCS[0];
+		attackCooldown = 900;
 		
 		//Must be set to the exact pixel x and y beginning and the width and height of the character
 		//ie set it to be around the body of character only
@@ -46,7 +40,9 @@ public class Guard extends Creature{
 		animUp = new Animation(150, Assets.guard_up);
 		animDown = new Animation(150, Assets.guard_down);
 		animLeft = new Animation(150, Assets.guard_left);
-		animRight = new Animation(150, Assets.guard_right);		
+		animRight = new Animation(150, Assets.guard_right);
+		
+		inventory = new Inventory(handler);
 	}
 	/**
 	 * This method updates the position of the guard, the animation updates, and a DEBUGMODE setting.
@@ -64,9 +60,12 @@ public class Guard extends Creature{
 		findPath(xlocation, ylocation, 19, 28);
 //		goToCheckpoint(xlocation, ylocation, handler.getWorld().getCheckpoints().getStaticObject().get(0));
 		move();
-		//DEBUGMODE
-		if(handler.getInput().isKeyPressed(Input.KEY_F3))
-			Debug.setDEBUGMODE();
+		//Attack
+		if (handler.getInput().isKeyDown(Input.KEY_F)) //TODO make npc attack another entity
+			attacking = true;
+		else
+			attacking = false;
+		checkAttacks();
 	}
 
 	/**
@@ -79,9 +78,7 @@ public class Guard extends Creature{
 		//DEBUGMODE
 		/*-------------------------------------------*/
 		if(DEBUGMODE){	
-			//NPC collision box
-			g.setColor(Color.WHITE);
-			g.drawRect((int) (x + bounds.x -handler.getGameCamera().getxOffset()), (int) (y + bounds.y -handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+			DEBUGMODE_render(g);
 		}
 		/*-------------------------------------------*/
 	}

@@ -1,10 +1,15 @@
 package tilegame.entities.creatures;
 
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.List;
 
 import tilegame.Handler;
 import tilegame.ai.Pathfinding;
 import tilegame.entities.Entity;
+import tilegame.gfx.Animation;
+import tilegame.inventory.Inventory;
 import tilegame.staticobjects.StaticObject;
 import tilegame.tile.Tile;
 import tilegame.utils.Vector2i;
@@ -24,12 +29,24 @@ public abstract class Creature extends Entity{
 	
 	protected double speed;
 	protected double xMove, yMove;
+	
+	//Attack
+	protected long lastAttackTimer, attackCooldown = 800, attackTimer = attackCooldown, at, lat; //Timers
+	protected boolean attacking;
+	//Coordinates 
+	protected float xlocation, ylocation;
 	//Player location
 	private float PlayerX, PlayerY;
-	
-	private List<Node> path = null;
-	protected boolean standing = true;
+	//Animations
+	protected Animation animUp, animDown, animLeft, animRight;
+	protected int lastDirection = 2; //Set default start direction to be down
+	//Inventory
+	protected Inventory inventory;
+	//Pathfinding
+	protected List<Node> path = null;
 	private Pathfinding pathfinder;
+	protected boolean standing = true;
+	
 	
 	public Creature(Handler handler, float x, float y, int width, int height) {
 		super(handler, x, y, width, height);
@@ -40,6 +57,7 @@ public abstract class Creature extends Entity{
 	}
 	/**
 	 * This method uses the methods moveX() and moveY() to move a creature around a screen.
+	 * It also checks for collision with other entities.
 	 */
 	public void move(){
 		if(!checkEntityCollisions((float) xMove, 0f))
@@ -48,7 +66,7 @@ public abstract class Creature extends Entity{
 			moveY();
 	}
 	/**
-	 * This method allow for a creature to move in the X-Axis.
+	 * This helper method allows for a creature to move in the X-Axis if not colliding with an obstacle.
 	 */
 	public void moveX(){
 		if (xMove < 0){ //Moving Left
@@ -71,7 +89,7 @@ public abstract class Creature extends Entity{
 	}
 	
 	/**
-	 * This method allow for a creature to move in the Y-Axis.
+	 * This helper method allows for a creature to move in the Y-Axis if not colliding with an obstacle.
 	 */
 	public void moveY(){
 		if (yMove < 0){ //Moving Up
@@ -91,8 +109,7 @@ public abstract class Creature extends Entity{
 				y = ty * Tile.TILEHEIGHT - bounds.y - bounds.height - 1;
 			}
 		}
-	}
-	
+	}	
 	/**
 	 * This helper method checks if creature entity is colliding with a tile.
 	 * @param x
@@ -131,42 +148,147 @@ public abstract class Creature extends Entity{
 			}
 		}
 	}
-	
+	/**
+	 * This helper method sends an entity to a specified checkpoint
+	 * @param xlocation
+	 * @param ylocation
+	 * @param checkpoint
+	 */
 	public void goToCheckpoint(float xlocation, float ylocation, StaticObject checkpoint) {
 		findPath(xlocation, ylocation, (int) (checkpoint.getX()/64), (int)(checkpoint.getY()/64));
-		
 	}
-	
+	/**
+	 * This method is responsible for checking whether an entity is attacking or not and whether it hits something or not.
+	 * It also has the ability to prevent attacking if a player has the inventory screen active.
+	 */
+	protected void checkAttacks() {
+		//Cooldown timing code
+		//----------------------------------------------------------
+		attackTimer += System.currentTimeMillis() - lastAttackTimer;
+		lastAttackTimer = System.currentTimeMillis();
+		if(attackTimer < attackCooldown)
+			return;
+		//----------------------------------------------------------
+		
+		//Prevents attacking while in the inventory
+		if(inventory.isActive())
+			return;
+		
+		Rectangle cb = getCollisionBounds(0, 0);// Collision Bounds of Player
+		Rectangle ar = new Rectangle(); // Attack Rectangle
+		int arSize = 23; //Size of Attack Rectangle
+		ar.width = arSize;
+		ar.height = arSize;
+		
+		if(attacking) {
+			if(lastDirection == 1) { //Attack Left
+				ar.x = cb.x - arSize;
+				ar.y = cb.y + cb.height / 2 - arSize / 2;
+			}else if(lastDirection == 3) { //Attack Right
+				ar.x = cb.x + arSize;
+				ar.y = cb.y + cb.height / 2 - arSize / 2;
+			}else if(lastDirection == 0) { //Attack Up
+				ar.x = cb.x;
+				ar.y = cb.y - arSize;
+			}else if(lastDirection == 2) { //Attack Down
+				ar.x = cb.x + cb.width / 2 - arSize / 2;
+				ar.y = cb.y + cb.height;
+			}
+		} else return;
+		
+		attackTimer = 0;
+		
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+			if (e.equals(this))
+				continue;
+			if(e.getCollisionBounds(0, 0).intersects(ar)) {
+				e.hurt(1); //Entity receives damage value of 1					
+				return;
+			}
+		}
+	}
+	/**
+	 * This method is responsible for rendering DEBUGMODE related images
+	 * @param g
+	 */
+	public void DEBUGMODE_render(Graphics g) {
+		//Draw path
+		g.setColor(Color.RED);
+		if (path != null) {
+			if (path.size() > 0) {
+				for (int i = 0; i<path.size()-1; i++) {
+					g.drawLine((int) (path.get(i).tile.getX()*Tile.TILEWIDTH + Tile.TILEWIDTH/2 - handler.getGameCamera().getxOffset()),
+							  (int) (path.get(i).tile.getY()*Tile.TILEHEIGHT + Tile.TILEHEIGHT/2 - handler.getGameCamera().getyOffset()),
+							 (int) (path.get(i+1).tile.getX()*Tile.TILEWIDTH + Tile.TILEWIDTH/2 - handler.getGameCamera().getxOffset()),
+							(int) (path.get(i+1).tile.getY()*Tile.TILEHEIGHT + Tile.TILEHEIGHT/2 - handler.getGameCamera().getyOffset()));
+				}
+				g.drawLine((int) (path.get(path.size()-1).tile.getX()*Tile.TILEWIDTH + Tile.TILEWIDTH/2 - handler.getGameCamera().getxOffset()),
+						(int) (path.get(path.size()-1).tile.getY()*Tile.TILEWIDTH + Tile.TILEWIDTH/2 - handler.getGameCamera().getyOffset()),
+						(int) (xlocation - handler.getGameCamera().getxOffset()), (int) (ylocation - handler.getGameCamera().getyOffset()));
+			}
+		}
+		//NPC collision box
+		g.setColor(Color.WHITE);
+		g.drawRect((int) (x + bounds.x - handler.getGameCamera().getxOffset()), (int) (y + bounds.y - handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+		
+		//Attack box
+		at += System.currentTimeMillis() - lat;
+		lat = System.currentTimeMillis();
+		if(at < attackCooldown)
+			return;
+		
+		Rectangle cb = getCollisionBounds(0, 0);// Collision Bounds of Player
+		Rectangle ar = new Rectangle(); // Attack Rectangle
+		int arSize = 23; //Size of Attack Rectangle
+		ar.width = arSize;
+		ar.height = arSize;
+		g.setColor(Color.GREEN);
+		if(attacking) {
+			if(lastDirection == 1) { //Attack Left
+				ar.x = cb.x - arSize;
+				ar.y = cb.y + cb.height / 2 - arSize / 2;
+			}else if(lastDirection == 3) { //Attack Right
+				ar.x = cb.x + cb.width;
+				ar.y = cb.y + cb.height / 2 - arSize / 2;
+			}else if(lastDirection == 0) { //Attack Up
+				ar.x = cb.x;
+				ar.y = cb.y - arSize;
+			}else if(lastDirection == 2) { //Attack Down
+				ar.x = cb.x + cb.width / 2 - arSize / 2;
+				ar.y = cb.y + cb.height;
+			} else return;
+			at = 0;
+			for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+				if (e.equals(this))
+					continue;
+				if(e.getCollisionBounds(0, 0).intersects(ar))
+					g.setColor(Color.RED);
+			}
+			g.fillRect((int) (ar.x - handler.getGameCamera().getxOffset()), (int) (ar.y - handler.getGameCamera().getyOffset()), arSize, arSize);
+		}
+	}
 	//GETTERS AND SETTERS
-
 	public double getxMove() {
 		return xMove;
 	}
-
 	public void setxMove(float xMove) {
 		this.xMove = xMove;
 	}
-
 	public double getyMove() {
 		return yMove;
 	}
-
 	public void setyMove(float yMove) {
 		this.yMove = yMove;
 	}
-
 	public int getHealth() {
 		return health;
 	}
-
 	public void setHealth(int health) {
 		this.health = health;
 	}
-
 	public double getSpeed() {
 		return speed;
 	}
-
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}

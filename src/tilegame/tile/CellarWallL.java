@@ -2,7 +2,7 @@ package tilegame.tile;
 
 import tilegame.gfx.Assets;
 /**
- * This class sets the details of a DeepWaterTile
+ * This class sets the details of a CellarWallL
  * @author Kenneth Lange
  *
  */

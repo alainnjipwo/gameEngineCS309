@@ -1,14 +1,12 @@
 package tilegame.entities.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import tilegame.Handler;
-import tilegame.debug.Debug;
 import tilegame.gfx.Animation;
 import tilegame.gfx.Assets;
-import tilegame.input.Input;
+import tilegame.inventory.Inventory;
 import tilegame.tile.Tile;
 /**
  * This class is a guard NPC class. It is designed to render and display a guard creature that can be moved around the screen with a built in AI
@@ -16,12 +14,6 @@ import tilegame.tile.Tile;
  *
  */
 public class Prisoner extends Creature{
-	//Animations
-	private Animation animUp, animDown, animLeft, animRight;
-	private int lastDirection = 2; //Set default start direction to be down
-	
-	//Coordinates
-	private float xlocation, ylocation;
 
 	/**
 	 * This constructor passes along the handler and float location to the extended Creature parent class and sets the bounds of the collision box of the player.
@@ -44,7 +36,9 @@ public class Prisoner extends Creature{
 		animUp = new Animation(150, Assets.player_up);
 		animDown = new Animation(150, Assets.player_down);
 		animLeft = new Animation(150, Assets.player_left);
-		animRight = new Animation(150, Assets.player_right);		
+		animRight = new Animation(150, Assets.player_right);
+		
+		inventory = new Inventory(handler);
 	}
 	/**
 	 * This method updates the position of the guard, the animation updates, and a DEBUGMODE setting.
@@ -61,9 +55,8 @@ public class Prisoner extends Creature{
 		//Movement
 		findPath(xlocation, ylocation, 19, 28);
 		move();
-		//DEBUGMODE
-		if(handler.getInput().isKeyPressed(Input.KEY_F3))
-			Debug.setDEBUGMODE();
+		//Attack
+		checkAttacks();
 	}
 
 	/**
@@ -76,9 +69,7 @@ public class Prisoner extends Creature{
 		//DEBUGMODE
 		/*-------------------------------------------*/
 		if(DEBUGMODE){	
-			//NPC collision box
-			g.setColor(Color.WHITE);
-			g.drawRect((int) (x + bounds.x -handler.getGameCamera().getxOffset()), (int) (y + bounds.y -handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+			DEBUGMODE_render(g);
 		}
 		/*-------------------------------------------*/
 	}

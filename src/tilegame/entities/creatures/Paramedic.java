@@ -1,14 +1,11 @@
 package tilegame.entities.creatures;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 import tilegame.Handler;
-import tilegame.debug.Debug;
 import tilegame.gfx.Animation;
 import tilegame.gfx.Assets;
-import tilegame.input.Input;
 import tilegame.tile.Tile;
 /**
  * This class is a guard NPC class. It is designed to render and display a guard creature that can be moved around the screen with a built in AI
@@ -16,12 +13,6 @@ import tilegame.tile.Tile;
  *
  */
 public class Paramedic extends Creature{
-	//Animations
-	private Animation animUp, animDown, animLeft, animRight;
-	private int lastDirection = 2; //Set default start direction to be down
-	
-	//Coordinates
-	private float xlocation, ylocation;
 
 	/**
 	 * This constructor passes along the handler and float location to the extended Creature parent class and sets the bounds of the collision box of the player.
@@ -61,11 +52,10 @@ public class Paramedic extends Creature{
 		//Movement
 		findPath(xlocation, ylocation, 19, 28);
 		move();
-		//DEBUGMODE
-		if(handler.getInput().isKeyPressed(Input.KEY_F3))
-			Debug.setDEBUGMODE();
+		//Attack
+		checkAttacks();
 	}
-
+	
 	/**
 	 * This method renders that previously updated positions.
 	 * It also has a built in function for DEBUGMODE to show debug details.
@@ -76,9 +66,7 @@ public class Paramedic extends Creature{
 		//DEBUGMODE
 		/*-------------------------------------------*/
 		if(DEBUGMODE){	
-			//NPC collision box
-			g.setColor(Color.WHITE);
-			g.drawRect((int) (x + bounds.x -handler.getGameCamera().getxOffset()), (int) (y + bounds.y -handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
+			DEBUGMODE_render(g);
 		}
 		/*-------------------------------------------*/
 	}
