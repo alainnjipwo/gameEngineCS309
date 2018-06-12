@@ -68,7 +68,7 @@ public class Tile {
 			g.drawImage(texture, x, y, TILEWIDTH, TILEHEIGHT, null);
 		if(DEBUGMODE) {
 			Color oldcolor = g.getColor();
-			g.setColor(Color.WHITE);
+			g.setColor(new Color(0,0,0,127));
 			g.drawRect(x, y, TILEWIDTH, TILEHEIGHT);
 			g.setColor(oldcolor);
 		}
@@ -84,7 +84,7 @@ public class Tile {
 		g.drawImage(texture, x, y, (int)(TILEWIDTH * scale), (int)(TILEHEIGHT * scale), null);
 		if(DEBUGMODE) {
 			Color oldcolor = g.getColor();
-			g.setColor(Color.WHITE);
+			g.setColor(new Color(0,0,0,127));
 			g.drawRect(x, y, (int)(TILEWIDTH * scale), (int)(TILEHEIGHT * scale));
 			g.setColor(oldcolor);
 		}

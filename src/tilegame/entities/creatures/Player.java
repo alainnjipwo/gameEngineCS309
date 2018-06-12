@@ -77,6 +77,12 @@ public class Player extends Creature{
 		move();
 		handler.getGameCamera().centerOnEntity(this);
 		
+		//Test Code
+		if (handler.getInput().isKeyDown(Input.KEY_0))
+			speed = 0d;
+		else
+			speed = DEFAULT_SPEED;
+		
 		//Attack
 		if (handler.getInput().isKeyDown(Input.KEY_F))
 			attacking = true;

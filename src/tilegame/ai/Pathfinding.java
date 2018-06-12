@@ -120,7 +120,7 @@ public class Pathfinding {
 				}
 				Vector2i a = new Vector2i(x + xi, y + yi);
 				double gCost = current.gCost + getDistance(current.tile, a);
-				//double gCost = current.gCost + (getDistance(current.tile, a) == 1 ? 1 : 0.95); //Makes path finding prefer diagonal to non-diagonal aka looks more human
+//				double gCost = current.gCost + (getDistance(current.tile, a) == 1 ? 1 : 0.95); //Makes path finding prefer diagonal to non-diagonal aka looks more human
 				double hCost = getDistance(a, goal);
 				Node node = new Node(a, current, gCost, hCost);
 				if (vecInList(closedList, a) && gCost >= node.gCost) continue;
