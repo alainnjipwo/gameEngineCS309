@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import tilegame.Handler;
+import tilegame.debug.Terminal;
 import tilegame.entities.EntityManager;
 import tilegame.entities.creatures.Guard;
 import tilegame.entities.creatures.Player;
@@ -31,14 +32,13 @@ public class Map extends World{
 	private double scale = 1.00;
 	private int camera_speed = 5;
 	private int tile_mode = 0;
-	
 
 	public Map(Handler handler, String path){
-//		super(handler, path);
+
 		this.handler = handler;
 		this.path = path;
 		loadWorld(path);getClass();
-//		
+
 		init_ent();
 
 	}
@@ -80,8 +80,8 @@ public class Map extends World{
 		staticObjectManager.render(g, scale);
 		itemManager.render(g);
 		entityManager.render(g, scale);
-		
-		Text.drawString(g, "scale> " + scale, 200, 30, true, Color.WHITE, Assets.font28);
+
+		Text.drawString(g, "scale> " + scale, 100, 30, true, Color.WHITE, Assets.font28);
 	}
 	
 	@Override

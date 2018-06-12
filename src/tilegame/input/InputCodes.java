@@ -55,6 +55,11 @@ public abstract class InputCodes {
 	KEY_ALT = KeyEvent.VK_ALT,
 	KEY_ENTER = KeyEvent.VK_ENTER,
 	KEY_ESCAPE = KeyEvent.VK_ESCAPE,
+	
+	KEY_UP = KeyEvent.VK_UP,
+	KEY_DOWN = KeyEvent.VK_DOWN,
+	KEY_LEFT = KeyEvent.VK_LEFT,
+	KEY_RIGHT = KeyEvent.VK_RIGHT,
 	//F?s
 	KEY_F1 = KeyEvent.VK_F1,
 	KEY_F2 = KeyEvent.VK_F2,
