@@ -1,27 +1,27 @@
-package tilegame.entities.statics;
+package tilegame.managers.entities.nonmoving;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 import tilegame.Handler;
 import tilegame.gfx.Assets;
 import tilegame.items.Item;
+import tilegame.managers.entities.Entity;
 import tilegame.tile.Tile;
 /**
  * This class holds the data for a static tree entity
  * @author Kenneth Lange
  *
  */
-public class Tree extends StaticEntity{
+public class Tree extends Entity{
 	
 	public Tree(Handler handler, float x, float y) {
-		super (handler, (x-1 + 19f/64f) * Tile.TILEWIDTH, (y - 1 - 32f/64f) * Tile.TILEHEIGHT, (int) (Tile.TILEWIDTH*2.5), (int)(Tile.TILEHEIGHT*2.5));
+		super (handler, (x-2 + 9f/64f) * Tile.TILEWIDTH, (y-3 - 32f/64f) * Tile.TILEHEIGHT, (int) (Tile.TILEWIDTH*5), (int)(Tile.TILEHEIGHT*5));
 		
-		bounds.x = (int) ((66f / 64f) * Tile.TILEWIDTH);
-		bounds.y = (int) ((118f/64f) * Tile.TILEHEIGHT);
-		bounds.width = (int)((20f /64f) * Tile.TILEWIDTH);
-		bounds.height = (int) ((25f/64f) * Tile.TILEHEIGHT);
+		bounds.x = (int) ((128f / 64f) * Tile.TILEWIDTH);
+		bounds.y = (int) ((240f/64f) * Tile.TILEHEIGHT);
+		bounds.width = (int)((48f /64f) * Tile.TILEWIDTH);
+		bounds.height = (int) ((48f/64f) * Tile.TILEHEIGHT);
 	}
 	/**
 	 * This method is responsible for updating the position of the object
@@ -65,10 +65,4 @@ public class Tree extends StaticEntity{
 			g.drawRect(x, y, width, height);
 		}
 	}
-	
-	@Override
-	public BufferedImage getTexture() {
-		return Assets.tree;
-	}
-
 }

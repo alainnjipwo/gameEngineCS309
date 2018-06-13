@@ -1,19 +1,19 @@
-package tilegame.entities.statics;
+package tilegame.managers.entities.nonmoving;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.image.BufferedImage;
 
 import tilegame.Handler;
 import tilegame.gfx.Assets;
 import tilegame.items.Item;
+import tilegame.managers.entities.Entity;
 import tilegame.tile.Tile;
 /**
  * This class holds the data for a static rock entity
  * @author Kenneth Lange
  *
  */
-public class Rock extends StaticEntity{
+public class Rock extends Entity{
 	
 	public Rock(Handler handler, float x, float y) {
 		super(handler, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT - 2f/64f * Tile.TILEHEIGHT, Tile.TILEWIDTH, Tile.TILEHEIGHT);
@@ -66,10 +66,4 @@ public class Rock extends StaticEntity{
 			g.drawRect(x, y, width, height);
 		}
 	}
-
-	@Override
-	public BufferedImage getTexture() {
-		return Assets.rock;
-	}
-
 }

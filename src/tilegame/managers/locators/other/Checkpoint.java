@@ -1,4 +1,4 @@
-package tilegame.staticobjects;
+package tilegame.managers.locators.other;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -6,13 +6,14 @@ import java.awt.image.BufferedImage;
 
 import tilegame.Handler;
 import tilegame.gfx.Assets;
+import tilegame.managers.locators.Locator;
 import tilegame.tile.Tile;
 /**
  * This class holds the data for a static checkpoint object
  * @author Kenneth Lange
  *
  */
-public class Checkpoint extends StaticObject{
+public class Checkpoint extends Locator{
 	
 	public Checkpoint(Handler handler, float x, float y) {
 		super (handler, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT, Tile.TILEWIDTH, Tile.TILEHEIGHT);
@@ -40,11 +41,6 @@ public class Checkpoint extends StaticObject{
 			g.drawRect((int) (x + bounds.x -handler.getGameCamera().getxOffset()), (int) (y + bounds.y -handler.getGameCamera().getyOffset()), bounds.width, bounds.height);
 		}
 	}
-	
-	@Override
-	public BufferedImage getHiddenTexture() {
-		return Assets.checkpoint;
-	}
 	/**
 	 * This method is responsible for rendering an object's new location and collision box.
 	 * This method is specific to the map editor
@@ -59,7 +55,11 @@ public class Checkpoint extends StaticObject{
 			g.drawImage(Assets.checkpoint, x, y, (int)(bounds.width * scale), (int)(bounds.width * scale), null);
 			g.setColor(Color.GREEN);
 			g.drawRect(x, y, (int)(bounds.height * scale), (int)(bounds.height * scale));
-		}
-		
+		}	
+	}
+	
+	@Override
+	public BufferedImage getTexture() {
+		return Assets.checkpoint;
 	}
 }

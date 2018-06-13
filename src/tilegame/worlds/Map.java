@@ -4,19 +4,19 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import tilegame.Handler;
-import tilegame.entities.EntityManager;
-import tilegame.entities.creatures.Guard;
-import tilegame.entities.creatures.Player;
-import tilegame.entities.statics.Rock;
-import tilegame.entities.statics.Tree;
 import tilegame.gfx.Assets;
 import tilegame.gfx.Text;
 import tilegame.input.Input;
 import tilegame.items.ItemManager;
-import tilegame.staticobjects.Checkpoint;
-import tilegame.staticobjects.GuardSpawner;
-import tilegame.staticobjects.PrisonerSpawner;
-import tilegame.staticobjects.StaticObjectManager;
+import tilegame.managers.entities.EntityManager;
+import tilegame.managers.entities.creatures.Guard;
+import tilegame.managers.entities.creatures.Player;
+import tilegame.managers.entities.nonmoving.Rock;
+import tilegame.managers.entities.nonmoving.Tree;
+import tilegame.managers.locators.LocatorManager;
+import tilegame.managers.locators.other.Checkpoint;
+import tilegame.managers.locators.spawners.GuardSpawner;
+import tilegame.managers.locators.spawners.PrisonerSpawner;
 import tilegame.tile.Tile;
 import tilegame.utils.Utils;
 /**
@@ -26,20 +26,18 @@ import tilegame.utils.Utils;
  */
 public class Map extends World{
 	
-	protected StaticObjectManager staticObjectManager;
-	
 	private String path;
 	
 	private double scale = 1.00;
 	private int camera_speed = 5;
-	private int tile_mode = 0;
+	private int tile_mode = 5;
 
 	public Map(Handler handler, String path){
 
 		this.handler = handler;
 		this.path = path;
-		loadWorld(path);getClass();
-
+		loadWorld(path);
+		getClass();
 		init_ent();
 
 	}
@@ -47,17 +45,19 @@ public class Map extends World{
 	private void init_ent() {
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 		itemManager = new ItemManager(handler);
-		staticObjectManager = new StaticObjectManager(handler);
+		locatorManager = new LocatorManager(handler);
 		
+		//Locators
+		locatorManager.addLocators(new GuardSpawner(handler, 5, 5));
+		locatorManager.addLocators(new PrisonerSpawner(handler, 7, 5));
+		locatorManager.addLocators(new Checkpoint(handler, 18, 9));
 		
-		staticObjectManager.addStaticObject(new GuardSpawner(handler, 5, 5));
-		staticObjectManager.addStaticObject(new PrisonerSpawner(handler, 7, 5));
-		staticObjectManager.addStaticObject(new Checkpoint(handler, 18, 9));
-		
-		//Entities
+		//Static Objects
 		entityManager.addEntity(new Tree(handler, 3, 2));
 		entityManager.addEntity(new Tree(handler, 1, 8));
 		entityManager.addEntity(new Rock(handler, 9, 11));
+		
+		//Entities
 		entityManager.addEntity(new Guard(handler, 5, 3));
 
 		entityManager.getPlayer().setX(spawnX);
@@ -78,7 +78,7 @@ public class Map extends World{
 			}
 		}
 
-		staticObjectManager.render(g, scale);
+		locatorManager.render(g, scale);
 		itemManager.render(g);
 		entityManager.render(g, scale);
 
@@ -109,10 +109,8 @@ public class Map extends World{
 				System.out.println(x + " " + y);
 			}
 			
-			int mod = (int)(Tile.TILEWIDTH * scale);
-			
-			int tile_x = (int)(x / mod);
-			int tile_y = (int)(y / mod);
+			int tile_x = (int)(x / (Tile.TILEWIDTH * scale));
+			int tile_y = (int)(y / (Tile.TILEHEIGHT * scale));
 						
 			location[tile_x][tile_y] = tile_mode;
 		}
@@ -133,24 +131,24 @@ public class Map extends World{
 			scale = Math.round(scale * 100.0) / 100.0;
 		}
 		
+		//Increment through arraylist
+		if(handler.getInput().isKeyPressed(Input.KEY_PAGE_UP)) {
+			tile_mode++;
+			if(tile_mode > 18)
+				tile_mode = 0;
+		}
+		if(handler.getInput().isKeyPressed(Input.KEY_PAGE_DOWN)) {
+			tile_mode--;
+			if(tile_mode < 0)
+				tile_mode = 18;
+		}
+		System.out.println(tile_mode);
 		
-		if(handler.getInput().isKeyDown(Input.KEY_0))
-			tile_mode = 0;
-		if(handler.getInput().isKeyDown(Input.KEY_1))
-			tile_mode = 1;
-		if(handler.getInput().isKeyDown(Input.KEY_2))
-			tile_mode = 2;
-		if(handler.getInput().isKeyDown(Input.KEY_3))
-			tile_mode = 3;
-		if(handler.getInput().isKeyDown(Input.KEY_4))
-			tile_mode = 4;
-		if(handler.getInput().isKeyDown(Input.KEY_5))
-			tile_mode = 5;
-		
+		//Save
 		if(handler.getInput().isKeyDown(Input.KEY_CONTROL) && handler.getInput().isKeyDown(Input.KEY_S))
 			Utils.saveWorld(path, super.location, super.spawnX, super.spawnY);
 
-		
+		//Scale
 		if(handler.getInput().isKeyDown(Input.KEY_F12) && scale < 1.25) {
 			scale += 0.01;
 			scale = Math.round(scale * 100.0) / 100.0;

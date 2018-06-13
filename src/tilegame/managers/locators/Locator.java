@@ -1,35 +1,31 @@
-package tilegame.entities;
+package tilegame.managers.locators;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 import tilegame.Handler;
 /**
- * This class is a template for all entities
+ * This class is a template for all locators
  * @author Kenneth Lange
  *
  */
-public abstract class Entity {
-	//DEBUG MODE
-	public static boolean DEBUGMODE = true; //Change to true for collision box and X, Y coordinates and attack boxes
-	
-	public static final int DEFAULT_HEALTH = 5;
+public abstract class Locator {
+	//DEBUGMODE
+	public static boolean DEBUGMODE = true; //Shows DEBUGMODE for locators
 	
 	protected Handler handler;
 	protected float x, y;
 	protected int width, height;
-	protected int health;
 	protected boolean active = true;
 	protected Rectangle bounds;
 	
-	
-	public Entity(Handler handler, float x, float y, int width, int height){
+	public Locator(Handler handler, float x, float y, int width, int height){
 		this.handler = handler;
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
-		health = DEFAULT_HEALTH;
 		
 		bounds = new Rectangle(0, 0, width, height);
 	}
@@ -40,26 +36,15 @@ public abstract class Entity {
 	
 	public abstract void render(Graphics g, double scale);
 	
-	public abstract void destroy();
+	public abstract BufferedImage getTexture();
 	/**
-	 * This method receives the amount of damage done to an entity and removes the health accordingly
-	 * @param amount
-	 */
-	public void hurt(int amount) {
-		health -= amount;
-		if(health <= 0) {
-			active = false;
-			destroy();
-		}
-	}
-	/**
-	 * This method checks whether an entity is colliding with anything
+	 * Checks the bounds of locators and sees if it collides with another locator
 	 * @param xOffset
 	 * @param yOffset
-	 * @return
+	 * @return	
 	 */
-	public boolean checkEntityCollisions(float xOffset, float yOffset){
-		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
+	public boolean checkLocatorsCollisions(float xOffset, float yOffset){
+		for(Locator e : handler.getWorld().getLocatorManager().getLocators()){
 			if(e.equals(this))
 				continue;
 			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)))
@@ -69,14 +54,6 @@ public abstract class Entity {
 	}
 	
 	//Getters and Setters
-	public int getHealth() {
-		return health;
-	}
-
-	public void setHealth(int health) {
-		this.health = health;
-	}
-
 	public boolean isActive() {
 		return active;
 	}
@@ -84,7 +61,7 @@ public abstract class Entity {
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-
+	
 	public Rectangle getCollisionBounds(float xOffset, float yOffset){
 		return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
 	}

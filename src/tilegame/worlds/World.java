@@ -3,16 +3,16 @@ package tilegame.worlds;
 import java.awt.Graphics;
 
 import tilegame.Handler;
-import tilegame.entities.EntityManager;
-import tilegame.entities.creatures.Guard;
-import tilegame.entities.creatures.Player;
-import tilegame.entities.statics.Rock;
-import tilegame.entities.statics.Tree;
 import tilegame.items.ItemManager;
-import tilegame.staticobjects.Checkpoint;
-import tilegame.staticobjects.GuardSpawner;
-import tilegame.staticobjects.PrisonerSpawner;
-import tilegame.staticobjects.StaticObjectManager;
+import tilegame.managers.entities.EntityManager;
+import tilegame.managers.entities.creatures.Guard;
+import tilegame.managers.entities.creatures.Player;
+import tilegame.managers.entities.nonmoving.Rock;
+import tilegame.managers.entities.nonmoving.Tree;
+import tilegame.managers.locators.LocatorManager;
+import tilegame.managers.locators.other.Checkpoint;
+import tilegame.managers.locators.spawners.GuardSpawner;
+import tilegame.managers.locators.spawners.PrisonerSpawner;
 import tilegame.tile.Tile;
 import tilegame.utils.Utils;
 /**
@@ -26,10 +26,8 @@ public class World {
 	protected int width, height; //Size of map
 	protected int spawnX, spawnY;
 	protected int[][] location;
-	//Static Objects
-	protected StaticObjectManager guardspawners;
-	protected StaticObjectManager prisonerspawners;
-	protected StaticObjectManager checkpoints;
+	//Locators
+	protected LocatorManager locatorManager;
 	//Entities
 	protected EntityManager entityManager;
 	//Item
@@ -47,18 +45,19 @@ public class World {
 		//Managers
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 		itemManager = new ItemManager(handler);
-		guardspawners = new StaticObjectManager(handler);
-		prisonerspawners = new StaticObjectManager(handler);
-		checkpoints = new StaticObjectManager(handler);
+		locatorManager = new LocatorManager(handler);
 		
-		//Static Objects
-		guardspawners.addStaticObject(new GuardSpawner(handler, 5, 5));
-		prisonerspawners.addStaticObject(new PrisonerSpawner(handler, 7, 5));
-		checkpoints.addStaticObject(new Checkpoint(handler, 6, 6));
+		//Locators
+		locatorManager.addLocators(new GuardSpawner(handler, 5, 5));
+		locatorManager.addLocators(new PrisonerSpawner(handler, 7, 5));
+		locatorManager.addLocators(new Checkpoint(handler, 6, 6));
+		
+		//Static entities
+		entityManager.addEntity(new Tree(handler, 15, 20));		
+		entityManager.addEntity(new Rock(handler, 17, 23));
+		entityManager.addEntity(new Rock(handler, 10, 20));
 		
 		//Entities
-		entityManager.addEntity(new Tree(handler, 3, 2));		
-		entityManager.addEntity(new Rock(handler, 9, 11));
 		entityManager.addEntity(new Guard(handler, 3, 3));
 //		entityManager.addEntity(new Paramedic(handler, 3, 4));
 //		entityManager.addEntity(new Prisoner(handler, 3, 5));
@@ -72,9 +71,7 @@ public class World {
 	 * This method updates all items and entities in the world.
 	 */
 	public void update(){
-		guardspawners.update();
-		prisonerspawners.update();
-		checkpoints.update();
+		locatorManager.update();
 		itemManager.update();
 		entityManager.update();
 	}
@@ -94,10 +91,8 @@ public class World {
 				getTile(x, y).render(g, (int) (x*Tile.TILEWIDTH - handler.getGameCamera().getxOffset()), (int) (y*Tile.TILEHEIGHT - handler.getGameCamera().getyOffset()), 1.0);
 			}
 		}
-		//Static Objects
-		guardspawners.render(g);
-		prisonerspawners.render(g);
-		checkpoints.render(g);
+		//Locators
+		locatorManager.render(g);
 		//Items
 		itemManager.render(g);
 		//Entities
@@ -165,27 +160,11 @@ public class World {
 		this.itemManager = itemManager;
 	}
 
-	public StaticObjectManager getGuardspawners() {
-		return guardspawners;
+	public LocatorManager getLocatorManager() {
+		return locatorManager;
 	}
 
-	public void setGuardspawners(StaticObjectManager guardspawners) {
-		this.guardspawners = guardspawners;
-	}
-
-	public StaticObjectManager getPrisonerspawners() {
-		return prisonerspawners;
-	}
-
-	public void setPrisonerspawners(StaticObjectManager prisonerspawners) {
-		this.prisonerspawners = prisonerspawners;
-	}
-
-	public StaticObjectManager getCheckpoints() {
-		return checkpoints;
-	}
-
-	public void setCheckpoints(StaticObjectManager checkpoints) {
-		this.checkpoints = checkpoints;
+	public void setLocatorManager(LocatorManager locatorManager) {
+		this.locatorManager = locatorManager;
 	}
 }

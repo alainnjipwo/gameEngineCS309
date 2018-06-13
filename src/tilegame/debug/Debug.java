@@ -1,7 +1,7 @@
 package tilegame.debug;
 
-import tilegame.entities.Entity;
-import tilegame.staticobjects.StaticObject;
+import tilegame.managers.entities.Entity;
+import tilegame.managers.locators.Locator;
 import tilegame.tile.Tile;
 
 /**
@@ -28,7 +28,7 @@ public class Debug {
 	 * This method sets the Debug Mode on/off for convenience of seeing hit boxes and other developer specific details.
 	 */
 	public static void setDEBUGMODE() {
-		StaticObject.DEBUGMODE =!StaticObject.DEBUGMODE;
+		Locator.DEBUGMODE =!Locator.DEBUGMODE;
 		Entity.DEBUGMODE = !Entity.DEBUGMODE;
 		Tile.DEBUGMODE = !Tile.DEBUGMODE;
 	}

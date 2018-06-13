@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import tilegame.entities.statics.StaticEntity;
 /**
  * This class is responsible for taking in all the different types of tiles and creating a template for any additional tiles that may be created.
  * @author Kenneth Lange
@@ -43,7 +42,6 @@ public class Tile {
 	
 	protected BufferedImage texture;
 	protected final int id;
-	protected StaticEntity entity;
 	
 	public Tile(BufferedImage texture, int id){
 		this.texture = texture;

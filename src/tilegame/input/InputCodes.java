@@ -60,7 +60,11 @@ public abstract class InputCodes {
 	KEY_DOWN = KeyEvent.VK_DOWN,
 	KEY_LEFT = KeyEvent.VK_LEFT,
 	KEY_RIGHT = KeyEvent.VK_RIGHT,
-	//F?s
+	
+	KEY_PAGE_UP = KeyEvent.VK_PAGE_UP,
+	KEY_PAGE_DOWN = KeyEvent.VK_PAGE_DOWN,
+	
+	//F#s
 	KEY_F1 = KeyEvent.VK_F1,
 	KEY_F2 = KeyEvent.VK_F2,
 	KEY_F3 = KeyEvent.VK_F3,
@@ -76,5 +80,6 @@ public abstract class InputCodes {
 	//Mouse
 	LEFT_MOUSE = MouseEvent.BUTTON1,
 	MIDDLE_MOUSE = MouseEvent.BUTTON2,
-	RIGHT_MOUSE = MouseEvent.BUTTON3;
+	RIGHT_MOUSE = MouseEvent.BUTTON3,
+	MOUSE_WHEEL_UP = MouseEvent.BUTTON1_MASK;
 }

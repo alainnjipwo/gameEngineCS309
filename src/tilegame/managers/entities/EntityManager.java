@@ -1,4 +1,4 @@
-package tilegame.entities;
+package tilegame.managers.entities;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
@@ -6,7 +6,7 @@ import java.util.Comparator;
 import java.util.Iterator;
 
 import tilegame.Handler;
-import tilegame.entities.creatures.Player;
+import tilegame.managers.entities.creatures.Player;
 /**
  * This class manages all entities
  * @author Kenneth Lange
@@ -24,7 +24,6 @@ public class EntityManager {
 				return -1;
 			return 1;
 		}
-
 	};
 	/**
 	 * This method creates an ArrayList that holds all the data of how many entities exist
@@ -58,7 +57,7 @@ public class EntityManager {
 		for(Entity e : entities){
 			e.render(g);
 		}
-//		player.postRender(g);
+		player.postRender(g);
 	}
 	public void render(Graphics g, double scale){
 		for(Entity e : entities){

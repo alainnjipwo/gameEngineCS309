@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import tilegame.Handler;
-import tilegame.entities.Entity;
+import tilegame.managers.entities.Entity;
 import tilegame.tile.Tile;
 import tilegame.utils.Vector2i;
 import tilegame.worlds.Node;

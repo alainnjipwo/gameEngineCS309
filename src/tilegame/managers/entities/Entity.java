@@ -1,4 +1,4 @@
-package tilegame.entities.creatures;
+package tilegame.managers.entities;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,20 +7,22 @@ import java.util.List;
 
 import tilegame.Handler;
 import tilegame.ai.Pathfinding;
-import tilegame.entities.Entity;
 import tilegame.gfx.Animation;
 import tilegame.inventory.Inventory;
-import tilegame.staticobjects.StaticObject;
+import tilegame.managers.locators.Locator;
 import tilegame.tile.Tile;
 import tilegame.utils.Vector2i;
 import tilegame.worlds.Node;
 /**
- * This class is a template for all creatures and creature used methods.
+ * This class is a template for all entities
  * @author Kenneth Lange
  *
  */
-public abstract class Creature extends Entity{
+public abstract class Entity {
+	//DEBUGMODE
+	public static boolean DEBUGMODE = true; //Shows DEBUGMODE for entities
 	
+	public static final int DEFAULT_HEALTH = 5;
 	public static final double[] ATHLETCS = {128/64, 128/61, 128/57, 128/54, 128/51, 128/48, 128/45, 128/42, 128/38, 128/35, 128/32};
 
 	public static final double DEFAULT_SPEED = ATHLETCS[0];
@@ -35,8 +37,6 @@ public abstract class Creature extends Entity{
 	protected boolean attacking;
 	//Coordinates 
 	protected float xlocation, ylocation;
-	//Player location
-	private float PlayerX, PlayerY;
 	//Animations
 	protected Animation animUp, animDown, animLeft, animRight;
 	protected int lastDirection = 2; //Set default start direction to be down
@@ -47,23 +47,72 @@ public abstract class Creature extends Entity{
 	private Pathfinding pathfinder;
 	protected boolean standing = true;
 	
+	protected Handler handler;
+	protected float x, y;
+	protected int width, height;
+	protected int health;
+	protected boolean active = true;
+	protected Rectangle bounds;
 	
-	public Creature(Handler handler, float x, float y, int width, int height) {
-		super(handler, x, y, width, height);
+	public Entity(Handler handler, float x, float y, int width, int height){
+		this.handler = handler;
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+		
 		pathfinder = new Pathfinding(handler);
+		health = DEFAULT_HEALTH;
 		speed = DEFAULT_SPEED;
 		xMove = 0;
 		yMove = 0;
+		
+		bounds = new Rectangle(0, 0, width, height);
 	}
+	
+	public abstract void update();
+	
+	public abstract void render(Graphics g);
+	
+	public abstract void render(Graphics g, double scale);
+	
+	public abstract void destroy();
 	/**
 	 * This method uses the methods moveX() and moveY() to move a creature around a screen.
 	 * It also checks for collision with other entities.
 	 */
 	public void move(){
-		if(!checkEntityCollisions((float) xMove, 0f))
+		if(!checkCollisions((float) xMove, 0f))
 			moveX();
-		if(!checkEntityCollisions(0f, (float) yMove))
+		if(!checkCollisions(0f, (float) yMove))
 			moveY();
+	}
+	/**
+	 * This method receives the amount of damage done to an entity and removes the health accordingly
+	 * @param amount
+	 */
+	public void hurt(int amount) {
+		health -= amount;
+		if(health <= 0) {
+			health = 0; //I will be using this later when entity is knocked out
+			active = false;
+			destroy();
+		}
+	}
+	/**
+	 * Checks the bounds of an entities and sees if it collides with another entity
+	 * @param xOffset
+	 * @param yOffset
+	 * @return
+	 */
+	public boolean checkCollisions(float xOffset, float yOffset){
+		for(Entity e : handler.getWorld().getEntityManager().getEntities()){
+			if(e.equals(this))
+				continue;
+			if(e.getCollisionBounds(0f, 0f).intersects(getCollisionBounds(xOffset, yOffset)))
+				return true;
+		}
+		return false;
 	}
 	/**
 	 * This helper method allows for a creature to move in the X-Axis if not colliding with an obstacle.
@@ -127,7 +176,7 @@ public abstract class Creature extends Entity{
 	public void findPath(float xlocation, float ylocation, int x, int y) {
 		xMove = 0;
 		yMove = 0;
-		Vector2i start = new Vector2i((int) (xlocation) / Tile.TILEWIDTH, (int) (ylocation) / Tile.TILEHEIGHT); //>>6 is the same as /64
+		Vector2i start = new Vector2i((int) (xlocation) / Tile.TILEWIDTH, (int) (ylocation) / Tile.TILEHEIGHT);
 		Vector2i destination = new Vector2i(x, y);
 				// Follow player : ((int) (handler.getWorld().getEntityManager().getPlayer().getXlocation() >> 6), (int)(handler.getWorld().getEntityManager().getPlayer().getYlocation() >> 6));
 		if((xlocation / Tile.TILEWIDTH -.5) % 1 == 0 && (ylocation / Tile.TILEHEIGHT - .5) % 1 == 0) path = pathfinder.findPath(start, destination);
@@ -154,7 +203,7 @@ public abstract class Creature extends Entity{
 	 * @param ylocation
 	 * @param checkpoint
 	 */
-	public void goToCheckpoint(float xlocation, float ylocation, StaticObject checkpoint) {
+	public void goToCheckpoint(float xlocation, float ylocation, Locator checkpoint) {
 		findPath(xlocation, ylocation, (int) (checkpoint.getX()/Tile.TILEWIDTH), (int)(checkpoint.getY()/Tile.TILEHEIGHT));
 	}
 	/**
@@ -208,7 +257,7 @@ public abstract class Creature extends Entity{
 		}
 	}
 	/**
-	 * This method is responsible for rendering DEBUGMODE related images
+	 * This method is responsible for rendering DEBUGMODE related rendering
 	 * @param g
 	 */
 	public void DEBUGMODE_render(Graphics g) {
@@ -266,7 +315,40 @@ public abstract class Creature extends Entity{
 			g.fillRect((int) (ar.x - handler.getGameCamera().getxOffset()), (int) (ar.y - handler.getGameCamera().getyOffset()), arSize, arSize);
 		}
 	}
-	//GETTERS AND SETTERS
+	//Getters and Setters
+	public boolean isActive() {
+		return active;
+	}
+	public void setActive(boolean active) {
+		this.active = active;
+	}
+	public Rectangle getCollisionBounds(float xOffset, float yOffset){
+		return new Rectangle((int) (x + bounds.x + xOffset), (int) (y + bounds.y + yOffset), bounds.width, bounds.height);
+	}
+	public float getX() {
+		return x;
+	}
+	public void setX(float x) {
+		this.x = x;
+	}
+	public float getY() {
+		return y;
+	}
+	public void setY(float y) {
+		this.y = y;
+	}
+	public int getWidth() {
+		return width;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
+	public int getHeight() {
+		return height;
+	}
+	public void setHeight(int height) {
+		this.height = height;
+	}
 	public double getxMove() {
 		return xMove;
 	}
@@ -290,18 +372,6 @@ public abstract class Creature extends Entity{
 	}
 	public void setSpeed(int speed) {
 		this.speed = speed;
-	}
-	public float getPlayerX() {
-		return PlayerX;
-	}
-	public void setPlayerX(float playerX) {
-		PlayerX = playerX;
-	}
-	public float getPlayerY() {
-		return PlayerY;
-	}
-	public void setPlayerY(float playerY) {
-		PlayerY = playerY;
 	}
 	
 }

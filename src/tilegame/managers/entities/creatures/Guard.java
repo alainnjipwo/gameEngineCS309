@@ -1,4 +1,4 @@
-package tilegame.entities.creatures;
+package tilegame.managers.entities.creatures;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -7,13 +7,16 @@ import java.awt.image.BufferedImage;
 import tilegame.Handler;
 import tilegame.gfx.Animation;
 import tilegame.gfx.Assets;
+import tilegame.input.Input;
+import tilegame.inventory.Inventory;
+import tilegame.managers.entities.Entity;
 import tilegame.tile.Tile;
 /**
  * This class is a guard NPC class. It is designed to render and display a guard creature that can be moved around the screen with a built in AI
  * @author Kenneth Lange
  *
  */
-public class Paramedic extends Creature{
+public class Guard extends Entity{
 
 	/**
 	 * This constructor passes along the handler and float location to the extended Creature parent class and sets the bounds of the collision box of the player.
@@ -22,8 +25,11 @@ public class Paramedic extends Creature{
 	 * @param x
 	 * @param y
 	 */
-	public Paramedic(Handler handler, float x, float y) {
-		super(handler, (x-.5f) * Tile.TILEWIDTH + 33, (y -.5f) * Tile.TILEHEIGHT + 11, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
+	public Guard(Handler handler, float x, float y) {
+		super(handler, (x-.5f) * Tile.TILEWIDTH + 33, (y -.5f) * Tile.TILEHEIGHT + 11, Entity.DEFAULT_CREATURE_WIDTH, Entity.DEFAULT_CREATURE_HEIGHT);
+		
+		speed = ATHLETCS[0];
+		attackCooldown = 900;
 		
 		//Must be set to the exact pixel x and y beginning and the width and height of the character
 		//ie set it to be around the body of character only
@@ -33,10 +39,12 @@ public class Paramedic extends Creature{
 		bounds.height = 16;
 		
 		//Animations
-		animUp = new Animation(150, Assets.player_up);
-		animDown = new Animation(150, Assets.player_down);
-		animLeft = new Animation(150, Assets.player_left);
-		animRight = new Animation(150, Assets.player_right);		
+		animUp = new Animation(150, Assets.guard_up);
+		animDown = new Animation(150, Assets.guard_down);
+		animLeft = new Animation(150, Assets.guard_left);
+		animRight = new Animation(150, Assets.guard_right);
+		
+		inventory = new Inventory(handler);
 	}
 	/**
 	 * This method updates the position of the guard, the animation updates, and a DEBUGMODE setting.
@@ -52,11 +60,16 @@ public class Paramedic extends Creature{
 		animRight.update();
 		//Movement
 		findPath(xlocation, ylocation, 19, 28);
+//		goToCheckpoint(xlocation, ylocation, handler.getWorld().getCheckpoints().getStaticObject().get(0));
 		move();
 		//Attack
+		if (handler.getInput().isKeyDown(Input.KEY_F)) //TODO make npc attack another entity
+			attacking = true;
+		else
+			attacking = false;
 		checkAttacks();
 	}
-	
+
 	/**
 	 * This method renders that previously updated positions.
 	 * It also has a built in function for DEBUGMODE to show debug details.
@@ -67,12 +80,13 @@ public class Paramedic extends Creature{
 		//DEBUGMODE
 		/*-------------------------------------------*/
 		if(DEBUGMODE){
-			g.setColor(Color.CYAN);
+			g.setColor(Color.BLUE);
 			DEBUGMODE_render(g);
 		}
 		/*-------------------------------------------*/
 	}
 	
+	@Override
 	public void render(Graphics g, double scale) {
 		int x = (int) (this.x*scale - handler.getGameCamera().getxOffset());
 		int y = (int) (this.y*scale - handler.getGameCamera().getyOffset());
@@ -88,6 +102,7 @@ public class Paramedic extends Creature{
 		}
 	}
 	
+	
 	private BufferedImage getCurentAnimationFrame(){
 		if(xMove < 0){ //Moving Left
 			lastDirection = 1;
@@ -101,11 +116,11 @@ public class Paramedic extends Creature{
 		}else if(yMove > 0){ //Moving Down
 			lastDirection = 2;
 			return animDown.getCurrentFrame();
-		} else return Assets.player_notmoving[lastDirection];
+		} else return Assets.guard_notmoving[lastDirection];
 	}
 	/**
 	 * This method is called when the guard creature is killed (health = 0).
-	 * Anything that is done in this class is the last thing that is done prior to removing the paramedic creature.
+	 * Anything that is done in this class is the last thing that is done prior to removing the guard creature.
 	 */
 	@Override
 	public void destroy() {

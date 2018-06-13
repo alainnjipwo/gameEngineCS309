@@ -1,7 +1,7 @@
 package tilegame.gfx;
 
 import tilegame.Handler;
-import tilegame.entities.Entity;
+import tilegame.managers.entities.Entity;
 import tilegame.tile.Tile;
 /**
  * This class acts as the game camera. In other words what the player sees.
