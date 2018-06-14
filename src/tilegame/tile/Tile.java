@@ -37,6 +37,31 @@ public class Tile {
 	public static Tile cellarWallTileBRT = new CellarWallBRT(17);
 	public static Tile cellarWallTileBLT = new CellarWallBLT(18);
 	
+	public static String[] tile_names = {
+			"air",
+			"deepwater",
+			"shallowwater",
+			"sand",
+			"dirt",
+			"grass",
+			"rock",
+			
+			"cellarwallb",
+			"cellarwallbl",
+			"cellarwallbr",
+			"cellarwalll",
+			"cellarwallr",
+			"cellarwallt",
+			"cellarwalltl",
+			"cellarwalltr",
+			
+			"cellarwalltrt",
+			"cellarwalltlt",
+			"cellarwallbrt",
+			"cellarwallblt"
+			};
+	
+	
 	//CLASS STUFF
 	public static final int TILEWIDTH = 32, TILEHEIGHT = 32;
 	

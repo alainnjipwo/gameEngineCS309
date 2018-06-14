@@ -42,6 +42,15 @@ public class Map extends World{
 
 	}
 	
+	public int get_tile_mode() {
+		return tile_mode;
+	}
+
+	public void set_tile_mode(int tile_mode) {
+		if(!(tile_mode > 18 && tile_mode < 0))
+			this.tile_mode = tile_mode;
+	}
+
 	private void init_ent() {
 		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
 		itemManager = new ItemManager(handler);
@@ -103,12 +112,7 @@ public class Map extends World{
 		if(handler.getMouse().isButtonDown(Input.LEFT_MOUSE)) {
 			
 			int x = (int) (handler.getMouse().getX() + handler.getGameCamera().getxOffset());
-			int y = (int) (handler.getMouse().getY() + handler.getGameCamera().getyOffset());
-			
-			if(true) {
-				System.out.println(x + " " + y);
-			}
-			
+			int y = (int) (handler.getMouse().getY() + handler.getGameCamera().getyOffset());			
 			int tile_x = (int)(x / (Tile.TILEWIDTH * scale));
 			int tile_y = (int)(y / (Tile.TILEHEIGHT * scale));
 						
@@ -142,8 +146,6 @@ public class Map extends World{
 			if(tile_mode < 0)
 				tile_mode = 18;
 		}
-		System.out.println(tile_mode);
-		
 		//Save
 		if(handler.getInput().isKeyDown(Input.KEY_CONTROL) && handler.getInput().isKeyDown(Input.KEY_S))
 			Utils.saveWorld(path, super.location, super.spawnX, super.spawnY);

@@ -5,6 +5,19 @@ import java.awt.Graphics;
 import tilegame.*;
 import tilegame.debug.Terminal;
 import tilegame.input.Input;
+import tilegame.tile.CellarWallB;
+import tilegame.tile.CellarWallBL;
+import tilegame.tile.CellarWallBLT;
+import tilegame.tile.CellarWallBR;
+import tilegame.tile.CellarWallBRT;
+import tilegame.tile.CellarWallL;
+import tilegame.tile.CellarWallR;
+import tilegame.tile.CellarWallT;
+import tilegame.tile.CellarWallTL;
+import tilegame.tile.CellarWallTLT;
+import tilegame.tile.CellarWallTR;
+import tilegame.tile.CellarWallTRT;
+import tilegame.tile.Tile;
 import tilegame.worlds.Map;
 /**
  * This class acts as the state that allows the user to create and modify the maps in the game.
@@ -30,13 +43,44 @@ public class MapBuilderState extends State{
 	@Override
 	public void update() {
 		
-		map.update();
-		
 		t.update();
+		pollCommands();
 		
-		if(handler.getInput().isKeyDown(Input.KEY_ENTER))  t.isOpen = true;
-		if(handler.getInput().isKeyDown(Input.KEY_ESCAPE)) t.isOpen = false;
+		if(handler.getInput().isKeyPressed(Input.KEY_ENTER))  t.isOpen = true;
+		if(handler.getInput().isKeyPressed(Input.KEY_ESCAPE)) t.isOpen = false;
 		if(t.isOpen) return;
+		
+		map.update();
+	}
+
+	private void pollCommands() {
+		if(!t.isOpen) return;
+		
+		String command = t.poll();
+		if(command == null) return;
+		String a[]= command.split(" ");
+		if(a.length == 2) {
+			if(a[0].equals("settile")) {
+				int id = getId(a[1]);
+				if(id == -1)
+					t.print("invalid tile");
+				else {
+					map.set_tile_mode(id);
+					t.isOpen = false;
+				}
+			}
+		}
+		
+	}
+	/**
+	 * This method gets the ID of a specific tile.
+	 * @return
+	 */
+	public int getId(String name){
+		for (int i = 0; i < Tile.tile_names.length; i++)
+			if(name.equals(Tile.tile_names[i]))
+				return i;
+		return -1;
 	}
 
 	@Override
