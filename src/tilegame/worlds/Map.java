@@ -53,12 +53,12 @@ public class Map extends World{
 		locatorManager.addLocators(new Checkpoint(handler, 18, 9));
 		
 		//Static Objects
-		entityManager.addEntity(new Tree(handler, 3, 2));
-		entityManager.addEntity(new Tree(handler, 1, 8));
-		entityManager.addEntity(new Rock(handler, 9, 11));
+		entityManager.addNonmovingEntity(new Tree(handler, 3, 2));
+		entityManager.addNonmovingEntity(new Tree(handler, 1, 8));
+		entityManager.addNonmovingEntity(new Rock(handler, 9, 11));
 		
 		//Entities
-		entityManager.addEntity(new Guard(handler, 5, 3));
+		entityManager.addCreatureEntity(new Guard(handler, 5, 3));
 
 		entityManager.getPlayer().setX(spawnX);
 		entityManager.getPlayer().setY(spawnY);
@@ -134,7 +134,7 @@ public class Map extends World{
 		//Increment through arraylist
 		if(handler.getInput().isKeyPressed(Input.KEY_PAGE_UP)) {
 			tile_mode++;
-			if(tile_mode > 18)
+			if(tile_mode > 5)
 				tile_mode = 0;
 		}
 		if(handler.getInput().isKeyPressed(Input.KEY_PAGE_DOWN)) {

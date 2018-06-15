@@ -7,6 +7,7 @@ import tilegame.items.ItemManager;
 import tilegame.managers.entities.EntityManager;
 import tilegame.managers.entities.creatures.Guard;
 import tilegame.managers.entities.creatures.Player;
+import tilegame.managers.entities.nonmoving.CellarWall;
 import tilegame.managers.entities.nonmoving.Rock;
 import tilegame.managers.entities.nonmoving.Tree;
 import tilegame.managers.locators.LocatorManager;
@@ -48,19 +49,41 @@ public class World {
 		locatorManager = new LocatorManager(handler);
 		
 		//Locators
-		locatorManager.addLocators(new GuardSpawner(handler, 5, 5));
-		locatorManager.addLocators(new PrisonerSpawner(handler, 7, 5));
-		locatorManager.addLocators(new Checkpoint(handler, 6, 6));
+		locatorManager.addLocators(new GuardSpawner(handler, 26, 12));
+		locatorManager.addLocators(new PrisonerSpawner(handler, 15, 13));
+		locatorManager.addLocators(new Checkpoint(handler, 16, 20));
 		
-		//Static entities
-		entityManager.addEntity(new Tree(handler, 15, 20));		
-		entityManager.addEntity(new Rock(handler, 17, 23));
-		entityManager.addEntity(new Rock(handler, 10, 20));
+		//Non-Moving entities
+		entityManager.addNonmovingEntity(new Tree(handler, 15, 20));
+		entityManager.addNonmovingEntity(new Rock(handler, 17, 23));
+		entityManager.addNonmovingEntity(new Rock(handler, 10, 20));
+		
+		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 23, 3));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 22, 3));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 21, 3));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 20, 1));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 18, 20, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 19, 20, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 20, 20, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 21, 20, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 22, 20, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 20, 2));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 21, 4));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 22, 4));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 23, 4));
+
+		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 24, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 18, 24, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 19, 24, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 20, 24, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 21, 24, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 22, 24, 0));
+		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 24, 0));
 		
 		//Entities
-		entityManager.addEntity(new Guard(handler, 3, 3));
-//		entityManager.addEntity(new Paramedic(handler, 3, 4));
-//		entityManager.addEntity(new Prisoner(handler, 3, 5));
+		entityManager.addCreatureEntity(new Guard(handler, 10, 10));
+//		entityManager.addCreatureEntity(new Paramedic(handler, 3, 4));
+//		entityManager.addCreatureEntity(new Prisoner(handler, 3, 5));
 		
 		loadWorld(path);getClass();
 		
@@ -107,8 +130,8 @@ public class World {
 		String[] tokens = file.split("\\s+");
 		width = Utils.parseInt(tokens[0]);
 		height = Utils.parseInt(tokens[1]);
-		spawnX = Utils.parseInt(tokens[2]) * Tile.TILEWIDTH + 1; //Sets the spawn to size of tiles.
-		spawnY = Utils.parseInt(tokens[3]) * Tile.TILEHEIGHT - 22;//and centers the player on the tile
+		spawnX = Utils.parseInt(tokens[2]) * Tile.TILEWIDTH  - (Tile.TILEWIDTH/2) + 1; //Sets the spawn to size of tiles.
+		spawnY = Utils.parseInt(tokens[3]) * Tile.TILEHEIGHT - (Tile.TILEWIDTH/2) - 22;//and centers the player on the tile
 		
 		location = new int[width][height];
 		for(int y = 0; y < height; y++){

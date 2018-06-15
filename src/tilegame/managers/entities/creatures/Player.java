@@ -11,7 +11,6 @@ import tilegame.gfx.Assets;
 import tilegame.input.Input;
 import tilegame.input.Mouse;
 import tilegame.inventory.Inventory;
-import tilegame.managers.entities.Entity;
 import tilegame.tile.Tile;
 /**
  * This class is responsible for the player character.
@@ -19,7 +18,7 @@ import tilegame.tile.Tile;
  * @author Kenneth Lange
  *
  */
-public class Player extends Entity{
+public class Player extends Creature{
 	
 	//Coordinates
 	private int xmouse, ymouse;
@@ -27,7 +26,7 @@ public class Player extends Entity{
 	private boolean travelling;
 	
 	public Player(Handler handler, float x, float y) {
-		super(handler, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT, Entity.DEFAULT_CREATURE_WIDTH, Entity.DEFAULT_CREATURE_HEIGHT);
+		super(handler, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
 		speed =  ATHLETCS[2];
 			
@@ -68,7 +67,11 @@ public class Player extends Entity{
 			gox = xmouse; goy = ymouse;
 			travelling = true;
 		} else if (travelling) {
-			findPath(xlocation, ylocation, gox, goy);
+			if(findPath(xlocation, ylocation, gox, goy) == null) {
+				travelling = false;
+				xMove = 0;
+				yMove = 0;
+			}
 		} else if (xlocation / Tile.TILEWIDTH == gox + .5 && ylocation / Tile.TILEHEIGHT == goy + .5) {
 			travelling = false;
 			xMove = 0;

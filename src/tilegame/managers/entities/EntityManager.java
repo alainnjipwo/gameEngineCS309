@@ -16,7 +16,7 @@ public class EntityManager {
 	
 	private Handler handler;
 	private Player player;
-	private ArrayList<Entity> entities;
+	private ArrayList<Entity> entities, creatures, nonmoving;
 	private Comparator<Entity> renderSorter = new Comparator<Entity>() {
 		@Override
 		public int compare(Entity a, Entity b) {
@@ -34,7 +34,9 @@ public class EntityManager {
 		this.handler = handler;
 		this.player = player;
 		entities = new ArrayList<Entity>();
-		addEntity(player);
+		creatures = new ArrayList<Entity>();
+		nonmoving = new ArrayList<Entity>();
+		addCreatureEntity(player);
 	}
 	/**
 	 * This method updates the position of entities on a screen and sorts them from top to bottom. 
@@ -65,11 +67,20 @@ public class EntityManager {
 		}
 	}
 	/**
-	 * This method adds an entity to the entities ArrayList to be stored.
+	 * This method adds an entity to the entities ArrayList and the non-moving ArrayList to be stored.
 	 * @param e
 	 */
-	public void addEntity(Entity e){
+	public void addNonmovingEntity(Entity e){
 		entities.add(e);
+		nonmoving.add(e);
+	}
+	/**
+	 * This method adds an entity to the entities ArrayList and the creatures ArrayList to be stored.
+	 * @param e
+	 */
+	public void addCreatureEntity(Entity e){
+		entities.add(e);
+		creatures.add(e);
 	}
 	
 	//Getters and Setters
@@ -90,5 +101,17 @@ public class EntityManager {
 	}
 	public void setEntities(ArrayList<Entity> entities) {
 		this.entities = entities;
+	}
+	public ArrayList<Entity> getCreatures() {
+		return creatures;
+	}
+	public void setCreatures(ArrayList<Entity> creatures) {
+		this.creatures = creatures;
+	}
+	public ArrayList<Entity> getNonmoving() {
+		return nonmoving;
+	}
+	public void setNonmoving(ArrayList<Entity> nonmoving) {
+		this.nonmoving = nonmoving;
 	}
 }

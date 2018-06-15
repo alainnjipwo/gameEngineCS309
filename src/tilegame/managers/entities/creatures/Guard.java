@@ -9,14 +9,13 @@ import tilegame.gfx.Animation;
 import tilegame.gfx.Assets;
 import tilegame.input.Input;
 import tilegame.inventory.Inventory;
-import tilegame.managers.entities.Entity;
 import tilegame.tile.Tile;
 /**
  * This class is a guard NPC class. It is designed to render and display a guard creature that can be moved around the screen with a built in AI
  * @author Kenneth Lange
  *
  */
-public class Guard extends Entity{
+public class Guard extends Creature{
 
 	/**
 	 * This constructor passes along the handler and float location to the extended Creature parent class and sets the bounds of the collision box of the player.
@@ -26,7 +25,7 @@ public class Guard extends Entity{
 	 * @param y
 	 */
 	public Guard(Handler handler, float x, float y) {
-		super(handler, (x-.5f) * Tile.TILEWIDTH + 33, (y -.5f) * Tile.TILEHEIGHT + 11, Entity.DEFAULT_CREATURE_WIDTH, Entity.DEFAULT_CREATURE_HEIGHT);
+		super(handler, (x-.5f) * Tile.TILEWIDTH + 33, (y -.5f) * Tile.TILEHEIGHT + 11, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
 		speed = ATHLETCS[0];
 		attackCooldown = 900;

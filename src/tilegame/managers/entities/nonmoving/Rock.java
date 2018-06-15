@@ -6,14 +6,13 @@ import java.awt.Graphics;
 import tilegame.Handler;
 import tilegame.gfx.Assets;
 import tilegame.items.Item;
-import tilegame.managers.entities.Entity;
 import tilegame.tile.Tile;
 /**
  * This class holds the data for a static rock entity
  * @author Kenneth Lange
  *
  */
-public class Rock extends Entity{
+public class Rock extends Nonmoving{
 	
 	public Rock(Handler handler, float x, float y) {
 		super(handler, x * Tile.TILEWIDTH, y * Tile.TILEHEIGHT - 2f/64f * Tile.TILEHEIGHT, Tile.TILEWIDTH, Tile.TILEHEIGHT);
@@ -24,7 +23,7 @@ public class Rock extends Entity{
 		bounds.height = (int)((36f / 64f) * Tile.TILEHEIGHT);
 	}
 	/**
-	 * This method is responsible for updating the position of the object
+	 * This method is responsible for updating the object
 	 */
 	@Override
 	public void update() {

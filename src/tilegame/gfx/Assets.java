@@ -24,7 +24,7 @@ public class Assets {
 	public static BufferedImage grass, dirt, sand, stonepath, shallowwater, deepwater;
 	//Static Entities
 	public static BufferedImage rock, tree;
-	public static BufferedImage[] cellar_wall;
+	public static BufferedImage[] cellar_wall, wall;
 	//Items
 	public static BufferedImage stick;
 	//Character Models
@@ -54,6 +54,7 @@ public class Assets {
 		SpriteSheet CellarWall = new SpriteSheet(ImageLoader.loadImage("/textures/CellarWall.png"));
 		SpriteSheet LargeObjects = new SpriteSheet(ImageLoader.loadImage("/textures/LargeObjects.png"));
 		SpriteSheet SmallObjects = new SpriteSheet(ImageLoader.loadImage("/textures/SmallObjects.png"));
+		SpriteSheet Wall = new SpriteSheet(ImageLoader.loadImage("/textures/Wall.png"));
 		
 		//Menu Buttons
 		start_button = new BufferedImage[2];
@@ -83,11 +84,6 @@ public class Assets {
 		stonepath = tileTextures.crop(3, 0, tileWidth, tileHeight);
 		shallowwater = tileTextures.crop(4, 0, tileWidth, tileHeight);
 		deepwater = tileTextures.crop(5, 0, tileWidth, tileHeight);
-		//Multiple types
-		cellar_wall = new BufferedImage[12];
-		for (int i = 0; i < 12; i++){
-			cellar_wall[i] = CellarWall.crop(i, 0, tileWidth, tileHeight);
-		}
 		
 		/*Characters*/
 		//Player
@@ -138,6 +134,15 @@ public class Assets {
 		//Solo types
 		rock = itemTextures.crop(0, 1, itemWidth, itemHeight);
 		tree = LargeObjects.crop(0, 0, 128, 128);
+		//Multiple types
+		cellar_wall = new BufferedImage[12];
+		for (int i = 0; i < 12; i++){
+			cellar_wall[i] = CellarWall.crop(i, 0, tileWidth, tileHeight);
+		}
+		wall = new BufferedImage[5];
+		for (int i = 0; i < 5; i++){
+			wall[i] = Wall.crop(i, 0, 64, 192);
+		}
 		
 		//Inventory
 		inventoryScreen = InventoryScreen.crop(0, 0, 512, 384);

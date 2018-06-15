@@ -7,14 +7,13 @@ import java.awt.image.BufferedImage;
 import tilegame.Handler;
 import tilegame.gfx.Animation;
 import tilegame.gfx.Assets;
-import tilegame.managers.entities.Entity;
 import tilegame.tile.Tile;
 /**
  * This class is a guard NPC class. It is designed to render and display a guard creature that can be moved around the screen with a built in AI
  * @author Kenneth Lange
  *
  */
-public class Paramedic extends Entity{
+public class Paramedic extends Creature{
 
 	/**
 	 * This constructor passes along the handler and float location to the extended Creature parent class and sets the bounds of the collision box of the player.
@@ -24,7 +23,7 @@ public class Paramedic extends Entity{
 	 * @param y
 	 */
 	public Paramedic(Handler handler, float x, float y) {
-		super(handler, (x-.5f) * Tile.TILEWIDTH + 33, (y -.5f) * Tile.TILEHEIGHT + 11, Entity.DEFAULT_CREATURE_WIDTH, Entity.DEFAULT_CREATURE_HEIGHT);
+		super(handler, (x-.5f) * Tile.TILEWIDTH + 33, (y -.5f) * Tile.TILEHEIGHT + 11, Creature.DEFAULT_CREATURE_WIDTH, Creature.DEFAULT_CREATURE_HEIGHT);
 		
 		//Must be set to the exact pixel x and y beginning and the width and height of the character
 		//ie set it to be around the body of character only

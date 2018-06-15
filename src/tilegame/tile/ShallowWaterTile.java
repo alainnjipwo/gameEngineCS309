@@ -12,4 +12,8 @@ public class ShallowWaterTile extends Tile{
 		super(Assets.shallowwater, id);
 	}
 
+	@Override
+	public boolean isSolid(){
+		return true;
+	}
 }

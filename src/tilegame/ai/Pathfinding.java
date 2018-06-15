@@ -73,8 +73,8 @@ public class Pathfinding {
 				int xi = (i % 3) - 1;
 				int yi = (i / 3) - 1;
 				Tile at = handler.getWorld().getTile(x + xi, y + yi); // Gets and sets the tile at the location in the world to at.
-				if (at == null || checkCollision(x + xi, y + yi)) continue; //If off of the it ignores this adjacent or diagonal tile for a possible path.
-				if (at.isSolid()){
+				if (at == null) continue; //If off of the it ignores this adjacent or diagonal tile for a possible path.
+				if (at.isSolid() || checkCollision(x + xi, y + yi)){
 					if (i == 1){
 						up = true;
 						continue; //If tile is solid, it ignores this tile for a possible path.
@@ -106,8 +106,7 @@ public class Pathfinding {
 				int xi = (i % 3) - 1;
 				int yi = (i / 3) - 1;
 				Tile at = handler.getWorld().getTile(x + xi, y + yi); // Gets and sets the tile at the location in the world to at.
-				if (at == null || checkCollision(x + xi, y + yi)) continue; //If off of the it ignores this adjacent or diagonal tile for a possible path.
-				if (at.isSolid()) continue;
+				if (at == null || checkCollision(x + xi, y + yi) || at.isSolid()) continue; //If off of the it ignores this adjacent or diagonal tile for a possible path.
 				//special check for diagonals
 				if (up && (i == 0 || i == 2)){
 					continue; //If adjacent solid, it ignores this tile for a possible path.
@@ -167,7 +166,7 @@ public class Pathfinding {
 		r.x = x * Tile.TILEWIDTH;
 		r.y = y * Tile.TILEHEIGHT;
 		
-		for(Entity e : handler.getWorld().getEntityManager().getEntities()) {
+		for(Entity e : handler.getWorld().getEntityManager().getNonmoving()) {
 			if(e.getCollisionBounds(0, 0).intersects(r)) {
 				return true;
 			}
