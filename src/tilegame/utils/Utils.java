@@ -1,5 +1,6 @@
 package tilegame.utils;
 
+import java.awt.GraphicsEnvironment;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -84,6 +85,16 @@ public class Utils {
 			e.printStackTrace();
 			return 0;
 		}
+	}
+	
+	public boolean isFontValid(String s) {
+		GraphicsEnvironment g = null;
+		g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+		String[] fonts = g.getAvailableFontFamilyNames();
+		for (int i = 0; i < fonts.length; i++) 
+           	if(fonts[i].equals(s))
+           		return true;
+        return false;
 	}
 
 }

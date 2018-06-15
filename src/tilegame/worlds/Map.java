@@ -1,6 +1,7 @@
 package tilegame.worlds;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 
 import tilegame.Handler;
@@ -28,6 +29,10 @@ public class Map extends World{
 	
 	private String path;
 	
+	private boolean REN_SCALE 		= true;
+	private String REN_SCALE_FONT 	= "Courier New";
+	private int REN_SCALE_FONT_SIZE = 28;
+
 	private double scale = 1.00;
 	private int camera_speed = 5;
 	private int tile_mode = 5;
@@ -91,7 +96,7 @@ public class Map extends World{
 		itemManager.render(g);
 		entityManager.render(g, scale);
 
-		Text.drawString(g, "scale> " + scale, 100, 30, true, Color.WHITE, Assets.font28);
+		if(REN_SCALE)Text.drawString(g, "scale> " + scale, 100, 30, true, Color.WHITE, new Font(REN_SCALE_FONT, Font.BOLD, REN_SCALE_FONT_SIZE));
 	}
 	
 	@Override
@@ -160,5 +165,9 @@ public class Map extends World{
 			scale = Math.round(scale * 100.0) / 100.0;
 		}
 	}
+	
+	public boolean isREN_SCALE() {return REN_SCALE;}
+
+	public void setREN_SCALE(boolean rEN_SCALE) {REN_SCALE = rEN_SCALE;}
 	
 }

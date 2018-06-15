@@ -5,18 +5,8 @@ import java.awt.Graphics;
 import tilegame.*;
 import tilegame.debug.Terminal;
 import tilegame.input.Input;
-import tilegame.tile.CellarWallB;
-import tilegame.tile.CellarWallBL;
-import tilegame.tile.CellarWallBLT;
-import tilegame.tile.CellarWallBR;
-import tilegame.tile.CellarWallBRT;
-import tilegame.tile.CellarWallL;
-import tilegame.tile.CellarWallR;
-import tilegame.tile.CellarWallT;
-import tilegame.tile.CellarWallTL;
-import tilegame.tile.CellarWallTLT;
-import tilegame.tile.CellarWallTR;
-import tilegame.tile.CellarWallTRT;
+import tilegame.managers.entities.creatures.*;
+import tilegame.managers.entities.nonmoving.*;
 import tilegame.tile.Tile;
 import tilegame.worlds.Map;
 /**
@@ -60,17 +50,37 @@ public class MapBuilderState extends State{
 		if(command == null) return;
 		String a[]= command.split(" ");
 		if(a.length == 2) {
-			if(a[0].equals("settile")) {
-				int id = getId(a[1]);
-				if(id == -1)
-					t.print("invalid tile");
-				else {
-					map.set_tile_mode(id);
-					t.isOpen = false;
-				}
-			}
+			if(a[0].equals("settile")) {settile(a[1]);}
+			if(a[0].equals("toggle"))  {toggle(a[1]);}
+		} if(a.length == 4) {
+			if(a[0].equals("spawn")) {spawn(a[1], a[2], a[3]);}
 		}
 		
+	}
+	private void toggle(String s) {
+		if(s.equals("renscale")) {map.setREN_SCALE(!map.isREN_SCALE());}
+	}
+
+	private void spawn(String s, String s2, String s3) {
+		try {
+			if(s.equals("rock")) 		{map.getEntityManager().addEntity(new Rock		(handler, 	Integer.parseInt(s2), Integer.parseInt(s3)));return;}
+			if(s.equals("tree")) 		{map.getEntityManager().addEntity(new Tree		(handler, 	Integer.parseInt(s2), Integer.parseInt(s3)));return;}
+			if(s.equals("guard")) 		{map.getEntityManager().addEntity(new Guard		(handler, 	Integer.parseInt(s2), Integer.parseInt(s3)));return;}
+			if(s.equals("paramedic")) 	{map.getEntityManager().addEntity(new Paramedic	(handler, 	Integer.parseInt(s2), Integer.parseInt(s3)));return;}
+			if(s.equals("player")) 		{map.getEntityManager().addEntity(new Player	(handler, 	Integer.parseInt(s2), Integer.parseInt(s3)));return;}
+			if(s.equals("prisoner")) 	{map.getEntityManager().addEntity(new Prisoner	(handler,	Integer.parseInt(s2), Integer.parseInt(s3)));return;}
+		}catch(NumberFormatException nfe) {t.print("invalid location");}
+		
+		t.print("invalid command");
+	}
+	private void settile(String s) {
+		int id = getId(s);
+		if(id == -1)
+			t.print("invalid tile");
+		else {
+			map.set_tile_mode(id);
+			t.isOpen = false;
+		}
 	}
 	/**
 	 * This method gets the ID of a specific tile.
