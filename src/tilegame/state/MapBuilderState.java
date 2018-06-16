@@ -59,6 +59,7 @@ public class MapBuilderState extends State{
 	}
 	private void toggle(String s) {
 		if(s.equals("renscale")) {map.setREN_SCALE(!map.isREN_SCALE());}
+		if(s.equals("renpointer")) {map.setREN_POINTER(!map.isREN_POINTER());}
 	}
 
 	private void spawn(String s, String s2, String s3) {
