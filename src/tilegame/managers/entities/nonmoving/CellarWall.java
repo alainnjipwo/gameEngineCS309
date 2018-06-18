@@ -20,27 +20,27 @@ public class CellarWall extends Nonmoving{
 	private int type;
 	
 	public CellarWall(Handler handler, float x, float y, int type) {
-		super(handler, x * Tile.TILEWIDTH, (y-2) * Tile.TILEHEIGHT - 2f/64f * Tile.TILEHEIGHT, Tile.TILEWIDTH, Tile.TILEHEIGHT*3);
+		super(handler, x * Tile.TILEWIDTH, (y-.8f) * Tile.TILEHEIGHT, Tile.TILEWIDTH, (int) (Tile.TILEHEIGHT*1.8f));
 		if(type < 0 || type > 5)
 			this.type = 0;
 		else
 			this.type = type;
 		
 		if(type < 3) {
-			bounds.x = 0;
-			bounds.y = (int) (Tile.TILEHEIGHT*2.5);
-			bounds.width = Tile.TILEWIDTH;
-			bounds.height = (int) (Tile.TILEHEIGHT*.5);
+			bounds.x = 1;
+			bounds.y = (int) (Tile.TILEHEIGHT*1.1f);
+			bounds.width = Tile.TILEWIDTH - 2;
+			bounds.height = (int) (Tile.TILEHEIGHT*.7f);
 		} else if (type == 3) {
-			bounds.x = 0;
-			bounds.y = (int) (Tile.TILEHEIGHT*2);
-			bounds.width = (int) (Tile.TILEWIDTH*.5);
-			bounds.height = (int) (Tile.TILEHEIGHT);
+			bounds.x = 1;
+			bounds.y = (int) (Tile.TILEHEIGHT*.8f + 1);
+			bounds.width = (int) (Tile.TILEWIDTH*.5f - 2);
+			bounds.height = (int) (Tile.TILEHEIGHT - 2);
 		} else if (type == 4) {
-			bounds.x = (int) (Tile.TILEWIDTH*.5);
-			bounds.y = (int) (Tile.TILEHEIGHT*2);
-			bounds.width = (int) (Tile.TILEWIDTH*.5);
-			bounds.height = (int) (Tile.TILEHEIGHT);
+			bounds.x = (int) (Tile.TILEWIDTH*.5f + 1);
+			bounds.y = (int) (Tile.TILEHEIGHT*.8f + 1);
+			bounds.width = (int) (Tile.TILEWIDTH*.5f - 2);
+			bounds.height = (int) (Tile.TILEHEIGHT - 2);
 		}
 	}
 	/**

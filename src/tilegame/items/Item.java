@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import tilegame.Handler;
 import tilegame.gfx.Assets;
 import tilegame.input.Input;
+import tilegame.managers.entities.creatures.Creature;
 /**
  * This class is responsible for items  in the game.
  * @author Kenneth Lange
@@ -53,9 +54,14 @@ public class Item {
 	 */
 	public void update() {
 		//Checks if player is on top of the item and if they are pressing SPACE picks the item up.
-		if(handler.getWorld().getEntityManager().getPlayer().getCollisionBounds(0f, 0f).intersects(bounds) && handler.getInput().isKeyDown(Input.KEY_SPACE)) {
-			pickedUp = true;
-			handler.getWorld().getEntityManager().getPlayer().getInventory().addItem(this);
+		if (handler.getInput().isKeyDown(Input.KEY_SPACE)) {
+			for(Creature e : handler.getWorld().getEntityManager().getCreatures()){
+				if(e.getCollisionBounds(0f, 0f).intersects(bounds)) {
+					pickedUp = true;
+					e.getInventory().addItem(this);
+					return;
+				}
+			}
 		}
 	}
 	/**

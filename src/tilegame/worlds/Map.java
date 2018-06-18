@@ -9,8 +9,6 @@ import tilegame.gfx.Text;
 import tilegame.input.Input;
 import tilegame.items.ItemManager;
 import tilegame.managers.entities.EntityManager;
-import tilegame.managers.entities.creatures.Guard;
-import tilegame.managers.entities.creatures.Player;
 import tilegame.managers.entities.nonmoving.Rock;
 import tilegame.managers.entities.nonmoving.Tree;
 import tilegame.managers.locators.LocatorManager;
@@ -43,7 +41,7 @@ public class Map extends World{
 	}
 	
 	private void init_ent() {
-		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+		entityManager = new EntityManager(handler);
 		itemManager = new ItemManager(handler);
 		locatorManager = new LocatorManager(handler);
 		
@@ -53,15 +51,15 @@ public class Map extends World{
 		locatorManager.addLocators(new Checkpoint(handler, 18, 9));
 		
 		//Static Objects
-		entityManager.addNonmovingEntity(new Tree(handler, 3, 2));
-		entityManager.addNonmovingEntity(new Tree(handler, 1, 8));
-		entityManager.addNonmovingEntity(new Rock(handler, 9, 11));
+		entityManager.addEntity(new Tree(handler, 3, 2));
+		entityManager.addEntity(new Tree(handler, 1, 8));
+		entityManager.addEntity(new Rock(handler, 9, 11));
 		
 		//Entities
-		entityManager.addCreatureEntity(new Guard(handler, 5, 3));
+//		entityManager.addCreatureEntity(new Guard(handler, 5, 3));
 
-		entityManager.getPlayer().setX(spawnX);
-		entityManager.getPlayer().setY(spawnY);
+//		entityManager.getPlayer().setX(spawnX);
+//		entityManager.getPlayer().setY(spawnY);
 	}
 
 	@Override

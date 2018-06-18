@@ -5,8 +5,8 @@ import java.awt.Graphics;
 import tilegame.Handler;
 import tilegame.items.ItemManager;
 import tilegame.managers.entities.EntityManager;
-import tilegame.managers.entities.creatures.Guard;
-import tilegame.managers.entities.creatures.Player;
+import tilegame.managers.entities.creatures.Creature;
+import tilegame.managers.entities.creatures.CreatureType;
 import tilegame.managers.entities.nonmoving.CellarWall;
 import tilegame.managers.entities.nonmoving.Rock;
 import tilegame.managers.entities.nonmoving.Tree;
@@ -44,7 +44,7 @@ public class World {
 	public World(Handler handler, String path){
 		this.handler = handler;
 		//Managers
-		entityManager = new EntityManager(handler, new Player(handler, 100, 100));
+		entityManager = new EntityManager(handler);
 		itemManager = new ItemManager(handler);
 		locatorManager = new LocatorManager(handler);
 		
@@ -54,41 +54,42 @@ public class World {
 		locatorManager.addLocators(new Checkpoint(handler, 16, 20));
 		
 		//Non-Moving entities
-		entityManager.addNonmovingEntity(new Tree(handler, 15, 20));
-		entityManager.addNonmovingEntity(new Rock(handler, 17, 23));
-		entityManager.addNonmovingEntity(new Rock(handler, 10, 20));
+		entityManager.addEntity(new Tree(handler, 15, 20));
+		entityManager.addEntity(new Rock(handler, 18, 28));
+		entityManager.addEntity(new Rock(handler, 10, 20));
 		
-		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 23, 3));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 22, 3));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 21, 3));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 20, 1));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 18, 20, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 19, 20, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 20, 20, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 21, 20, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 22, 20, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 20, 2));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 21, 4));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 22, 4));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 23, 4));
+		entityManager.addEntity(new CellarWall(handler, 17, 23, 3));
+		entityManager.addEntity(new CellarWall(handler, 17, 22, 3));
+		entityManager.addEntity(new CellarWall(handler, 17, 21, 3));
+		entityManager.addEntity(new CellarWall(handler, 17, 20, 1));
+		entityManager.addEntity(new CellarWall(handler, 18, 20, 0));
+		entityManager.addEntity(new CellarWall(handler, 19, 20, 0));
+		entityManager.addEntity(new CellarWall(handler, 20, 20, 0));
+		entityManager.addEntity(new CellarWall(handler, 21, 20, 0));
+		entityManager.addEntity(new CellarWall(handler, 22, 20, 0));
+		entityManager.addEntity(new CellarWall(handler, 23, 20, 2));
+		entityManager.addEntity(new CellarWall(handler, 23, 21, 4));
+//		entityManager.addEntity(new CellarWall(handler, 23, 22, 4));
+		entityManager.addEntity(new CellarWall(handler, 23, 23, 4));
 
-		entityManager.addNonmovingEntity(new CellarWall(handler, 17, 24, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 18, 24, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 19, 24, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 20, 24, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 21, 24, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 22, 24, 0));
-		entityManager.addNonmovingEntity(new CellarWall(handler, 23, 24, 0));
+		entityManager.addEntity(new CellarWall(handler, 17, 24, 0));
+		entityManager.addEntity(new CellarWall(handler, 18, 24, 0));
+		entityManager.addEntity(new CellarWall(handler, 19, 24, 0));
+		entityManager.addEntity(new CellarWall(handler, 20, 24, 0));
+		entityManager.addEntity(new CellarWall(handler, 21, 24, 0));
+		entityManager.addEntity(new CellarWall(handler, 22, 24, 0));
+		entityManager.addEntity(new CellarWall(handler, 23, 24, 0));
 		
 		//Entities
-		entityManager.addCreatureEntity(new Guard(handler, 10, 10));
-//		entityManager.addCreatureEntity(new Paramedic(handler, 3, 4));
-//		entityManager.addCreatureEntity(new Prisoner(handler, 3, 5));
+		entityManager.addEntity(new Creature(handler, 26, 22, CreatureType.Player));
+		entityManager.addEntity(new Creature(handler, 21, 22, CreatureType.Guard));
+//		entityManager.addEntity(new Creature(handler, 22, 22, CreatureType.Paramedic));
+//		entityManager.addEntity(new Creature(handler, 20, 22, CreatureType.Prisoner));
 		
 		loadWorld(path);getClass();
-		
-		entityManager.getPlayer().setX(spawnX);
-		entityManager.getPlayer().setY(spawnY);
+//		
+//		entityManager.getPlayer().setX(spawnX);
+//		entityManager.getPlayer().setY(spawnY);
 	}
 	/**
 	 * This method updates all items and entities in the world.
