@@ -18,7 +18,6 @@ import tilegame.state.State;
  *
  */
 public class Game implements Runnable{ //Must implement Runnable in order for it to use a thread
-	
 	private Display display;
 	private int width, height;
 	public String title;
@@ -134,7 +133,6 @@ public class Game implements Runnable{ //Must implement Runnable in order for it
 				timer = 0;
 			}
 		}
-		
 		stop();
 	}
 	/**

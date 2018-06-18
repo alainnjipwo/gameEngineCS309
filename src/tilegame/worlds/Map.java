@@ -1,7 +1,9 @@
 package tilegame.worlds;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.Point;
 
 import tilegame.Handler;
 import tilegame.gfx.Assets;
@@ -24,8 +26,21 @@ import tilegame.utils.Utils;
  */
 public class Map extends World{
 	
-	private String path;
+	private  boolean REN_POINTER 		= true;
+	private  String REN_POINTER_FONT 	= "Courier New";
+	private  int REN_POINTER_FONT_SIZE 	= 28;
+	private  int REN_POINTER_X 			= 20;
+	private  int REN_POINTER_Y 			= 60;
 	
+	
+	private boolean REN_SCALE 		= true;
+	private String REN_SCALE_FONT 	= "Courier New";
+	private int REN_SCALE_FONT_SIZE = 28;
+	private int REN_SCALE_X 		= 20;
+	private int REN_SCALE_Y 		= 30;
+	
+	private String path;
+
 	private double scale = 1.00;
 	private int camera_speed = 5;
 	private int tile_mode = 5;
@@ -40,6 +55,15 @@ public class Map extends World{
 
 	}
 	
+	public int get_tile_mode() {
+		return tile_mode;
+	}
+
+	public void set_tile_mode(int tile_mode) {
+		if(!(tile_mode > 18 && tile_mode < 0))
+			this.tile_mode = tile_mode;
+	}
+
 	private void init_ent() {
 		entityManager = new EntityManager(handler);
 		itemManager = new ItemManager(handler);
@@ -79,8 +103,20 @@ public class Map extends World{
 		locatorManager.render(g, scale);
 		itemManager.render(g);
 		entityManager.render(g, scale);
+		
+		int tile_x = (int) getPointerTile().getX();
+		int tile_y = (int) getPointerTile().getY();
+		
+		g.setColor(Color.WHITE);
 
-		Text.drawString(g, "scale> " + scale, 100, 30, true, Color.WHITE, Assets.font28);
+		if(REN_SCALE) {
+			g.setFont(new Font(REN_SCALE_FONT, Font.BOLD, REN_SCALE_FONT_SIZE));
+			g.drawString("scale> " + scale, REN_SCALE_X, REN_SCALE_Y);
+		}
+		if(REN_POINTER) {
+			g.setFont(new Font(REN_POINTER_FONT, Font.BOLD, REN_POINTER_FONT_SIZE));
+			g.drawString("pointer> "+tile_x+" , "+tile_y, REN_POINTER_X, REN_POINTER_Y);
+		}
 	}
 	
 	@Override
@@ -98,19 +134,12 @@ public class Map extends World{
 		if(handler.getInput().isKeyDown(Input.KEY_D))
 			handler.getGameCamera().move(camera_speed,0, scale);
 		
-		if(handler.getMouse().isButtonDown(Input.LEFT_MOUSE)) {
-			
-			int x = (int) (handler.getMouse().getX() + handler.getGameCamera().getxOffset());
-			int y = (int) (handler.getMouse().getY() + handler.getGameCamera().getyOffset());
-			
-			if(true) {
-				System.out.println(x + " " + y);
-			}
-			
-			int tile_x = (int)(x / (Tile.TILEWIDTH * scale));
-			int tile_y = (int)(y / (Tile.TILEHEIGHT * scale));
-						
-			location[tile_x][tile_y] = tile_mode;
+		if(handler.getMouse().isButtonDown(Input.LEFT_MOUSE)) {		
+			int tile_x = (int) getPointerTile().getX();
+			int tile_y = (int) getPointerTile().getY();
+			if(		tile_x >= 0 && tile_x < location.length && 
+					tile_y >= 0 && tile_y < location[0].length)
+				location[tile_x][tile_y] = tile_mode;
 		}
 		if(handler.getInput().isKeyDown(Input.KEY_F1)) {
 			scale = 0.97;
@@ -140,8 +169,6 @@ public class Map extends World{
 			if(tile_mode < 0)
 				tile_mode = 18;
 		}
-		System.out.println(tile_mode);
-		
 		//Save
 		if(handler.getInput().isKeyDown(Input.KEY_CONTROL) && handler.getInput().isKeyDown(Input.KEY_S))
 			Utils.saveWorld(path, super.location, super.spawnX, super.spawnY);
@@ -156,5 +183,35 @@ public class Map extends World{
 			scale = Math.round(scale * 100.0) / 100.0;
 		}
 	}
+	
+	private Point getPointerTile() {
+		int x = (int) (handler.getMouse().getX() + handler.getGameCamera().getxOffset());
+		int y = (int) (handler.getMouse().getY() + handler.getGameCamera().getyOffset());			
+		int tile_x = (int)(x / (Tile.TILEWIDTH * scale));
+		int tile_y = (int)(y / (Tile.TILEHEIGHT * scale));
+		
+		return new Point((int)tile_x, (int)tile_y);
+	}
+	
+	public boolean 	isREN_SCALE() 										{return REN_SCALE;}
+	public boolean 	isREN_POINTER() 									{return REN_POINTER;}
+	public String 	getREN_POINTER_FONT() 								{return REN_POINTER_FONT;}
+	public String 	getREN_SCALE_FONT() 								{return REN_SCALE_FONT;}
+	public int 		getREN_POINTER_FONT_SIZE() 							{return REN_POINTER_FONT_SIZE;}
+	public int 		getREN_SCALE_FONT_SIZE() 							{return REN_SCALE_FONT_SIZE;}
+	public int 		getREN_POINTER_X() 									{return REN_POINTER_X;}
+	public int 		getREN_POINTER_Y() 									{return REN_POINTER_Y;}
+	public int 		getREN_SCALE_X() 									{return REN_SCALE_X;}
+	public int 		getREN_SCALE_Y() 									{return REN_SCALE_Y;}
+	public void 	setREN_SCALE			(boolean rEN_SCALE)	 		{REN_SCALE = rEN_SCALE;}
+	public void 	setREN_POINTER			(boolean rEN_POINTER) 		{REN_POINTER = rEN_POINTER;}
+	public void 	setREN_POINTER_FONT		(String rEN_POINTER_FONT) 	{REN_POINTER_FONT = rEN_POINTER_FONT;}
+	public void 	setREN_SCALE_FONT		(String rEN_SCALE_FONT) 	{REN_SCALE_FONT = rEN_SCALE_FONT;}
+	public void 	setREN_POINTER_FONT_SIZE(int rEN_POINTER_FONT_SIZE) {REN_POINTER_FONT_SIZE = rEN_POINTER_FONT_SIZE;}
+	public void 	setREN_SCALE_FONT_SIZE	(int rEN_SCALE_FONT_SIZE) 	{REN_SCALE_FONT_SIZE = rEN_SCALE_FONT_SIZE;}
+	public void 	setREN_POINTER_X		(int rEN_POINTER_X) 		{REN_POINTER_X = rEN_POINTER_X;}
+	public void 	setREN_POINTER_Y		(int rEN_POINTER_Y) 		{REN_POINTER_Y = rEN_POINTER_Y;}
+	public void 	setREN_SCALE_X			(int rEN_SCALE_X) 			{REN_SCALE_X = rEN_SCALE_X;}
+	public void 	setREN_SCALE_Y			(int rEN_SCALE_Y) 			{REN_SCALE_Y = rEN_SCALE_Y;}
 	
 }

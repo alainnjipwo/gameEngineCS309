@@ -22,6 +22,17 @@ public class Tile {
 	public static Tile grassTile = new GrassTile(4);
 	public static Tile rockTile = new RockTile(5);
 	
+	public static String[] tile_names = {
+			"air",
+			"deepwater",
+			"shallowwater",
+			"sand",
+			"dirt",
+			"grass",
+			"rock",
+			};
+	
+	
 	//CLASS STUFF
 	public static final int TILEWIDTH = 32, TILEHEIGHT = 32;
 	
