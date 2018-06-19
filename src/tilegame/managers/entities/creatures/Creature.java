@@ -2,6 +2,7 @@ package tilegame.managers.entities.creatures;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.List;
@@ -247,7 +248,7 @@ public class Creature extends Entity{
 	 * This method gets an artificial input that a creature has queued and moves the creature if the inventory is not active.
 	 */
 	private void getAIInput() {
-		findPath(xlocation, ylocation, 19, 28);
+		findPath(xlocation, ylocation, 20, 28);
 	}
 	/*-----------------------------------------------------------------------------------------------------------------------------------------------------*/
 	/**
@@ -342,8 +343,39 @@ public class Creature extends Entity{
 				else if (xlocation / Tile.TILEWIDTH > vec.getX() + .5) xMove = -speed;	//Left		/
 				if (ylocation / Tile.TILEHEIGHT < vec.getY() + .5) yMove = speed;		//Down
 				else if (ylocation / Tile.TILEHEIGHT > vec.getY() + .5) yMove = -speed;	//Up		/
+			}else{
+				Point p =  moveToCenter(2);
+				if(p.getX() == 0 && p.getY() == 0) {travelling = false;return;}
+				xMove = speed * p.getX();
+				yMove = speed * p.getY();
 			}
+			
+			
 		}
+	}
+	
+	private Point moveToCenter(int r) {
+		float xlocation = this.xlocation;
+		float ylocation = this.ylocation;
+		
+		int tilex = (int) (xlocation / Tile.TILEWIDTH) * Tile.TILEWIDTH;
+		int tiley = (int) (ylocation / Tile.TILEHEIGHT) * Tile.TILEHEIGHT;
+		
+		int tilecenterx = tilex + (Tile.TILEWIDTH / 2);
+		int tilecentery = tiley + (Tile.TILEHEIGHT / 2);
+		
+		int playercenterx = (int) (xlocation);
+		int playercentery = (int) (ylocation);
+		
+		if(Math.hypot(tilecenterx-playercenterx, tilecentery-playercentery) < r)
+			return new Point(0,0);
+		Point p = new Point();
+		if(Math.abs(tilecenterx-playercenterx)<r)p.x = 0;
+		else{p.x = (tilecenterx-playercenterx>0?1:-1);}
+		if(Math.abs(tilecentery-playercentery)<r)p.y = 0;
+		else{p.y = (tilecentery-playercentery>0?1:-1);}
+			
+		return p;
 	}
 	/**
 	 * This helper method sends an entity to a specified checkpoint
@@ -463,6 +495,8 @@ public class Creature extends Entity{
 			g.fillRect((int) (ar.x - handler.getGameCamera().getxOffset()), (int) (ar.y - handler.getGameCamera().getyOffset()), arSize, arSize);
 		}
 	}
+	
+	
 	
 	//GETTERS AND SETTERS
 
