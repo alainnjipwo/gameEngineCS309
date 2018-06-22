@@ -25,7 +25,7 @@ import tilegame.worlds.Node;
  */
 public class Creature extends Entity{
 
-	public static final double[] ATHLETCS = {2, 128/61, 128/57, 128/54, 128/51, 128/48, 128/45, 128/42, 128/38, 128/35, 128/32};
+	public static final double[] ATHLETCS = {128/64, 128/61, 128/57, 128/54, 128/51, 128/48, 128/45, 128/42, 128/38, 128/35, 128/32};
 
 	public static final double DEFAULT_SPEED = ATHLETCS[0];
 	public static final int DEFAULT_CREATURE_WIDTH = 64;
@@ -50,7 +50,7 @@ public class Creature extends Entity{
 	private List<Node> path = null;
 	private Pathfinding pathfinder;
 	private boolean travelling;
-	private long lastPathCheck, pathCheckCooldown= 800, pathCheck= pathCheckCooldown;
+	private long lastPathCheck, pathCheckCooldown = 800, pathCheck= pathCheckCooldown;
 	
 	/*Things to add to the Controls Class*/
 	private int xmouse, ymouse; //Controls
@@ -80,7 +80,6 @@ public class Creature extends Entity{
 		inventory = new Inventory(handler);
 		this.creature = creature;
 	}
-	/*-----------------------------------------------------------------------------------------------------------------------------------------------------*/ //TODO Work on this stuff
 	/**
 	 * This is the update method, it updates everything in regards to each creature.
 	 */
@@ -249,7 +248,6 @@ public class Creature extends Entity{
 	private void getAIInput() {
 		findPath(xlocation, ylocation, 19, 28);
 	}
-	/*-----------------------------------------------------------------------------------------------------------------------------------------------------*/
 	/**
 	 * This method uses the methods moveX() and moveY() to move a creature around a screen.
 	 * It also checks for collision with other entities.

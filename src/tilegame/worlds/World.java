@@ -144,7 +144,7 @@ public class World {
 	//Getters and Setters
 	public Tile getTile(int x, int y){
 		if( x < 0 || y < 0 || x >= width || y >= height){
-			return Tile.airTile; //If any tile is not set, it is defaulted to a air tile.
+			return Tile.dirtTile; //If any tile is not set, it is defaulted to a air tile.
 		}
 		
 		Tile t = Tile.tiles[location[x][y]];
