@@ -8,7 +8,7 @@ import tilegame.worlds.World;
  * This class is a handler for the game for ease of access throughout the entire game.
  * It consists of getters and setters.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Handler {
 

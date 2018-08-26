@@ -7,7 +7,7 @@ import java.util.ArrayList;
 /**
  * This class is responsible for reading mouse action that is received.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Mouse extends InputCodes implements MouseListener, MouseMotionListener {
 	

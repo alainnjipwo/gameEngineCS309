@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 /**
  * This class is responsible for loading in the resources for the game.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Assets {
 	

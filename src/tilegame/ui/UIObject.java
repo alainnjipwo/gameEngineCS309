@@ -7,7 +7,7 @@ import tilegame.Handler;
 /**
  * This class is a template for all UIObjects that might be added to a state
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public abstract class UIObject {
 

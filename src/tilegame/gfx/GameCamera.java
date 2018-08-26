@@ -6,7 +6,7 @@ import tilegame.tile.Tile;
 /**
  * This class acts as the game camera. In other words what the player sees.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class GameCamera {
 

@@ -21,7 +21,7 @@ import tilegame.utils.Utils;
  * create a new map or modify an existing file.
  * 
  * @author Mitchell Hoppe
- *
+ * M: Game
  */
 
 public class MapBuilderMenuState extends State {

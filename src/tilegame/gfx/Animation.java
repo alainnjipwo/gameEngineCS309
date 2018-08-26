@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 /**
  * This class is responsible for animating a selected texture.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Animation {
 

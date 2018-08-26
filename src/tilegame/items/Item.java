@@ -11,7 +11,7 @@ import tilegame.managers.entities.creatures.Creature;
 /**
  * This class is responsible for items  in the game.
  * @author Kenneth Lange
- *
+ * M: Game
  */
 public class Item {
 

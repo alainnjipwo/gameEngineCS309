@@ -8,7 +8,7 @@ import tilegame.Handler;
 /**
  * This class manages all entities
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class LocatorManager {
 	

@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 /**
  * This Class is responsible for splitting up sprite sheets into multiple images.
  * @author Energy
- *
+ * M: Engine
  */
 public class SpriteSheet {
 	

@@ -12,7 +12,7 @@ import tilegame.worlds.Map;
 /**
  * This class acts as the state that allows the user to create and modify the maps in the game.
  * @author Mitchell Hoppe
- *
+ * M: Game
  */
 public class MapBuilderState extends State{
 

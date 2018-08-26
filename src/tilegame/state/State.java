@@ -6,7 +6,7 @@ import tilegame.Handler;
 /**
  * This is an abstract state template class. All states can use these methods and have to have abstract methods in them. 
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public abstract class State {
 

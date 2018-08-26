@@ -12,7 +12,7 @@ import tilegame.items.Item;
 /**
  * This class is responsible for handling an entity's inventory.
  * @author Kenneth Lange
- *
+ * M: Game
  */
 public class Inventory {
 

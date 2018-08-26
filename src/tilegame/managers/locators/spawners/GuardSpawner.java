@@ -11,7 +11,7 @@ import tilegame.tile.Tile;
 /**
  * This class holds the data for a static guard spawner object
  * @author Kenneth Lange
- *
+ * M: Game
  */
 public class GuardSpawner extends Locator{
 	

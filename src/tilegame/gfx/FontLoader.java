@@ -7,7 +7,7 @@ import java.io.IOException;
 /**
  * This class loads in fonts.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class FontLoader {
 

@@ -3,7 +3,7 @@ package tilegame;
 /**
  * This class launches the game
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Launcher {
 	/**

@@ -12,7 +12,7 @@ import javax.swing.JFileChooser;
 /**
  * This method is a utilities class which loads in the world file which is converted into an actual world.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Utils {
 	/**

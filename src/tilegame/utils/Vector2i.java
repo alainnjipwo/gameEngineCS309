@@ -2,7 +2,7 @@ package tilegame.utils;
 /**
  * This method is responsible for making a vector with two parameters to an integer x and y.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Vector2i { //Vector with two parameters to an integer
 	

@@ -10,7 +10,7 @@ import tilegame.tile.Tile;
 /**
  * This class holds the data for a static tree entity
  * @author Kenneth Lange
- *
+ * M: Game
  */
 public class Tree extends Nonmoving{
 	

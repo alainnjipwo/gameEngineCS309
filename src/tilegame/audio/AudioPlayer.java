@@ -11,6 +11,7 @@ import javazoom.jl.converter.Converter;
 /**
  * This class is responsible for playing the the selected audio.
  * @author Kenneth Lange 
+ * M: Engine
  */
 public class AudioPlayer {
 	/**

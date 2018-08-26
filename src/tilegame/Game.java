@@ -15,7 +15,7 @@ import tilegame.state.State;
 /**
  * Holds all of the base code for the game.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Game implements Runnable{ //Must implement Runnable in order for it to use a thread
 	private Display display;

@@ -7,7 +7,7 @@ import java.awt.image.BufferedImage;
 /**
  * This class is responsible for taking in all the different types of tiles and creating a template for any additional tiles that may be created.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Tile {
 	//DEBUG MODE

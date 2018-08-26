@@ -6,7 +6,7 @@ import java.awt.event.MouseEvent;
 /**
  * This abstract class is used as a database for all inputs that other classes can then use.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public abstract class InputCodes {
 

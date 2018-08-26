@@ -4,7 +4,7 @@ import tilegame.utils.Vector2i;
 /**
  * This class holds data of nodes which reference tiles
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Node {
 

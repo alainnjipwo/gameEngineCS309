@@ -22,7 +22,7 @@ import tilegame.worlds.Node;
 /**
  * This class is a template for all creatures and creature used methods.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Creature extends Entity{
 

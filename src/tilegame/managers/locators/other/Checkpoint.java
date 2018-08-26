@@ -11,7 +11,7 @@ import tilegame.tile.Tile;
 /**
  * This class holds the data for a static checkpoint object
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Checkpoint extends Locator{
 	

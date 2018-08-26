@@ -8,7 +8,7 @@ import tilegame.ui.UIImageButton;
 /**
  * This class acts as the menu state of the game. It is responsible for loading in button images and making them go to to somewhere when clicked.
  * @author Kenneth Lange
- *
+ * M: Game
  */
 public class MenuState extends State{
 	

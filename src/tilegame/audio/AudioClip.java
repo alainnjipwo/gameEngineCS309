@@ -7,6 +7,11 @@ import javax.sound.sampled.AudioSystem;
 
 import tilegame.debug.Debug;
 
+/**
+ * 
+ * @author Kenny
+ * M: Engine
+ */
 
 public class AudioClip {
 

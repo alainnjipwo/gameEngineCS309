@@ -7,7 +7,7 @@ import tilegame.tile.Tile;
 /**
  * This class is created for debugging purposes.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Debug {
 	/**

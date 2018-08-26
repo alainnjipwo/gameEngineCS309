@@ -19,7 +19,7 @@ import tilegame.utils.Utils;
 /**
  * This class hold all the data needed to load in a world and render it to the game screen.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class World {
 

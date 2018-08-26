@@ -22,7 +22,7 @@ import tilegame.utils.Utils;
 /**
  * 
  * @author Mitchell Hoppe
- *
+ * M: Engine
  */
 public class Map extends World{
 	

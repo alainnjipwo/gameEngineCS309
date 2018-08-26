@@ -8,7 +8,7 @@ import tilegame.Handler;
 /**
  * This class manages all items in the game.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class ItemManager {
 

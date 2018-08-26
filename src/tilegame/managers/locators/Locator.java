@@ -8,7 +8,7 @@ import tilegame.Handler;
 /**
  * This class is a template for all locators
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public abstract class Locator {
 	//DEBUGMODE

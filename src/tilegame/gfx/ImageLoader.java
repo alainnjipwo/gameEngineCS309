@@ -9,7 +9,7 @@ import tilegame.debug.Debug;
 /**
  * This class is responsible for loading in images
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class ImageLoader {
 	/**

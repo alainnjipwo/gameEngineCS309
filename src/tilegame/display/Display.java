@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 /**
  * Display is the window class
  * @author Energy
- *
+ * M: Engine
  */
 public class Display {
 	

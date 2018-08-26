@@ -7,7 +7,7 @@ import java.awt.Graphics;
 /**
  * This class is responsible for drawing text onto the screen.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Text {
 	/**

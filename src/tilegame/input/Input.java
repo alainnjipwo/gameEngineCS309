@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * This class uses the inputs of the keyboard and implements them into the game for it to use.
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Input extends InputCodes implements KeyListener{
 

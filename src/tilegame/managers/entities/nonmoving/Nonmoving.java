@@ -5,7 +5,7 @@ import tilegame.managers.entities.Entity;
 /**
  * This class is a template for all static entities
  * @author Kenneth Lange
- *
+ * M: Game
  */
 public abstract class Nonmoving extends Entity{
 

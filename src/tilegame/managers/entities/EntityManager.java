@@ -12,7 +12,7 @@ import tilegame.managers.entities.nonmoving.Nonmoving;
 /**
  * This class manages all entities
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class EntityManager {
 	

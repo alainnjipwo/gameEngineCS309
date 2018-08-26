@@ -7,7 +7,7 @@ import tilegame.Handler;
 /**
  * This class is a template for all entities
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public abstract class Entity {
 	//DEBUGMODE

@@ -8,7 +8,7 @@ import tilegame.input.Mouse;
 /**
  * This class is responsible for creating a UIImage button
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class UIImageButton extends UIObject{
 	

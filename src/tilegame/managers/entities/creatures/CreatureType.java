@@ -6,6 +6,11 @@ import java.awt.image.BufferedImage;
 import tilegame.gfx.Animation;
 import tilegame.gfx.Assets;
 
+/**
+ * 
+ * @author Kenny
+ * M: Game
+ */
 public enum CreatureType {
 	
 	Player(0, true, new Animation(150, Assets.player_up), new Animation(150, Assets.player_down), new Animation(150, Assets.player_left), new Animation(150, Assets.player_right), Assets.player_notmoving),

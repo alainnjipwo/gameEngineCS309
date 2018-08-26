@@ -7,7 +7,7 @@ import tilegame.worlds.World;
 /**
  * This class acts as the game state of the game. It is responsible for loading in the world and updating and rendering it.
  * @author Kenneth Lange
- *
+ * M: Game
  */
 public class GameState extends State{
 

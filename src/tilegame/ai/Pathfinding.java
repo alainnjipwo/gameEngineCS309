@@ -14,7 +14,7 @@ import tilegame.worlds.Node;
 /**
  * This class is responsible for an automated path finding operation for creatures and players to use
  * @author Kenneth Lange
- *
+ * M: Engine
  */
 public class Pathfinding {
 	private Handler handler;

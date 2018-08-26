@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import tilegame.Handler;
 import tilegame.input.Input;
 
+/**
+ * 
+ * @author Mitchell
+ * M: Engine
+ */
+
 public class Terminal{
 	
 	int FONT_SIZE = 16;

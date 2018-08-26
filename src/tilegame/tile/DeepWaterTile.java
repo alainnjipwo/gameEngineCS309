@@ -4,7 +4,7 @@ import tilegame.gfx.Assets;
 /**
  * This class sets the details of a DeepWaterTile
  * @author Kenneth Lange
- *
+ * M: Game
  */
 public class DeepWaterTile extends Tile{
 
