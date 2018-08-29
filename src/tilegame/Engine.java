@@ -17,7 +17,7 @@ import tilegame.state.State;
  * @author Kenneth Lange
  *
  */
-public class Game implements Runnable{ //Must implement Runnable in order for it to use a thread
+public class Engine implements Runnable{ //Must implement Runnable in order for it to use a thread
 	private Display display;
 	private int width, height;
 	public String title;
@@ -42,7 +42,7 @@ public class Game implements Runnable{ //Must implement Runnable in order for it
 	//Handler
 	private Handler handler;
 	
-	public Game(String title, int width){
+	public Engine(String title, int width){
 		this.width = width;
 		height = width / 16 * 9;
 		this.title = title;

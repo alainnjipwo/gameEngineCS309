@@ -12,39 +12,39 @@ import tilegame.worlds.World;
  */
 public class Handler {
 
-	private Game game;
+	private Engine engine;
 	private World world;
 	
-	public Handler(Game game) {
-		this.game = game;
+	public Handler(Engine engine) {
+		this.engine = engine;
 	}
 	
 	public GameCamera getGameCamera(){
-		return game.getGameCamera();
+		return engine.getGameCamera();
 	}
 	
 	public Input getInput(){
-		return game.getInput();
+		return engine.getInput();
 	}
 	
 	public Mouse getMouse(){
-		return game.getMouse();
+		return engine.getMouse();
 	}
 	
 	public int getWidth(){
-		return game.getWidth();
+		return engine.getWidth();
 	}
 	
 	public int getHeight(){
-		return game.getHeight();
+		return engine.getHeight();
 	}
 
-	public Game getGame() {
-		return game;
+	public Engine getEngine() {
+		return engine;
 	}
 
-	public void setGame(Game game) {
-		this.game = game;
+	public void setEngine(Engine engine) {
+		this.engine = engine;
 	}
 
 	public World getWorld() {

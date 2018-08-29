@@ -11,7 +11,7 @@ public class Launcher {
 	 * @param args
 	 */
 	public static void main(String[] args){
-		Game game = new Game("ProjectX", 1280); //Creates window size and title
-		game.start(); //Starts game
+		Engine engine = new Engine("ProjectX", 1280); //Creates window size and title
+		engine.start(); //Starts game
 	}
 }
