@@ -31,6 +31,6 @@ public enum CreatureType {
 		this.notMoving = notMoving;
 		
 		//Bounds
-		bounds = new Rectangle(20, 43, 23, 17);
+		bounds = new Rectangle(20, 43, 23, 17); //default character bounds, TODO change
 	}
 }
