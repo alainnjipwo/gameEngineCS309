@@ -6,8 +6,6 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 import engine.Handler;
-import engine.gfx.Assets;
-import engine.gfx.Text;
 import engine.input.Input;
 import engine.items.ItemManager;
 import engine.managers.entities.EntityManager;
