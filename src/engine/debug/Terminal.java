@@ -19,27 +19,33 @@ public class Terminal{
 	int X_BORDER = 50;
 	int Y_BORDER = 50;
 	
-//	long char_cooldown;
+	int REPEAT_DELAY 	= 500;
+	int REPEAT_FREQ 	= 75;
+	
+	//How long until the char stops repeating
+	long char_cooldown;
+	//Hoe fast the char repeats
+	long char_repeatduration;
 	char char_prev;
 	
 	ArrayList<String> display_list;
 	ArrayList<String> command_list;
 	String command_line;
-	int caret = 0;
+	int caret;
 	public Handler handler;
 	
-	public boolean isOpen;
+	private boolean isOpen;
 	private boolean new_command;
 	
 	public Terminal(Handler handler) {
 		this.handler = handler;
 		
-//		char_cooldown = System.currentTimeMillis();
+		char_cooldown = System.currentTimeMillis();
 		char_prev = 0;
 		
 		isOpen 		= false;
 		new_command = false;
-		
+		caret = 0;
 		command_line = "";
 		
 		display_list = new ArrayList<String>();
@@ -53,8 +59,8 @@ public class Terminal{
 	}
 	
 	public void update() {
-		if(handler.getInput().isKeyPressed(char_prev))
-			char_prev = 0;
+//		if(handler.getInput().isKeyPressed(char_prev))
+//			char_prev = 0;
 		
 		checkInput();
 	}
@@ -75,21 +81,20 @@ public class Terminal{
 		renderDebug(g);
 	}
 	
-//	private boolean charOffCooldown() {
-//		return System.currentTimeMillis() - char_cooldown > 100000000;
-//	}
+	private boolean 	charOffCooldown() 	{	return System.currentTimeMillis() - char_cooldown > REPEAT_DELAY;	}
+	private int 		getCooldown() 		{	return (int) ((int)System.currentTimeMillis() - char_cooldown);		}
+	private void 		resetCooldown() 	{	char_cooldown = System.currentTimeMillis();							}
 	
-//	private int getCooldown() {
-//		return (int) ((int)System.currentTimeMillis() - char_cooldown);
-//	}
-	
-//	private void resetCooldown() {
-//		char_cooldown = System.currentTimeMillis();
-//	}
+	private boolean 	charRepeatOffCooldown() {	return System.currentTimeMillis() - char_repeatduration > REPEAT_FREQ;	}
+	private int 		getRepeatCooldown() 	{	return (int) ((int)System.currentTimeMillis() - char_repeatduration);	}
+	private void 		resetRepeatCooldown() 	{	char_repeatduration = System.currentTimeMillis();						}
 	
 	private boolean addChar(char c) {
 		if(command_line.length() < caret) {return false;}
-		command_line = command_line.substring(0, caret) + c + command_line.substring(caret);
+		if(c == ' ')
+			command_line = command_line.substring(0, caret) + '_' + command_line.substring(caret);
+		else
+			command_line = command_line.substring(0, caret) + c + command_line.substring(caret);
 		char_prev = c;
 		caret++;
 		return true;
@@ -110,20 +115,29 @@ public class Terminal{
 		if(handler.getInput().isKeyPressed(Input.KEY_LEFT));
 		if(handler.getInput().isKeyPressed(Input.KEY_RIGHT));
 		
-		if(handler.getInput().getPressedKeys().size() == 0) {}
+		if(handler.getInput().getPressedKeys().size() == 0) {
+			resetCooldown();
+		}
 		
 		pressedEnter();
-		
+		pressedDelete();
 		pressedBackspace();
 		
+		
 		if(handler.getInput().getPressedKeys().size() != 0) {
-			
-			int i = (int)(handler.getInput().getPressedKeys().get(handler.getInput().getPressedKeys().size() - 1));
-			char pressedKey = (char)( i);
-			System.out.println((int)(pressedKey));
+			char pressedKey = (char)((int)(handler.getInput().getPressedKeys().get(handler.getInput().getPressedKeys().size() - 1)));
 			if(pressedKey >= 32 && pressedKey <= 90 && 
-					(pressedKey != char_prev)) {
+					((charOffCooldown() && charRepeatOffCooldown())
+//							|| pressedKey != char_prev
+							)) {
+				
+				
+				
 				addChar(pressedKey);
+				resetRepeatCooldown();
+				if(pressedKey != char_prev)
+					resetCooldown();
+				
 			}
 		}
 			
@@ -134,6 +148,13 @@ public class Terminal{
 			command_list.add(0,command_line);
 			print(command_line);
 			new_command = true;
+			caret = 0;
+			command_line = "";
+		}
+	}
+	
+	private void pressedDelete() {
+		if(handler.getInput().isKeyPressed(Input.KEY_DELETE)) {
 			command_line = "";
 		}
 	}
@@ -176,7 +197,6 @@ public class Terminal{
 		for (int i = 0;i < display_list.size() && i < NUM_LINES; i++) {
 			g.drawString(display_list.get(i), X_BORDER + LINE_SPACE, handler.getHeight() - LINE_SPACE - Y_BORDER - (FONT_SIZE * (i + 1)));
 		}
-		
 	}
 	
 	private void renderDebug(Graphics g) {
@@ -187,7 +207,23 @@ public class Terminal{
 		Color c = new Color(255,255,255);
 		g.setColor(c);
 		g.setFont(new Font("Courier New", Font.BOLD, FONT_SIZE));
-		g.drawString("pc:" + char_prev, x, y);
+		g.drawString("bs:" + handler.getInput().isKeyPressed(Input.KEY_BACKSPACE), x, y);
+	}
+
+	public boolean isOpen() {
+		return isOpen;
+	}
+	
+	public void setOpen(boolean b) {
+		if(b) {
+			char_cooldown = System.currentTimeMillis();
+			char_prev = 0;
+			new_command = false;
+			caret = 0;
+			command_line = "";
+		}
+		else {}
+		isOpen = b;
 	}
 	
 }

@@ -36,15 +36,15 @@ public class MapBuilderState extends State{
 		t.update();
 		pollCommands();
 		
-		if(handler.getInput().isKeyPressed(Input.KEY_ENTER))  t.isOpen = true;
-		if(handler.getInput().isKeyPressed(Input.KEY_ESCAPE)) t.isOpen = false;
-		if(t.isOpen) return;
+		if(handler.getInput().isKeyPressed(Input.KEY_ENTER))  t.setOpen(true);
+		if(handler.getInput().isKeyPressed(Input.KEY_ESCAPE)) t.setOpen(false);
+		if(t.isOpen()) return;
 		
 		map.update();
 	}
 
 	private void pollCommands() {
-		if(!t.isOpen) return;
+		if(!t.isOpen()) return;
 		
 		String command = t.poll();
 		if(command == null) return;
@@ -80,7 +80,7 @@ public class MapBuilderState extends State{
 			t.print("invalid tile");
 		else {
 			map.set_tile_mode(id);
-			t.isOpen = false;
+			t.setOpen(false);
 		}
 	}
 	/**
