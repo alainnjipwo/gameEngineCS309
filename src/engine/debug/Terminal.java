@@ -76,8 +76,6 @@ public class Terminal{
 		renderCommandLine(g);
 		
 		renderHistory(g);
-		
-		renderDebug(g);
 	}
 	
 	private boolean 	charOffCooldown() 		{	return System.currentTimeMillis() - char_cooldown > REPEAT_DELAY;	}
@@ -102,29 +100,35 @@ public class Terminal{
 		caret--;
 		return true;
 	}
+	
+	private void parseChar(char c) {
+		if(c == Input.KEY_BACKSPACE) {
+			pressedBackspace();
+		} else if(c == 9) {
+		}else if(c == 10 || c == 13) {
+			pressedEnter();
+		} else if(c >= 32 && c <= 90) {
+			addChar(c);
+		} else if(c == Input.KEY_DELETE) {
+			pressedDelete();
+		} else if(c == Input.KEY_UP) {}
+		else if(c == Input.KEY_DOWN) {}
+		else if(c == Input.KEY_LEFT) {}
+		else if(c == Input.KEY_RIGHT) {}
+	}
 
 	private void checkInput() {
 		if(!isOpen) return;
 		
-		if(handler.getInput().isKeyPressed(Input.KEY_UP));
-		if(handler.getInput().isKeyPressed(Input.KEY_DOWN));
-		if(handler.getInput().isKeyPressed(Input.KEY_LEFT));
-		if(handler.getInput().isKeyPressed(Input.KEY_RIGHT));
-		
 		if(handler.getInput().getPressedKeys().size() == 0) {
 			resetCooldown();
 		}
-		
-		pressedEnter();
-		pressedDelete();
-		pressedBackspace();
-		
-		
+
 		if(handler.getInput().getPressedKeys().size() != 0) {
 			char pressedKey = (char)((int)(handler.getInput().getPressedKeys().get(handler.getInput().getPressedKeys().size() - 1)));
-			if(pressedKey >= 32 && pressedKey <= 90 && 
+			if(((pressedKey >= 32 && pressedKey <= 90) || pressedKey == 8) && 
 					((charOffCooldown() && charRepeatOffCooldown()) || pressedKey != char_prev)) {
-				addChar(pressedKey);
+				parseChar(pressedKey);
 				resetRepeatCooldown();
 				if(pressedKey != char_prev)
 					resetCooldown();
@@ -134,7 +138,7 @@ public class Terminal{
 	}
 
 	private void pressedEnter() {
-		if(handler.getInput().isKeyPressed(Input.KEY_ENTER)	&& command_line.length() != 0) {
+		if(command_line.length() != 0) {
 			command_list.add(0,command_line);
 			print(command_line);
 			new_command = true;
@@ -144,16 +148,13 @@ public class Terminal{
 	}
 	
 	private void pressedDelete() {
-		if(handler.getInput().isKeyPressed(Input.KEY_DELETE)) {
 			command_line = "";
 			caret = 0;
-		}
 	}
 	
 	private void pressedBackspace() {
-		if(handler.getInput().isKeyPressed(Input.KEY_BACKSPACE)) {
 			removeChar();
-		}
+			char_prev = (char) Input.KEY_BACKSPACE;
 	}
 	
 	private void renderBackground(Graphics g) {
@@ -195,17 +196,10 @@ public class Terminal{
 		int x = X_BORDER;
 		int y = handler.getHeight() - Y_BORDER - height;
 		
-		char pressedKey;
-		if(handler.getInput().getPressedKeys().size() != 0)
-			pressedKey = (char)((int)(handler.getInput().getPressedKeys().get(handler.getInput().getPressedKeys().size() - 1)));
-		else 
-			pressedKey = ' ';
-		
 		Color c = new Color(255,255,255);
 		g.setColor(c);
 		g.setFont(new Font("Courier New", Font.BOLD, FONT_SIZE));
-		g.drawString("" + ((charOffCooldown() && charRepeatOffCooldown()) || pressedKey != char_prev) + " " + 
-		charOffCooldown() + " " + charRepeatOffCooldown() + " " + (pressedKey != char_prev) + pressedKey + "_" + char_prev, x, y);
+		g.drawString("", x, y);
 	}
 
 	public boolean isOpen() {
@@ -220,7 +214,6 @@ public class Terminal{
 			caret = 0;
 			command_line = "";
 		}
-		else {}
 		isOpen = b;
 	}
 	
