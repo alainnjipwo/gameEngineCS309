@@ -59,8 +59,8 @@ public class Terminal{
 	}
 	
 	public void update() {
-//		if(handler.getInput().isKeyPressed(char_prev))
-//			char_prev = 0;
+		if(handler.getInput().isKeyPressed(char_prev))
+			char_prev = 0;
 		
 		checkInput();
 	}
@@ -81,9 +81,9 @@ public class Terminal{
 		renderDebug(g);
 	}
 	
-	private boolean 	charOffCooldown() 	{	return System.currentTimeMillis() - char_cooldown > REPEAT_DELAY;	}
-	private int 		getCooldown() 		{	return (int) ((int)System.currentTimeMillis() - char_cooldown);		}
-	private void 		resetCooldown() 	{	char_cooldown = System.currentTimeMillis();							}
+	private boolean 	charOffCooldown() 		{	return System.currentTimeMillis() - char_cooldown > REPEAT_DELAY;	}
+	private int 		getCooldown() 			{	return (int) ((int)System.currentTimeMillis() - char_cooldown);		}
+	private void 		resetCooldown() 		{	char_cooldown = System.currentTimeMillis();							}
 	
 	private boolean 	charRepeatOffCooldown() {	return System.currentTimeMillis() - char_repeatduration > REPEAT_FREQ;	}
 	private int 		getRepeatCooldown() 	{	return (int) ((int)System.currentTimeMillis() - char_repeatduration);	}
@@ -124,23 +124,48 @@ public class Terminal{
 		pressedBackspace();
 		
 		
+//		if(handler.getInput().getPressedKeys().size() != 0) {
+//			char pressedKey = (char)((int)(handler.getInput().getPressedKeys().get(handler.getInput().getPressedKeys().size() - 1)));
+//			if(pressedKey >= 32 && pressedKey <= 90 && 
+//					(
+//					(charOffCooldown() && charRepeatOffCooldown()) || 
+//					pressedKey != char_prev
+//					)) 
+//			{
+//				
+//				addChar(pressedKey);
+//				resetRepeatCooldown();
+//				if(pressedKey != char_prev)
+//					resetCooldown();
+//				
+//			}
+//		}
+		
+		
 		if(handler.getInput().getPressedKeys().size() != 0) {
 			char pressedKey = (char)((int)(handler.getInput().getPressedKeys().get(handler.getInput().getPressedKeys().size() - 1)));
-			if(pressedKey >= 32 && pressedKey <= 90 && 
-					((charOffCooldown() && charRepeatOffCooldown())
-//							|| pressedKey != char_prev
-							)) {
+			if(pressedKey >= 32 && pressedKey <= 90) {
 				
+				System.out.println(getRepeatCooldown() + " " + getRepeatCooldown());
+				System.out.println(charOffCooldown() + " " + charRepeatOffCooldown());
 				
-				
-				addChar(pressedKey);
-				resetRepeatCooldown();
-				if(pressedKey != char_prev)
+				if(charRepeatOffCooldown()) {
+				if(charOffCooldown()) {
+						System.out.println("repeated");
+						addChar(pressedKey);
+						resetRepeatCooldown();
+//						if(pressedKey != char_prev)
+//							resetCooldown();
+					}
+				}
+				else if(pressedKey != char_prev) {
+					System.out.println("pressed");
+					addChar(pressedKey);
 					resetCooldown();
-				
+					resetRepeatCooldown();
+				}
 			}
-		}
-			
+		}	
 	}
 
 	private void pressedEnter() {
@@ -204,10 +229,17 @@ public class Terminal{
 		int x = X_BORDER;
 		int y = handler.getHeight() - Y_BORDER - height;
 		
+		char pressedKey;
+		if(handler.getInput().getPressedKeys().size() != 0)
+			pressedKey = (char)((int)(handler.getInput().getPressedKeys().get(handler.getInput().getPressedKeys().size() - 1)));
+		else 
+			pressedKey = ' ';
+		
 		Color c = new Color(255,255,255);
 		g.setColor(c);
 		g.setFont(new Font("Courier New", Font.BOLD, FONT_SIZE));
-		g.drawString("bs:" + handler.getInput().isKeyPressed(Input.KEY_BACKSPACE), x, y);
+		g.drawString("" + ((charOffCooldown() && charRepeatOffCooldown()) || pressedKey != char_prev) + " " + 
+		charOffCooldown() + " " + charRepeatOffCooldown() + " " + (pressedKey != char_prev), x, y);
 	}
 
 	public boolean isOpen() {
