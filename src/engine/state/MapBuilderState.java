@@ -36,8 +36,8 @@ public class MapBuilderState extends State{
 		t.update();
 		pollCommands();
 		
-		if(handler.getInput().isKeyPressed(Input.KEY_ENTER))  t.setOpen(true);
-		if(handler.getInput().isKeyPressed(Input.KEY_ESCAPE)) t.setOpen(false);
+		if(handler.getInput().isKeyPressed(Input.KEY_ENTER) && !t.isOpen())  t.setOpen(true);
+		if(handler.getInput().isKeyPressed(Input.KEY_ESCAPE) && t.isOpen()) t.setOpen(false);
 		if(t.isOpen()) return;
 		
 		map.update();

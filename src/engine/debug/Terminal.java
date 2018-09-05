@@ -87,16 +87,16 @@ public class Terminal{
 	private void 		resetRepeatCooldown() 	{	char_repeatduration = System.currentTimeMillis();						}
 	
 	private boolean addChar(char c) {
-		if(command_line.length() < caret) {return false;}
-		command_line = command_line.substring(0, caret) + c + command_line.substring(caret);
+		if(getCommandLineLength() < caret) {return false;}
+		addCharCommandLine(c, caret);
 		char_prev = c;
 		caret++;
 		return true;
 	}
 	
 	private boolean removeChar() {
-		if(command_line.length() < caret || caret == 0) {return false;}
-		command_line = command_line.substring(0, caret - 1) + command_line.substring(caret);
+		if(getCommandLineLength() < caret || caret == 0) {return false;}
+		removeCharCommandLine(caret);
 		caret--;
 		return true;
 	}
@@ -105,7 +105,7 @@ public class Terminal{
 		if(c == Input.KEY_BACKSPACE) {
 			pressedBackspace();
 		} else if(c == 9) {
-		}else if(c == 10 || c == 13) {
+		} else if(c == 10) {
 			pressedEnter();
 		} else if(c >= 32 && c <= 90) {
 			addChar(c);
@@ -126,8 +126,7 @@ public class Terminal{
 
 		if(handler.getInput().getPressedKeys().size() != 0) {
 			char pressedKey = (char)((int)(handler.getInput().getPressedKeys().get(handler.getInput().getPressedKeys().size() - 1)));
-			if(((pressedKey >= 32 && pressedKey <= 90) || pressedKey == 8) && 
-					((charOffCooldown() && charRepeatOffCooldown()) || pressedKey != char_prev)) {
+			if((charOffCooldown() && charRepeatOffCooldown()) || pressedKey != char_prev) {
 				parseChar(pressedKey);
 				resetRepeatCooldown();
 				if(pressedKey != char_prev)
@@ -138,24 +137,38 @@ public class Terminal{
 	}
 
 	private void pressedEnter() {
-		if(command_line.length() != 0) {
-			command_list.add(0,command_line);
-			print(command_line);
+		if(getCommandLineLength() != 0) {
+			command_list.add(0,getCommandLine());
+			print(getCommandLine());
 			new_command = true;
 			caret = 0;
-			command_line = "";
+			resetCommandLine();
 		}
 	}
 	
 	private void pressedDelete() {
-			command_line = "";
-			caret = 0;
+		resetCommandLine();
+		caret = 0;
 	}
 	
 	private void pressedBackspace() {
 			removeChar();
 			char_prev = (char) Input.KEY_BACKSPACE;
 	}
+	
+	private String 	getCommandLine() 		{return command_line;}
+	private int 	getCommandLineLength() 	{return command_line.length();}
+	private void 	resetCommandLine() 		{
+		command_line = "";
+	}
+	private void 	addCharCommandLine(char c, int location) {
+		command_line = command_line.substring(0, location) + c + command_line.substring(location);
+	}
+	
+	private void 	removeCharCommandLine(int location) {
+		command_line = command_line.substring(0, location - 1) + command_line.substring(location);
+	}
+	
 	
 	private void renderBackground(Graphics g) {
 		int alpha = (int) (255 * TRANSPARENCY / 100);
@@ -180,7 +193,7 @@ public class Terminal{
 		Color c = new Color(255,255,255);
 		g.setColor(c);
 		g.setFont(new Font("Courier New", Font.BOLD, FONT_SIZE));
-		g.drawString(command_line, X_BORDER + LINE_SPACE, handler.getHeight() - Y_BORDER - LINE_SPACE);
+		g.drawString(getCommandLine(), X_BORDER + LINE_SPACE, handler.getHeight() - Y_BORDER - LINE_SPACE);
 	}
 	
 	private void renderHistory(Graphics g) {
