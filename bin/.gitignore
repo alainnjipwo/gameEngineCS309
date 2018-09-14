@@ -1,4 +1,4 @@
 /engine/
-.class*
+*.class
 /tilegame/
-.class*
+*.class
