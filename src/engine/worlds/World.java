@@ -49,9 +49,9 @@ public class World {
 		locatorManager = new LocatorManager(handler);
 		
 		//Locators
-		locatorManager.addLocators(new GuardSpawner(handler, 26, 12));
-		locatorManager.addLocators(new PrisonerSpawner(handler, 15, 13));
-		locatorManager.addLocators(new Checkpoint(handler, 16, 20));
+		locatorManager.addLocators(new GuardSpawner(handler, 18, 12));
+		locatorManager.addLocators(new PrisonerSpawner(handler, 16, 13));
+		locatorManager.addLocators(new Checkpoint(handler, 17, 14));
 		
 		//Non-Moving entities
 		entityManager.addEntity(new Tree(handler, 15, 20));

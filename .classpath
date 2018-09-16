@@ -8,8 +8,5 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="res"/>
 	<classpathentry kind="lib" path="libs/jars/jl1.0.1.jar"/>
-	<classpathentry kind="lib" path="libs/jars/lwjgl_util.jar"/>
-	<classpathentry kind="lib" path="libs/jars/lwjgl.jar"/>
-	<classpathentry kind="lib" path="libs/jars/slick-util.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
