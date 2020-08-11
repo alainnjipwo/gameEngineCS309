@@ -14,7 +14,7 @@ import engine.state.State;
 
 /**
  * Holds all of the base code for the game.
- * @author Kenneth Lange
+ * @author 
  *
  */
 public class Engine implements Runnable{ //Must implement Runnable in order for it to use a thread

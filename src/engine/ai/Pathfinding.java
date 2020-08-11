@@ -13,7 +13,7 @@ import engine.utils.Vector2i;
 import engine.worlds.Node;
 /**
  * This class is responsible for an automated path finding operation for creatures and players to use
- * @author Kenneth Lange
+ *
  *
  */
 public class Pathfinding {

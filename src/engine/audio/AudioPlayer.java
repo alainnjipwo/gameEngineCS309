@@ -10,7 +10,7 @@ import javax.sound.sampled.FloatControl;
 import javazoom.jl.converter.Converter;
 /**
  * This class is responsible for playing the the selected audio.
- * @author Kenneth Lange 
+ * @author 
  */
 public class AudioPlayer {
 	/**

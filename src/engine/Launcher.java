@@ -2,7 +2,7 @@ package engine;
 
 /**
  * This class launches the game
- * @author Kenneth Lange
+ * @author Kenneth Lange, Alain Njipwo, Max Medberry, Mitch Hope
  *
  */
 public class Launcher {
